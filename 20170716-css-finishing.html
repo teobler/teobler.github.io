@@ -1,0 +1,629 @@
+<!DOCTYPE html>
+
+
+  <html lang="zh-CN" class="light page-post">
+
+
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="content-language" content="zh-CN">
+  
+  <title>CSS菜鸟基础 | teobler&#39;s blog</title>
+
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+  
+    <meta name="keywords" content="CSS," />
+  
+
+  <meta name="360-site-verification" content="7b29d0e6eb0d7a16d22f9d0961882c3a" />
+  <meta name="sogou_site_verification" content="S1EAZKO83i"/>
+
+  <meta name="description" content="话不多说，这次罗列总结一下css基础知识，和我一样的菜鸟可以看看。 引入方式css的引入方式主要有以下几种：  外部样式表 通过在head标签中加入link标签来引入外部样式表，因为其良好的分离性和可维护性，大多数css样式都是通过这种方式引入的  内部样式表 直接将css样式放入style标签置于head标签内  内联样式表 直接将css样式写入html元素的style属性   盒子模型与BFC">
+<meta name="keywords" content="CSS">
+<meta property="og:type" content="article">
+<meta property="og:title" content="CSS菜鸟基础">
+<meta property="og:url" content="https://teobler.com/20170716-css-finishing.html">
+<meta property="og:site_name" content="teobler&#39;s blog">
+<meta property="og:description" content="话不多说，这次罗列总结一下css基础知识，和我一样的菜鸟可以看看。 引入方式css的引入方式主要有以下几种：  外部样式表 通过在head标签中加入link标签来引入外部样式表，因为其良好的分离性和可维护性，大多数css样式都是通过这种方式引入的  内部样式表 直接将css样式放入style标签置于head标签内  内联样式表 直接将css样式写入html元素的style属性   盒子模型与BFC">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:updated_time" content="2020-02-15T02:49:44.533Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="CSS菜鸟基础">
+<meta name="twitter:description" content="话不多说，这次罗列总结一下css基础知识，和我一样的菜鸟可以看看。 引入方式css的引入方式主要有以下几种：  外部样式表 通过在head标签中加入link标签来引入外部样式表，因为其良好的分离性和可维护性，大多数css样式都是通过这种方式引入的  内部样式表 直接将css样式放入style标签置于head标签内  内联样式表 直接将css样式写入html元素的style属性   盒子模型与BFC">
+
+  
+
+  
+    <link rel="icon" href="/favicon.ico">
+  
+
+  <link href="/css/styles.css?v=c114cbe6" rel="stylesheet">
+
+
+  
+
+  
+<!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-158204206-1"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'UA-158204206-1');
+</script>
+
+
+
+  
+  <script type="text/javascript">
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "//hm.baidu.com/hm.js?57e94d016e201fba3603a8a2b0263af0";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+  
+  <script type="text/javascript">
+	(function(){
+	    var bp = document.createElement('script');
+	    var curProtocol = window.location.protocol.split(':')[0];
+	    if (curProtocol === 'https') {
+	        bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';        
+	    }
+	    else {
+	        bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+	    }
+	    var s = document.getElementsByTagName("script")[0];
+	    s.parentNode.insertBefore(bp, s);
+	})();
+  </script>
+
+
+  
+  <script src="https://jspassport.ssl.qhimg.com/11.0.1.js?d182b3f28525f2db83acfaaf6e696dba" id="sozz"></script>
+
+
+
+  
+    <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+  
+
+  
+    <link rel="stylesheet" href="//cdn.bootcss.com/font-awesome/4.3.0/css/font-awesome.min.css">
+  
+
+  <script data-ad-client="ca-pub-8160236896214353" async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+</head>
+
+<body>
+
+
+  
+    <span id="toolbox-mobile" class="toolbox-mobile">导航</span>
+  
+
+  <div class="post-header CENTER">
+   
+  <div class="toolbox">
+    <a class="toolbox-entry" href="/">
+      <span class="toolbox-entry-text">导航</span>
+      <i class="icon-angle-down"></i>
+      <i class="icon-home"></i>
+    </a>
+    <ul class="list-toolbox">
+      
+        <li class="item-toolbox">
+          <a
+            class="CIRCLE"
+            href="/archives/"
+            rel="noopener noreferrer"
+            target="_self"
+            >
+            博客
+          </a>
+        </li>
+      
+        <li class="item-toolbox">
+          <a
+            class="CIRCLE"
+            href="/categories/"
+            rel="noopener noreferrer"
+            target="_self"
+            >
+            分类
+          </a>
+        </li>
+      
+        <li class="item-toolbox">
+          <a
+            class="CIRCLE"
+            href="/tags/"
+            rel="noopener noreferrer"
+            target="_self"
+            >
+            标签
+          </a>
+        </li>
+      
+        <li class="item-toolbox">
+          <a
+            class="CIRCLE"
+            href="/about/"
+            rel="noopener noreferrer"
+            target="_self"
+            >
+            关于
+          </a>
+        </li>
+      
+        <li class="item-toolbox">
+          <a
+            class="CIRCLE"
+            href="/search/"
+            rel="noopener noreferrer"
+            target="_self"
+            >
+            搜索
+          </a>
+        </li>
+      
+    </ul>
+  </div>
+
+
+</div>
+
+<div id="post-container" class="container">
+  <div class="content content-post CENTER">
+     <article id="post-20170716-css-finishing" class="article article-type-post" itemprop="blogPost">
+  <header class="article-header">
+    <h1 class="post-title">CSS菜鸟基础</h1>
+
+    <div class="article-meta">
+       <div>
+          <span>
+            <i class="icon-calendar"></i>
+            <span>2017.07.16</span>
+          </span>
+
+          
+            <span class="article-author">
+              <i class="icon-user"></i>
+              <span>teobler</span>
+            </span>
+          
+
+          
+  <span class="article-category">
+    <i class="icon-list"></i>
+    <a class="article-category-link" href="/categories/技术/">技术</a>
+  </span>
+
+
+
+          
+            <span>
+              <i class="icon-comment"></i>
+              <a href="https://teobler.com/20170716-css-finishing.html#disqus_thread"></a>
+            </span>
+          
+
+          
+          <i class="fa fa-eye"></i>
+            <span id="busuanzi_container_page_pv">
+               &nbsp热度 <span id="busuanzi_value_page_pv">
+               <i class="fa fa-spinner fa-spin"></i></span>℃
+            </span>
+          
+
+          
+      </div>
+
+      <div>
+        <i class="icon-text"></i>
+        <span class="post-count">全篇字数: 3k</span>
+        &nbsp
+        <i class="icon-calendar-1"></i>
+        <span class="post-count">预计花费: 11分钟</span>
+      </div>
+      
+    </div>
+  </header>
+
+  <div class="article-content">
+    
+      <p>话不多说，这次罗列总结一下css基础知识，和我一样的菜鸟可以看看。</p>
+<h2 id="引入方式"><a href="#引入方式" class="headerlink" title="引入方式"></a>引入方式</h2><p>css的引入方式主要有以下几种：</p>
+<ul>
+<li><p>外部样式表</p>
+<p>通过在head标签中加入link标签来引入外部样式表，因为其良好的分离性和可维护性，大多数css样式都是通过这种方式引入的</p>
+</li>
+<li><p>内部样式表</p>
+<p>直接将css样式放入style标签置于head标签内</p>
+</li>
+<li><p>内联样式表</p>
+<p>直接将css样式写入html元素的style属性</p>
+</li>
+</ul>
+<h2 id="盒子模型与BFC"><a href="#盒子模型与BFC" class="headerlink" title="盒子模型与BFC"></a>盒子模型与BFC</h2><p>在一个文档中，每个元素都被表示为一个矩形的盒子。确定这些盒子的尺寸, 属性 （颜色，背景，边框方面） 和位置是渲染引擎的目标。</p>
+<p>在CSS中，使用标准盒模型描述这些矩形盒子中的每一个。这个模型描述了元素所占空间的内容。每个盒子有四个边：外边距边（margin）, 边框边（border）, 内填充边（padding） 与 内容边（content）</p>
+<h3 id="行内元素和块级元素"><a href="#行内元素和块级元素" class="headerlink" title="行内元素和块级元素"></a>行内元素和块级元素</h3><h4 id="内联元素-inline"><a href="#内联元素-inline" class="headerlink" title="内联元素(inline)"></a>内联元素(inline)</h4><ul>
+<li>和相邻的内联元素在同一行</li>
+<li>padding和margin的left和right可以进行设置改变</li>
+<li>宽度(width)、高度(height)、内边距的top/bottom(padding-top/padding-bottom)和外边距的top/bottom(margin-top/margin-bottom)都不可改变，固定为里面文字或图片撑开的大小</li>
+</ul>
+<h4 id="块级元素-block"><a href="#块级元素-block" class="headerlink" title="块级元素(block)"></a>块级元素(block)</h4><ul>
+<li>总是独占一行，表现为另起一行开始，而且其后的元素也必须另起一行显示</li>
+<li>宽度(width)、高度(height)、内边距(padding)和外边距(margin)都可控制</li>
+</ul>
+<h4 id="内联块元素（inline-block）"><a href="#内联块元素（inline-block）" class="headerlink" title="内联块元素（inline-block）"></a>内联块元素（inline-block）</h4><ul>
+<li>拥有内在尺寸，可设置高宽，但不会自动换行</li>
+<li>一些浏览器默认的inline-block元素： input 、img 、button 、textarea 、label</li>
+</ul>
+<h4 id="外边距重叠"><a href="#外边距重叠" class="headerlink" title="外边距重叠"></a>外边距重叠</h4><p>在CSS当中，相邻的两个盒子（可能是兄弟关系也可能是祖先关系）的外边距可以结合成一个单独的外边距。这种合并外边距的方式被称为折叠，并且因而所结合成的外边距称为折叠外边距。</p>
+<p>折叠结果遵循下列计算规则：</p>
+<ul>
+<li>两个相邻的外边距都是正数时，折叠结果是它们两者之间较大的值</li>
+<li>两个相邻的外边距都是负数时，折叠结果是两者绝对值的较大值</li>
+<li>两个外边距一正一负时，折叠结果是两者的相加的和</li>
+</ul>
+<h3 id="BFC"><a href="#BFC" class="headerlink" title="BFC"></a>BFC</h3><h4 id="Formatting-context"><a href="#Formatting-context" class="headerlink" title="Formatting context"></a>Formatting context</h4><p>在说BFC之前，先解释一下Formatting context，即FC。其是 W3C CSS2.1 规范中的一个概念。它是页面中的一块渲染区域，并且有一套渲染规则，它决定了其子元素将如何定位，以及和其他元素的关系和相互作用。最常见的 Formatting context 有 Block fomatting context (简称BFC)和 Inline formatting context (简称IFC)。CSS2.1 中只有 BFC 和 IFC, CSS3 中还增加了 GFC 和 FFC。</p>
+<h4 id="BFC定义"><a href="#BFC定义" class="headerlink" title="BFC定义"></a>BFC定义</h4><p>BFC(Block formatting context)直译为”块级格式化上下文”。它是一个独立的渲染区域，只有Block-level box（块级元素）参与， 它规定了内部的Block-level Box如何布局，并且与这个区域外部毫不相干。</p>
+<h4 id="BFC内部规则"><a href="#BFC内部规则" class="headerlink" title="BFC内部规则"></a>BFC内部规则</h4><ul>
+<li>内部的Box会在垂直方向，一个接一个地放置</li>
+<li>Box垂直方向的距离由margin决定。属于同一个BFC的两个相邻Box的margin会发生重叠</li>
+<li>每个box的margin-left，与内容块border box的左边相接触(对于从左往右的格式化，否则相反)。即使存在浮动也是如此</li>
+<li>BFC的区域不会与float box重叠</li>
+<li>BFC就是页面上的一个隔离的独立容器，容器里面的子元素不会影响到外面的元素。反之也如此</li>
+<li>计算BFC的高度时，浮动元素也参与计算</li>
+</ul>
+<h4 id="BFC的作用"><a href="#BFC的作用" class="headerlink" title="BFC的作用"></a>BFC的作用</h4><p>BFC的常用功能如下</p>
+<ul>
+<li>文档布局</li>
+<li>清除浮动</li>
+<li>清除重叠外边距</li>
+</ul>
+<h4 id="触发BFC的条件"><a href="#触发BFC的条件" class="headerlink" title="触发BFC的条件"></a>触发BFC的条件</h4><ul>
+<li>根元素</li>
+<li>float属性不为none</li>
+<li>overflow不为visible</li>
+<li>position为absolute或fixed</li>
+<li>display为inline-block, table-cell, table-caption, flex, inline-flex</li>
+</ul>
+<h4 id="例子"><a href="#例子" class="headerlink" title="例子"></a>例子</h4><ul>
+<li>自适应两栏式布局</li>
+</ul>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-tag">body</span> &#123;</span><br><span class="line">   <span class="attribute">margin</span>: <span class="number">0</span>;</span><br><span class="line">   <span class="attribute">padding</span>: <span class="number">0</span>;</span><br><span class="line">   <span class="attribute">position</span>: relative;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="selector-class">.aside</span> &#123;</span><br><span class="line">     <span class="attribute">width</span>: <span class="number">200px</span>;</span><br><span class="line">     <span class="attribute">height</span>: <span class="number">150px</span>;</span><br><span class="line">     <span class="attribute">float</span>: left;</span><br><span class="line">     <span class="attribute">background</span>: <span class="number">#f66</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="selector-class">.main</span> &#123;</span><br><span class="line">     <span class="attribute">height</span>: <span class="number">200px</span>;</span><br><span class="line">     <span class="attribute">overflow</span>: hidden;</span><br><span class="line">     <span class="attribute">background</span>: <span class="number">#fcc</span>;</span><br><span class="line"> &#125;</span><br></pre></td></tr></table></figure>
+<p><a href="https://codepen.io/teobler/pen/pwMjdO?editors=1000" target="_blank" rel="noopener">效果</a></p>
+<p>根据BFC第三条规则，虽然存在浮动元素aside，但是main元素的左边依然会跟包含块的border相接触，这时通过设置main元素的overflow：hidden触发产生一个新的BFC，便实现了简单的两栏自适应布局。</p>
+<p>更多例子可以<a href="http://www.jianshu.com/p/bf927bc1bed4" target="_blank" rel="noopener">查看</a></p>
+<h2 id="选择器与优先级"><a href="#选择器与优先级" class="headerlink" title="选择器与优先级"></a>选择器与优先级</h2><h3 id="选择器"><a href="#选择器" class="headerlink" title="选择器"></a>选择器</h3><p>css通过选择器关联html标签，以达到控制html元素样式的效果，基本的选择器有以下几种：</p>
+<ul>
+<li>派生选择器： 直接用html标签进行选择</li>
+<li>类选择器： 使用html元素的class属性进行选择</li>
+<li>id选择器： 使用html元素的id属性进行选择</li>
+</ul>
+<p>以上三种选择器为css中最基本的选择器，其他选择器都是三者的延伸、扩展或者组合，例如：</p>
+<ul>
+<li><p>伪元素选择器： 利用 : 选择伪元素</p>
+</li>
+<li><p>后代选择器： 利用空格进行后代的选择</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">.header .nav&#123;//选取header类中的nav类&#125;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>兄弟选择器（猫头鹰选择器）： 使用+来选择两个紧接着的元素，且它们拥有相同的父元素，因为其样子酷似猫头鹰，所以又被称为猫头鹰选择器，猫头鹰选择器虽然冷门，但是应用在多个相同元素的排列的时候会自动帮你处理一些边缘问题，这里就不展开了<a href="http://www.zcfy.cc/article/spoooooky-css-selectors-1794.html" target="_blank" rel="noopener">详情请戳</a></p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">.warp div + div&#123;//选取warp类下的所有兄弟div&#125;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>群组选择器： 利用逗号进行多个元素的选取</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">div, .avatar, a&#123;//选取所有div、avatar类和a标签&#125;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>属性选择器： 利用中括号选择带有特定属性的元素</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">a[title]&#123;//选择所有带有title属性的a标签&#125;</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<h3 id="优先级（特殊性）"><a href="#优先级（特殊性）" class="headerlink" title="优先级（特殊性）"></a>优先级（特殊性）</h3><p>一般来说，越复杂越精确的选择器优先级就越高，在css权威指南上，是这样来定义和区分优先级的：</p>
+<blockquote>
+<p>选择器的特殊性由选择器本身的组件确定。特殊性值表现为4个部分，如：0， 0， 0， 0</p>
+<p>一个选择器的具体特殊性如下确定：</p>
+<ul>
+<li>对于选择器中给定的各个ID属性值，加 0100</li>
+<li>对于选择器中给定的各个类属性值、属性选择或伪类，加 0010</li>
+<li>对于选择器中给定的各个元素或伪元素，加 0001。伪元素是否有特殊性？在这方面CSS2有些自相矛盾，但是在CSS2.1中明确指出，伪元素有特殊性，并且为0001</li>
+<li>结合符和统配选择器对特殊性没有任何贡献（后面还会更多地介绍这些值）</li>
+<li>内联样式的声明特殊性都是1000</li>
+<li>重要性：有时某个声明可能非常重要，超过了其他所有声明。CSS2.1称之为重要声明，并允许这些声明的结束分号之前插入 !important 来标志</li>
+</ul>
+</blockquote>
+<p>CSS的优先级还遵循叠加规则，即</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">span#xxx .songs li&#123;//这个选择器的特殊性为0112&#125;</span><br></pre></td></tr></table></figure>
+<h4 id="补充"><a href="#补充" class="headerlink" title="补充"></a>补充</h4><ul>
+<li>号代表通配符，选取文档中的所有元素，一般不建议使用，首先过于暴力，其次影响渲染性能</li>
+</ul>
+<p>样式最后的渲染效果与样式定义在文件中的先后顺序有关，即后面的覆盖前面的，与在html文档中的先后关系无关。例如：</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-class">.A</span>&#123; <span class="attribute">color</span>:blue;&#125;</span><br><span class="line"></span><br><span class="line"><span class="selector-class">.B</span>&#123; <span class="attribute">color</span>:red;&#125;</span><br><span class="line"></span><br><span class="line"> &lt;p class='B A'&gt; 123 &lt;/p&gt;</span><br></pre></td></tr></table></figure>
+<p>最后“123”的颜色是 red</p>
+<h2 id="CSS-Hack"><a href="#CSS-Hack" class="headerlink" title="CSS Hack"></a>CSS Hack</h2><h3 id="什么是CSS-Hack"><a href="#什么是CSS-Hack" class="headerlink" title="什么是CSS Hack"></a>什么是CSS Hack</h3><p>由于不同厂商的流览器或某浏览器的不同版本（如IE6-IE11,Firefox/Safari/Opera/Chrome等），对CSS的支持、解析不一样，导致在不同浏览器的环境中呈现出不一致的页面展现效果。这时，我们为了获得统一的页面效果，就需要针对不同的浏览器或不同版本写特定的CSS样式，我们把这个针对不同的浏览器/不同版本写相应的CSS code的过程，叫做CSS hack</p>
+<h3 id="CSS-Hack的方法"><a href="#CSS-Hack的方法" class="headerlink" title="CSS Hack的方法"></a>CSS Hack的方法</h3><ul>
+<li>条件注释法</li>
+</ul>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">&lt;!<span class="selector-tag">--</span><span class="selector-attr">[if IE]</span>&gt;</span><br><span class="line"></span><br><span class="line">这段文字只在<span class="selector-tag">IE</span>浏览器显示</span><br><span class="line"></span><br><span class="line">&lt;!<span class="selector-attr">[endif]</span><span class="selector-tag">--</span>&gt;</span><br></pre></td></tr></table></figure>
+<ul>
+<li>类内属性前缀法</li>
+</ul>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-class">.hack</span>&#123; </span><br><span class="line">  <span class="attribute">background-color</span>:red; <span class="comment">/* All browsers */</span>  </span><br><span class="line"></span><br><span class="line">  <span class="attribute">background-color</span>:blue <span class="meta">!important</span>;<span class="comment">/* All browsers but IE6 */</span>  </span><br><span class="line"></span><br><span class="line">  *background-color:black; /* IE6, IE7 */  </span><br><span class="line"></span><br><span class="line">  +<span class="selector-tag">background-color</span><span class="selector-pseudo">:yellow</span>;<span class="comment">/* IE6, IE7*/</span>  </span><br><span class="line"></span><br><span class="line">  <span class="selector-tag">background-color</span><span class="selector-pseudo">:gray</span>\9; <span class="comment">/* IE6, IE7, IE8, IE9, IE10 */</span>  </span><br><span class="line"></span><br><span class="line">  <span class="selector-tag">background-color</span><span class="selector-pseudo">:purple</span>\0; <span class="comment">/* IE8, IE9, IE10 */</span>  </span><br><span class="line"></span><br><span class="line">  <span class="selector-tag">background-color</span><span class="selector-pseudo">:orange</span>\9\0;<span class="comment">/*IE9, IE10*/</span>  </span><br><span class="line"></span><br><span class="line">  _<span class="selector-tag">background-color</span><span class="selector-pseudo">:green</span>; <span class="comment">/* Only works in IE6 */</span>  </span><br><span class="line"></span><br><span class="line">  &#125;</span><br></pre></td></tr></table></figure>
+<ul>
+<li>媒体查询</li>
+</ul>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">@<span class="keyword">media</span> \<span class="number">0s</span>creen\,screen\<span class="number">9</span> &#123;</span><br><span class="line">    <span class="selector-class">.hack</span>&#123;</span><br><span class="line">          <span class="comment">/* IE 6 7 8 */</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">@<span class="keyword">media</span> screen and (-webkit-min-device-pixel-ratio:<span class="number">0</span>) &#123;</span><br><span class="line">    <span class="selector-class">.demo</span> &#123;</span><br><span class="line">          <span class="comment">/* Webkit内核 */</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="基础布局"><a href="#基础布局" class="headerlink" title="基础布局"></a>基础布局</h2><h3 id="垂直居中"><a href="#垂直居中" class="headerlink" title="垂直居中"></a>垂直居中</h3><p>方法有很多，我大概罗列一下我用得比较多的</p>
+<ul>
+<li>包裹法</li>
+</ul>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">div</span> <span class="attr">id</span>=<span class="string">"warpper"</span>&gt;</span>  </span><br><span class="line"></span><br><span class="line">  <span class="tag">&lt;<span class="name">div</span> <span class="attr">id</span>=<span class="string">"content"</span>&gt;</span>Content here<span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">  </span><br><span class="line"><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">#warpper &#123;</span><br><span class="line"></span><br><span class="line">  float: left;</span><br><span class="line"></span><br><span class="line">  height: 50%;</span><br><span class="line"></span><br><span class="line">  margin-bottom: -150px;</span><br><span class="line"></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">#content &#123;</span><br><span class="line"></span><br><span class="line">  clear: both;</span><br><span class="line"></span><br><span class="line">  height: 300px;</span><br><span class="line"></span><br><span class="line">  position: relative;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>这种方法在需要垂直居中的div外再包裹一个div，并将其设置浮动，margin-bottom为内部div的 1/2 * height，之后content触发BFC，内部也能放元素。优点是兼容性比较好，缺点是增加了额外的元素，并且高度不能改变。</p>
+<ul>
+<li>flexbox</li>
+</ul>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">div</span> <span class="attr">id</span>=<span class="string">"warpper"</span>&gt;</span>  </span><br><span class="line"></span><br><span class="line">  <span class="tag">&lt;<span class="name">div</span> <span class="attr">id</span>=<span class="string">"content"</span>&gt;</span>Content here<span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">  </span><br><span class="line"><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">#warpper &#123;</span><br><span class="line"></span><br><span class="line">  display: flex;</span><br><span class="line"></span><br><span class="line">  flex-direction: column;</span><br><span class="line"></span><br><span class="line">  justify-content: center;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>用起来最舒服最简单的方法，但是，兼容性是个大问题，比如IE要IE11才兼容，很尴尬。</p>
+<h3 id="水平居中"><a href="#水平居中" class="headerlink" title="水平居中"></a>水平居中</h3><p>水平居中比较简单，一般不会问到，但是作为复习也说得过去</p>
+<ul>
+<li>margin</li>
+</ul>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">div</span> <span class="attr">id</span>=<span class="string">"content"</span>&gt;</span>Content here<span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line"></span><br><span class="line">#content &#123;</span><br><span class="line"></span><br><span class="line">  margin: 0 auto;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<ul>
+<li>绝对定位</li>
+</ul>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">div</span> <span class="attr">id</span>=<span class="string">"content"</span>&gt;</span>Content here<span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line"></span><br><span class="line">.content &#123;</span><br><span class="line"></span><br><span class="line">	position: absolute;</span><br><span class="line"></span><br><span class="line">	width: 200px;</span><br><span class="line"></span><br><span class="line">	left: 50%;</span><br><span class="line"></span><br><span class="line">	margin-left: -(width/2);</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<ul>
+<li>flexbox</li>
+</ul>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">div</span> <span class="attr">id</span>=<span class="string">"warpper"</span>&gt;</span>  </span><br><span class="line"></span><br><span class="line">  <span class="tag">&lt;<span class="name">div</span> <span class="attr">id</span>=<span class="string">"content"</span>&gt;</span>Content here<span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">  </span><br><span class="line"><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">#warpper &#123;</span><br><span class="line"></span><br><span class="line">  display: flex;</span><br><span class="line"></span><br><span class="line">  align-items: center;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="栅格布局"><a href="#栅格布局" class="headerlink" title="栅格布局"></a>栅格布局</h3><h4 id="原理"><a href="#原理" class="headerlink" title="原理"></a>原理</h4><p>一个栅格布局一般分为：容器（container）、行（row）、列（col）</p>
+<p>其中容器用于确定整体布局的宽度，设定了容器的宽度以后，再设置一个容器中容纳多少行，最后在在每一行中确定有多少列，同时列与列之间的间隔也被提前规定，这使得我们在布局的时候就很简单了，不用过多的考虑对齐问题。其中列是真正显示文档内容的元素。</p>
+<h4 id="列宽"><a href="#列宽" class="headerlink" title="列宽"></a>列宽</h4><p>一个能用的栅格系统，会提前准备一个声明列宽的类，将容器的宽度平分为几个等分，这个等分一般时3或4的倍数，这样比较容易排版，当然，分的越多排版越精确</p>
+<h4 id="嵌套"><a href="#嵌套" class="headerlink" title="嵌套"></a>嵌套</h4><p>栅格系统可以嵌套，即列也可以作为容器继续嵌套栅格，这便是嵌套栅格</p>
+<h4 id="列的换行与行的偏移"><a href="#列的换行与行的偏移" class="headerlink" title="列的换行与行的偏移"></a>列的换行与行的偏移</h4><p>一个完美支持响应式的栅格系统支持列的换行，即同一行的不同列之间的高度可以不相同，这种行为能够大大加强栅格系统的响应式能力。同时其还支持列的偏移，即可以不从第一列开始，将某几列作为空隙。</p>
+<p>具体的栅格系统可参考<a href="http://getbootstrap.com/" target="_blank" rel="noopener">bootstrap官网</a></p>
+<h2 id="后记"><a href="#后记" class="headerlink" title="后记"></a>后记</h2><p>作为一个菜鸟能罗列收集的东西大概也就那么多了，还有一些比较基础的由于篇幅原因就没有放上来，当然还有好多也很重要的东西没罗列出来，这要归结于自己还是太菜，要是对你有帮助的话，就点个赞咯。有问题的话也接受一切批评和建议，我会努力加油的。上一篇文章在本篇头部，所有文章收录于我的<a href="https://teobler.com">博客</a>中。</p>
+
+    
+  </div>
+</article>
+
+  </div>
+  <aside id="aside-bar">
+    
+  <div id="toc" class="toc-article">
+    <strong class="toc-title">文章目录</strong>
+    <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#引入方式"><span class="toc-text">引入方式</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#盒子模型与BFC"><span class="toc-text">盒子模型与BFC</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#行内元素和块级元素"><span class="toc-text">行内元素和块级元素</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#内联元素-inline"><span class="toc-text">内联元素(inline)</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#块级元素-block"><span class="toc-text">块级元素(block)</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#内联块元素（inline-block）"><span class="toc-text">内联块元素（inline-block）</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#外边距重叠"><span class="toc-text">外边距重叠</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#BFC"><span class="toc-text">BFC</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#Formatting-context"><span class="toc-text">Formatting context</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#BFC定义"><span class="toc-text">BFC定义</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#BFC内部规则"><span class="toc-text">BFC内部规则</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#BFC的作用"><span class="toc-text">BFC的作用</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#触发BFC的条件"><span class="toc-text">触发BFC的条件</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#例子"><span class="toc-text">例子</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#选择器与优先级"><span class="toc-text">选择器与优先级</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#选择器"><span class="toc-text">选择器</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#优先级（特殊性）"><span class="toc-text">优先级（特殊性）</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#补充"><span class="toc-text">补充</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#CSS-Hack"><span class="toc-text">CSS Hack</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#什么是CSS-Hack"><span class="toc-text">什么是CSS Hack</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#CSS-Hack的方法"><span class="toc-text">CSS Hack的方法</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#基础布局"><span class="toc-text">基础布局</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#垂直居中"><span class="toc-text">垂直居中</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#水平居中"><span class="toc-text">水平居中</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#栅格布局"><span class="toc-text">栅格布局</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#原理"><span class="toc-text">原理</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#列宽"><span class="toc-text">列宽</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#嵌套"><span class="toc-text">嵌套</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#列的换行与行的偏移"><span class="toc-text">列的换行与行的偏移</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#后记"><span class="toc-text">后记</span></a></li></ol>
+  </div>
+
+
+    
+  <div id="recent-post" class="recent-post">
+    <strong class="recent-post-title">
+      近期文章
+    </strong>
+    <ul class="recent-post-list">
+      
+         <li class="recent-post-list">
+           <a href="/20200516-react-concurrent-mode-suspense.html" title="React Concurrent Mode 之 Suspense 实践" >React Concurrent Mode 之 Suspense 实践</a>
+         </li>
+      
+         <li class="recent-post-list">
+           <a href="/20200304-devtool-editing-and-debugging.html" title="(1)你真的会用Chrome devtool吗?" >(1)你真的会用Chrome devtool吗?</a>
+         </li>
+      
+         <li class="recent-post-list">
+           <a href="/20200222-webpack-core-concepts.html" title="Webpack原理(3) — 核心概念" >Webpack原理(3) — 核心概念</a>
+         </li>
+      
+         <li class="recent-post-list">
+           <a href="/20200219-first-in-webpack.html" title="Webpack原理(2) — 加载原理" >Webpack原理(2) — 加载原理</a>
+         </li>
+      
+         <li class="recent-post-list">
+           <a href="/20200211-tdd-with-react-hooks.html" title="用React hooks实现TDD" >用React hooks实现TDD</a>
+         </li>
+      
+         <li class="recent-post-list">
+           <a href="/20200107-reduce-bundle-size.html" title="如何减小前端代码打包体积" >如何减小前端代码打包体积</a>
+         </li>
+      
+         <li class="recent-post-list">
+           <a href="/20190906-error-handler.html" title="React中的错误处理" >React中的错误处理</a>
+         </li>
+      
+         <li class="recent-post-list">
+           <a href="/20190903-compose.html" title="函数式初识(6) - 组合" >函数式初识(6) - 组合</a>
+         </li>
+      
+         <li class="recent-post-list">
+           <a href="/20190831-partial-and-currying.html" title="函数式初识(5) - 偏函数和柯里化" >函数式初识(5) - 偏函数和柯里化</a>
+         </li>
+      
+         <li class="recent-post-list">
+           <a href="/20190829-closure.html" title="函数式初识(4) - 闭包" >函数式初识(4) - 闭包</a>
+         </li>
+      
+    </ul>
+  </div>
+
+
+  </aside>
+</div>
+
+
+
+
+  <div class="box-prev-next clearfix">
+    <a class="show pull-left" href="/20170616-html-finishing.html">
+        <i class="icon icon-angle-left"></i>
+    </a>
+    <a class="show pull-right" href="/20170721-performance-optimization.html">
+        <i class="icon icon-angle-right"></i>
+    </a>
+  </div>
+
+
+
+
+
+  <a id="backTop" class="back-top">
+    <i class="icon-angle-up"></i>
+  </a>
+
+
+
+
+  <div class="modal" id="modal">
+  <span id="cover" class="cover hide"></span>
+  <div id="modal-dialog" class="modal-dialog hide-dialog">
+    <div class="modal-header">
+      <span id="close" class="btn-close">关闭</span>
+    </div>
+    <hr>
+    <div class="modal-body">
+      <ul class="list-toolbox">
+        
+          <li class="item-toolbox">
+            <a
+              class="CIRCLE"
+              href="/archives/"
+              rel="noopener noreferrer"
+              target="_self"
+              >
+              博客
+            </a>
+          </li>
+        
+          <li class="item-toolbox">
+            <a
+              class="CIRCLE"
+              href="/categories/"
+              rel="noopener noreferrer"
+              target="_self"
+              >
+              分类
+            </a>
+          </li>
+        
+          <li class="item-toolbox">
+            <a
+              class="CIRCLE"
+              href="/tags/"
+              rel="noopener noreferrer"
+              target="_self"
+              >
+              标签
+            </a>
+          </li>
+        
+          <li class="item-toolbox">
+            <a
+              class="CIRCLE"
+              href="/about/"
+              rel="noopener noreferrer"
+              target="_self"
+              >
+              关于
+            </a>
+          </li>
+        
+          <li class="item-toolbox">
+            <a
+              class="CIRCLE"
+              href="/search/"
+              rel="noopener noreferrer"
+              target="_self"
+              >
+              搜索
+            </a>
+          </li>
+        
+      </ul>
+
+    </div>
+  </div>
+</div>
+
+
+
+  
+      <div class="fexo-comments comments-post">
+    
+  <section class="disqus-comments">
+    <div id="disqus_thread">
+      <noscript>Please enable JavaScript to view the <a href="//disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+    </div>
+  </section>
+
+  <script>
+    var disqus_shortname = 'teobler';
+    
+    var disqus_url = 'https://teobler.com/20170716-css-finishing.html';
+    
+    (function(){
+      var dsq = document.createElement('script');
+      dsq.type = 'text/javascript';
+      dsq.async = true;
+      dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+      (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    })();
+  </script>
+
+  <script id="dsq-count-scr" src="//teobler.disqus.com/count.js" async></script>
+
+
+
+    
+
+
+
+
+    
+
+    
+	
+  </div>
+
+  
+
+  <script type="text/javascript">
+  function loadScript(url, callback) {
+    var script = document.createElement('script')
+    script.type = 'text/javascript';
+
+    if (script.readyState) { //IE
+      script.onreadystatechange = function() {
+        if (script.readyState == 'loaded' ||
+          script.readyState == 'complete') {
+          script.onreadystatechange = null;
+          callback();
+        }
+      };
+    } else { //Others
+      script.onload = function() {
+        callback();
+      };
+    }
+
+    script.src = url;
+    document.getElementsByTagName('head')[0].appendChild(script);
+  }
+
+  window.onload = function() {
+    loadScript('/js/bundle.js?235683', function() {
+      // load success
+    });
+  }
+</script>
+
+</body>
+</html>

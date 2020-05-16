@@ -1,0 +1,822 @@
+<!DOCTYPE html>
+
+
+  <html lang="zh-CN" class="light page-post">
+
+
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="content-language" content="zh-CN">
+  
+  <title>我的笔试与面试题目 | teobler&#39;s blog</title>
+
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+  
+    <meta name="keywords" content="面试,面试题," />
+  
+
+  <meta name="360-site-verification" content="7b29d0e6eb0d7a16d22f9d0961882c3a" />
+  <meta name="sogou_site_verification" content="S1EAZKO83i"/>
+
+  <meta name="description" content="8月9月发生了很多事，一度停止了所有活动，包括学习。 10月份来到成都寻找自己人生中的第一份工作。这一个月里跑了成都几乎所有的大学，电子科大清水河校区很大，但是现在我已经不需要导航了，感觉自己已经摸清了每一条达大道；川大望江校区古朴的校园景色可能我爸会很喜欢吧；西南交大安保很严，门口的小吃街很不错；成信感觉比电子科大还要远。 这一个月最大的遗憾是被thoughtworks刷掉，追问个清楚之后只能说">
+<meta name="keywords" content="面试,面试题">
+<meta property="og:type" content="article">
+<meta property="og:title" content="我的笔试与面试题目">
+<meta property="og:url" content="https://teobler.com/20171105-interview-questions.html">
+<meta property="og:site_name" content="teobler&#39;s blog">
+<meta property="og:description" content="8月9月发生了很多事，一度停止了所有活动，包括学习。 10月份来到成都寻找自己人生中的第一份工作。这一个月里跑了成都几乎所有的大学，电子科大清水河校区很大，但是现在我已经不需要导航了，感觉自己已经摸清了每一条达大道；川大望江校区古朴的校园景色可能我爸会很喜欢吧；西南交大安保很严，门口的小吃街很不错；成信感觉比电子科大还要远。 这一个月最大的遗憾是被thoughtworks刷掉，追问个清楚之后只能说">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:image" content="https://teobler-image.s3-us-west-1.amazonaws.com/store-in-fe.png">
+<meta property="og:image" content="https://teobler-image.s3-us-west-1.amazonaws.com/TCP-connection.png">
+<meta property="og:image" content="https://teobler-image.s3-us-west-1.amazonaws.com/TCP-disconnection.jpg">
+<meta property="og:image" content="https://teobler-image.s3-us-west-1.amazonaws.com/OSI-model.png">
+<meta property="og:image" content="https://teobler-image.s3-us-west-1.amazonaws.com/network-protocol.png">
+<meta property="og:updated_time" content="2020-02-15T02:49:44.534Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="我的笔试与面试题目">
+<meta name="twitter:description" content="8月9月发生了很多事，一度停止了所有活动，包括学习。 10月份来到成都寻找自己人生中的第一份工作。这一个月里跑了成都几乎所有的大学，电子科大清水河校区很大，但是现在我已经不需要导航了，感觉自己已经摸清了每一条达大道；川大望江校区古朴的校园景色可能我爸会很喜欢吧；西南交大安保很严，门口的小吃街很不错；成信感觉比电子科大还要远。 这一个月最大的遗憾是被thoughtworks刷掉，追问个清楚之后只能说">
+<meta name="twitter:image" content="https://teobler-image.s3-us-west-1.amazonaws.com/store-in-fe.png">
+
+  
+
+  
+    <link rel="icon" href="/favicon.ico">
+  
+
+  <link href="/css/styles.css?v=c114cbe6" rel="stylesheet">
+
+
+  
+
+  
+<!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-158204206-1"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'UA-158204206-1');
+</script>
+
+
+
+  
+  <script type="text/javascript">
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "//hm.baidu.com/hm.js?57e94d016e201fba3603a8a2b0263af0";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+  
+  <script type="text/javascript">
+	(function(){
+	    var bp = document.createElement('script');
+	    var curProtocol = window.location.protocol.split(':')[0];
+	    if (curProtocol === 'https') {
+	        bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';        
+	    }
+	    else {
+	        bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+	    }
+	    var s = document.getElementsByTagName("script")[0];
+	    s.parentNode.insertBefore(bp, s);
+	})();
+  </script>
+
+
+  
+  <script src="https://jspassport.ssl.qhimg.com/11.0.1.js?d182b3f28525f2db83acfaaf6e696dba" id="sozz"></script>
+
+
+
+  
+    <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+  
+
+  
+    <link rel="stylesheet" href="//cdn.bootcss.com/font-awesome/4.3.0/css/font-awesome.min.css">
+  
+
+  <script data-ad-client="ca-pub-8160236896214353" async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+</head>
+
+<body>
+
+
+  
+    <span id="toolbox-mobile" class="toolbox-mobile">导航</span>
+  
+
+  <div class="post-header CENTER">
+   
+  <div class="toolbox">
+    <a class="toolbox-entry" href="/">
+      <span class="toolbox-entry-text">导航</span>
+      <i class="icon-angle-down"></i>
+      <i class="icon-home"></i>
+    </a>
+    <ul class="list-toolbox">
+      
+        <li class="item-toolbox">
+          <a
+            class="CIRCLE"
+            href="/archives/"
+            rel="noopener noreferrer"
+            target="_self"
+            >
+            博客
+          </a>
+        </li>
+      
+        <li class="item-toolbox">
+          <a
+            class="CIRCLE"
+            href="/categories/"
+            rel="noopener noreferrer"
+            target="_self"
+            >
+            分类
+          </a>
+        </li>
+      
+        <li class="item-toolbox">
+          <a
+            class="CIRCLE"
+            href="/tags/"
+            rel="noopener noreferrer"
+            target="_self"
+            >
+            标签
+          </a>
+        </li>
+      
+        <li class="item-toolbox">
+          <a
+            class="CIRCLE"
+            href="/about/"
+            rel="noopener noreferrer"
+            target="_self"
+            >
+            关于
+          </a>
+        </li>
+      
+        <li class="item-toolbox">
+          <a
+            class="CIRCLE"
+            href="/search/"
+            rel="noopener noreferrer"
+            target="_self"
+            >
+            搜索
+          </a>
+        </li>
+      
+    </ul>
+  </div>
+
+
+</div>
+
+<div id="post-container" class="container">
+  <div class="content content-post CENTER">
+     <article id="post-20171105-interview-questions" class="article article-type-post" itemprop="blogPost">
+  <header class="article-header">
+    <h1 class="post-title">我的笔试与面试题目</h1>
+
+    <div class="article-meta">
+       <div>
+          <span>
+            <i class="icon-calendar"></i>
+            <span>2017.11.05</span>
+          </span>
+
+          
+            <span class="article-author">
+              <i class="icon-user"></i>
+              <span>teobler</span>
+            </span>
+          
+
+          
+  <span class="article-category">
+    <i class="icon-list"></i>
+    <a class="article-category-link" href="/categories/职业/">职业</a>
+  </span>
+
+
+
+          
+            <span>
+              <i class="icon-comment"></i>
+              <a href="https://teobler.com/20171105-interview-questions.html#disqus_thread"></a>
+            </span>
+          
+
+          
+          <i class="fa fa-eye"></i>
+            <span id="busuanzi_container_page_pv">
+               &nbsp热度 <span id="busuanzi_value_page_pv">
+               <i class="fa fa-spinner fa-spin"></i></span>℃
+            </span>
+          
+
+          
+      </div>
+
+      <div>
+        <i class="icon-text"></i>
+        <span class="post-count">全篇字数: 9.1k</span>
+        &nbsp
+        <i class="icon-calendar-1"></i>
+        <span class="post-count">预计花费: 33分钟</span>
+      </div>
+      
+    </div>
+  </header>
+
+  <div class="article-content">
+    
+      <p>8月9月发生了很多事，一度停止了所有活动，包括学习。</p>
+<p>10月份来到成都寻找自己人生中的第一份工作。这一个月里跑了成都几乎所有的大学，电子科大清水河校区很大，但是现在我已经不需要导航了，感觉自己已经摸清了每一条达大道；川大望江校区古朴的校园景色可能我爸会很喜欢吧；西南交大安保很严，门口的小吃街很不错；成信感觉比电子科大还要远。</p>
+<p>这一个月最大的遗憾是被thoughtworks刷掉，追问个清楚之后只能说技不如人，甘拜下风。最后选择了没有大家那么夸张，但是可能是现在的自己能拿到的算是不错的offer。静下心来，回顾下这一个月来的得失，总结总结那些题目，好好沉淀，相信自己会有更好的提升。</p>
+<p>回忆下这一个月来遇到的有印象的所有笔试面试题，大概就是下面这些了，也附上自己后知后觉的答案，部分答案来自网络，如有侵权，请联系我，答案仅供参考。</p>
+<h2 id="前端相关"><a href="#前端相关" class="headerlink" title="前端相关"></a>前端相关</h2><p><strong>数组与字符串的操作中，slice、splice、split、join是干什么的，详细说明。</strong></p>
+<ul>
+<li><strong>slice方法</strong>接收一个或者两个参数。只有一个参数时，该方法返回该参数位置到数组末尾的所有项；两个参数时返回两个参数中间的所有项（不包括第二参数所在项）。该方法不影响原数组</li>
+<li><strong>splice方法</strong>用于数组的删除、插入和修改，splice()方法始终都会返回一个数组，该数组中包含从原始数组中删除的项（如果没有删除任何项，则返回一个空数组，该方法会影响原数组，其用法如下：<ul>
+<li>删除：可以删除任意数量的项，只需指定 2 个参数：要删除的第一项的位置和要删除的项数。 例如，splice(0,2)会删除数组中的前两项</li>
+<li>插入：可以向指定位置插入任意数量的项，只需提供 3 个参数：起始位置、0（要删除的项数） 和要插入的项。 如果要插入多个项， 可以再传入第四、第五， 以至任意多个项。 例如， splice(2,0,”red”,”green”)会从当前数组的位置 2 开始插入字符串”red”和”green”</li>
+<li>替换：可以向指定位置插入任意数量的项，且同时删除任意数量的项，只需指定 3 个参数：起 始位置、要删除的项数和要插入的任意数量的项。插入的项数不必与删除的项数相等。例如， splice (2,1,”red”,”green”)会删除当前数组位置 2 的项，然后再从位置 2 开始插入字符串 “red”和”green”</li>
+</ul>
+</li>
+<li><strong>split方法</strong>接收两个参数，第一个参数为字符串或正则，将字符串按照相应的字符串或正则划分成若干个元素的数组，第二个参数为该数组的元素个数，默认为划分全部</li>
+<li><strong>join方法</strong>接收一个参数，以该参数来分隔数组中的每一个元素，使其成为一个字符串，该方法不会影响原数组</li>
+</ul>
+<p><strong>水平居中与垂直居中你知道哪些方法，以及如何居中一个浮动元素？</strong></p>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/*水平居中*/</span></span><br><span class="line"><span class="selector-class">.target</span> &#123;</span><br><span class="line">  <span class="attribute">width</span>: n px;</span><br><span class="line">  <span class="attribute">margin</span>: <span class="number">0</span> auto;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="selector-class">.target</span> &#123;</span><br><span class="line">  <span class="attribute">width</span>: fit-content;</span><br><span class="line">  <span class="attribute">margin</span>: <span class="number">0</span> auto;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="selector-class">.father</span> &#123;</span><br><span class="line">  <span class="attribute">text-align</span>:center;</span><br><span class="line">  </span><br><span class="line">  target &#123;</span><br><span class="line">    <span class="selector-tag">display</span>: <span class="selector-tag">inline-block</span>;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="selector-class">.grandfather</span> &#123;</span><br><span class="line">  <span class="attribute">float</span>: left;</span><br><span class="line">  <span class="attribute">width</span>: <span class="number">100%</span>;</span><br><span class="line">  <span class="attribute">position</span>: relative;</span><br><span class="line">  <span class="attribute">overflow</span>: hidden;</span><br><span class="line">  </span><br><span class="line">  .father &#123;</span><br><span class="line">    <span class="selector-tag">float</span>: <span class="selector-tag">left</span>;</span><br><span class="line">    <span class="selector-tag">position</span>: <span class="selector-tag">relative</span>;</span><br><span class="line">    <span class="selector-tag">left</span><span class="selector-pseudo">:50</span>%</span><br><span class="line">    </span><br><span class="line">    <span class="selector-class">.target</span> &#123;</span><br><span class="line">      <span class="attribute">float</span>:left;</span><br><span class="line">      <span class="attribute">position</span>: relative;</span><br><span class="line">      <span class="attribute">right</span>: <span class="number">50%</span>;</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="selector-class">.grandfather</span> &#123;</span><br><span class="line">  <span class="attribute">position</span>: relative;</span><br><span class="line"></span><br><span class="line">  .father &#123;</span><br><span class="line">    <span class="selector-tag">position</span>: <span class="selector-tag">absolute</span>;</span><br><span class="line">    <span class="selector-tag">left</span>: 50%;</span><br><span class="line">    </span><br><span class="line">    <span class="selector-class">.target</span> &#123;</span><br><span class="line">      <span class="attribute">float</span>: left;</span><br><span class="line">      <span class="attribute">position</span>: absolute;</span><br><span class="line">      <span class="attribute">right</span>: <span class="number">50%</span>;</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="selector-class">.father</span> &#123;</span><br><span class="line">  <span class="attribute">display</span>: flex;</span><br><span class="line">  justify-content: center;//水平方向</span><br><span class="line">  align-items: center; //垂直方向</span><br><span class="line">  </span><br><span class="line">  <span class="selector-class">.target</span> &#123;&#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">/*垂直*/</span></span><br><span class="line"><span class="selector-class">.father</span>&#123;</span><br><span class="line">  <span class="attribute">display</span>: table;</span><br><span class="line">  </span><br><span class="line">  .target&#123;</span><br><span class="line">    <span class="selector-tag">display</span>: <span class="selector-tag">table-cell</span>;</span><br><span class="line">    <span class="selector-tag">vertical-align</span>: <span class="selector-tag">middle</span>;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="selector-class">.target</span>&#123;</span><br><span class="line">  <span class="attribute">height</span>: n px;</span><br><span class="line">  <span class="attribute">position</span>: absolute;</span><br><span class="line">  <span class="attribute">top</span>: <span class="number">50%</span>;</span><br><span class="line">  <span class="attribute">margin-top</span>: -n/<span class="number">2</span> px;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="selector-class">.target</span>&#123;</span><br><span class="line">  <span class="attribute">height</span>: <span class="number">200px</span>;</span><br><span class="line">  <span class="attribute">position</span>: absolute;</span><br><span class="line">  <span class="attribute">top</span>: <span class="number">0</span>; <span class="attribute">bottom</span>: <span class="number">0</span>; <span class="attribute">left</span>: <span class="number">0</span>; <span class="attribute">right</span>: <span class="number">0</span>;</span><br><span class="line">  <span class="attribute">margin</span>: auto;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="selector-class">.target</span>&#123; </span><br><span class="line">  <span class="attribute">height</span>: <span class="number">200px</span>;</span><br><span class="line">  <span class="attribute">line-height</span>: <span class="number">200px</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p><strong>创建一个对象的几种方法</strong></p>
+<ul>
+<li>工厂模式</li>
+<li>构造函数模式</li>
+<li>原型模式</li>
+<li>构造函数和原型组合模式</li>
+<li>动态原型模式</li>
+<li>寄生构造模式</li>
+<li>稳妥构造模式</li>
+</ul>
+<p><a href="https://juejin.im/entry/58291447128fe1005cd41c52" target="_blank" rel="noopener">实在不想总结代码了</a></p>
+<p><strong>清除浮动的几种方法</strong></p>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-class">.container</span> &#123;</span><br><span class="line">  .left &#123;</span><br><span class="line">    <span class="selector-tag">float</span>: <span class="selector-tag">left</span>;</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="selector-class">.right</span> &#123;</span><br><span class="line">    <span class="attribute">float</span>: right;</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="selector-class">.clear</span> &#123;</span><br><span class="line">    <span class="attribute">clear</span>: both;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="selector-class">.container</span> &#123;</span><br><span class="line">  <span class="attribute">overflow</span>: hidden;</span><br><span class="line">  zoom: 1;  //兼容IE</span><br><span class="line">  </span><br><span class="line">  <span class="selector-class">.left</span> &#123;</span><br><span class="line">    <span class="attribute">float</span>: left;</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="selector-class">.right</span> &#123;</span><br><span class="line">    <span class="attribute">float</span>: right;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="selector-class">.container</span> &#123;</span><br><span class="line">  <span class="attribute">zoom</span>: <span class="number">1</span>;</span><br><span class="line">  </span><br><span class="line">  .left &#123;</span><br><span class="line">    <span class="selector-tag">float</span>: <span class="selector-tag">left</span>;</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="selector-class">.right</span> &#123;</span><br><span class="line">    <span class="attribute">float</span>: right;</span><br><span class="line">  &#125;</span><br><span class="line">  &amp;<span class="selector-pseudo">:after</span>&#123;</span><br><span class="line">    <span class="attribute">content</span>: <span class="string">""</span>; </span><br><span class="line">    <span class="attribute">display</span>: block; </span><br><span class="line">    <span class="attribute">height</span>: <span class="number">0</span>; </span><br><span class="line">    <span class="attribute">clear</span>: both; </span><br><span class="line">    <span class="attribute">visibility</span>: hidden; </span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p><strong>position的各个属性</strong></p>
+<ul>
+<li>static:默认值，元素按照默认的块级或内联样式进行显示</li>
+<li>relative:相对定位，设置了该属性后，元素会根据具体的top、bottom、left、right进行偏移，但是原位置仍保留</li>
+<li>absolute:绝对定位，设置了该属性后，元素脱离文档流，原位置也就不保留，根据相应的top、bottom、left、right进行定位，同时会被加上一个块级框</li>
+<li>fixed:相对于浏览器窗口进行定位，展现方式类似于absolute</li>
+</ul>
+<p>需要注意的是，relative的元素，其包含块是其第一个块级父元素；而absolute元素的包含块为第一个position不是static的祖先元素，没有的话就是根元素；相应的fixed元素的包含块则为浏览器窗口。</p>
+<p>他们的偏移都是相对于其包含块进行偏移的。</p>
+<p><strong>display的常用属性</strong></p>
+<ul>
+<li>block:块级显示。一个块级元素会新开一行并尽可能的撑满容器</li>
+<li>inline:行内显示。一个行内元素可以在段落中包裹一些内容而不打乱段乱的布局，宽高无用。例如 a 标签</li>
+<li>none:隐藏显示，不会保留该元素的占位。visibility 属性则保留</li>
+<li>inline-block:行内块元素，同时具有块元素的宽高属性和行内元素的同行属性</li>
+<li>table:此元素会作为块级表格来显示（类似table），表格前后带有换行符</li>
+<li>inline-table:此元素会作为内联表格来显示（类似table），表格前后没有换行符</li>
+</ul>
+<p><strong>说说你对盒子模型的理解</strong></p>
+<ul>
+<li>块级元素：html文档中的每个元素都被描绘成矩形盒子，这些矩形盒子通过一个模型来描述其占用空间，这个模型称为盒模型。盒模型通过四个边界来描述：margin（外边距），border（边框），padding（内边距），content（内容区域）</li>
+<li>行内元素：<ol>
+<li>对于非替换元素，比如a，span标签等<br> （1）可以设置margin-left和margin-right属性，无法设置margin-top和margin-bottom属性<br> （2）行内元素border和padding可以设置，但是border-top和padding-top到页面顶部后就不再增加</li>
+<li>对于替换元素，比如input，img标签，margin，padding，border都有效果</li>
+</ol>
+</li>
+<li>IE盒模型：IE的盒模型有一点不同的是，其width等于content + padding；而标准盒模型width等于content</li>
+</ul>
+<p><strong>cookie、sessionStorage、localStorage的区别</strong></p>
+<ul>
+<li>cookie 数据始终在同源的 http 请求中携带（即使不需要），即 cookie 在浏览器和服务器间来回传递；cookie 数据还有路径（path）的概念，可以限制cookie只属于某个路径下。存储大小限制也不同，cookie 数据不能超过4k，同时因为每次http请求都会携带 cookie，所以 cookie 只适合保存很小的数据，如会话标识</li>
+<li>sessionStorage 和 localStorage 不会自动把数据发给服务器，仅在本地保存。sessionStorage 和 localStorage 虽然也有存储大小的限制，但比cookie大得多，可以达到5M或更大</li>
+<li>数据有效期不同，sessionStorage：仅在当前浏览器窗口关闭前有效，自然也就不可能持久保持；localStorage：始终有效，窗口或浏览器关闭也一直保存，因此用作持久数据；cookie 只在设置的 cookie 过期时间之前一直有效，即使窗口或浏览器关闭</li>
+<li>作用域不同，sessionStorage 不在不同的浏览器窗口中共享，即使是同一个页面；localStorage 在所有同源窗口中都是共享的；cookie也是在所有同源窗口中都是共享的。Web Storage 支持事件通知机制，可以将数据更新的通知发送给监听者。Web Storage 的 api 接口使用更方便</li>
+</ul>
+<p><img src="https://teobler-image.s3-us-west-1.amazonaws.com/store-in-fe.png" alt=""></p>
+<p><strong>cookie 和session 的区别</strong>：</p>
+<ul>
+<li>cookie数据存放在客户的浏览器上，session数据放在服务器上</li>
+<li>cookie不是很安全，别人可以分析存放在本地的COOKIE并进行COOKIE欺骗</li>
+<li>所以如果考虑到安全应当使用session</li>
+<li>但是session会在一定时间内保存在服务器上。当访问增多，会比较占用你服务器的性能</li>
+<li>所以如果考虑到减轻服务器性能方面，应当使用COOKIE</li>
+<li>单个cookie保存的数据不能超过4K，很多浏览器都限制一个站点最多保存20个cookie</li>
+</ul>
+<p><strong>H5新增标签有哪几个</strong></p>
+<ul>
+<li><code>&lt;article&gt;</code>标签定义外部的内容。比如来自一个外部的新闻提供者的一篇新的文章，或者来自 blog 的文本，或者是来自论坛的文本。亦或是来自其他外部源内容</li>
+<li><code>&lt;aside&gt;</code>标签定义 article 以外的内容。aside 的内容应该与 article 的内容相关</li>
+<li><code>&lt;audio&gt;</code> 标签定义声音，比如音乐或其他音频流</li>
+<li><code>&lt;canvas&gt;</code> 标签定义图形，比如图表和其他图像。这个 HTML 元素是为了客户端矢量图形而设计的。它自己没有行为，但却把一个绘图 API 展现给客户端 JavaScript 以使脚本能够把想绘制的东西都绘制到一块画布上</li>
+<li><code>&lt;command&gt;</code> 标签定义命令按钮，比如单选按钮、复选框或按钮</li>
+<li><code>&lt;datalist&gt;</code> 标签定义可选数据的列表。与 input 元素配合使用，就可以制作出输入值的下拉列表</li>
+<li><code>&lt;details&gt;</code> 标签定义元素的细节，用户可进行查看，或通过点击进行隐藏。与 <code>&lt;legend&gt;</code> 一起使用，来制作 detail 的标题。该标题对用户是可见的，当在其上点击时可打开或关闭 detail</li>
+<li><code>&lt;embed&gt;</code> 标签定义嵌入的内容，比如插件</li>
+<li><code>&lt;figcaption&gt;</code> 标签定义 figure 元素的标题。”figcaption” 元素应该被置于 “figure” 元素的第一个或最后一个子元素的位置</li>
+<li><code>&lt;figure&gt;</code> 标签用于对元素进行组合。使用 <code>&lt;figcaption&gt;</code> 元素为元素组添加标题</li>
+<li><code>&lt;footer&gt;</code> 标签定义 section 或 document 的页脚。典型地，它会包含创作者的姓名、文档的创作日期以及/或者联系信息</li>
+<li><code>&lt;header&gt;</code> 标签定义 section 或 document 的页眉</li>
+<li><code>&lt;hgroup&gt;</code> 标签用于对网页或区段（section）的标题进行组合</li>
+<li><code>&lt;keygen&gt;</code> 标签定义生成密钥</li>
+<li><code>&lt;mark&gt;</code>主要用来在视觉上向用户呈现那些需要突出的文字。<code>&lt;mark&gt;</code>标签的一个比较典型的应用就是在搜索结果中向用户高亮显示搜索关键词</li>
+<li><code>&lt;meter&gt;</code> 标签定义度量衡。仅用于已知最大和最小值的度量。必须定义度量的范围，既可以在元素的文本中，也可以在 min/max 属性中定义</li>
+<li><code>&lt;nav&gt;</code> 标签定义导航链接的部分</li>
+<li><code>&lt;output&gt;</code> 标签定义不同类型的输出，比如脚本的输出</li>
+<li><code>&lt;progress&gt;</code> 标签运行中的进程。可以使用 <code>&lt;progress&gt;</code> 标签来显示 JavaScript 中耗费时间的函数的进程</li>
+<li><code>&lt;rp&gt;</code> 标签在 ruby 注释中使用，以定义不支持 ruby 元素的浏览器所显示的内容</li>
+<li><code>&lt;rt&gt;</code> 标签定义字符（中文注音或字符）的解释或发音</li>
+<li><code>&lt;ruby&gt;</code> 标签定义 ruby 注释（中文注音或字符）</li>
+<li><code>&lt;section&gt;</code> 标签定义文档中的节（section、区段）。比如章节、页眉、页脚或文档中的其他部分。</li>
+<li><code>&lt;source&gt;</code> 标签为媒介元素（比如 <code>&lt;video&gt;</code> 和 <code>&lt;audio&gt;</code>）定义媒介资源</li>
+<li><code>&lt;summary&gt;</code> 标签包含 details 元素的标题，”details” 元素用于描述有关文档或文档片段的详细信息。”summary” 元素应该是 “details” 元素的第一个子元素</li>
+<li><code>&lt;time&gt;</code> 标签定义日期或时间，或者两者</li>
+<li><code>&lt;video&gt;</code> 标签定义视频，比如电影片段或其他视频流</li>
+</ul>
+<p>转自<a href="http://www.daqianduan.com/2857.html" target="_blank" rel="noopener">大前端</a></p>
+<p><strong>从输入URL到网页渲染的过程</strong></p>
+<ul>
+<li>DNS解析:将URL地址解析为IP地址</li>
+<li>TCP连接:三次握手</li>
+<li>发送HTTP请求</li>
+<li>服务器处理请求并返回HTTP报文</li>
+<li>浏览器解析渲染页面</li>
+<li>连接结束:四次挥手</li>
+</ul>
+<p><strong>http请求头与响应头的内容</strong></p>
+<ul>
+<li>请求头：Accept, Accept-Charset, Accept-Encoding, Accept-Language, Content-Type, Authorization, Cookie, User-Agent</li>
+<li>响应头：Server, Connection…</li>
+</ul>
+<p><strong>跨域问题与jsonp原理</strong></p>
+<p>浏览器的同源策略会导致跨域，这里同源策略又分为以下两种：</p>
+<ol>
+<li>DOM同源策略：禁止对不同源页面DOM进行操作。主要场景是iframe跨域的情况，不同域名的iframe是限制互相访问的。</li>
+<li>XmlHttpRequest同源策略：禁止使用XHR对象向不同源的服务器地址发起HTTP请求。只要协议、域名、端口有任何一个不同，都被当作是不同的域，之间的请求就是跨域操作。</li>
+</ol>
+<p>同时解决跨域问题一般也有两种：</p>
+<ol>
+<li>跨域资源共享：<ul>
+<li>对于客户端，需要设置ajax请求的xhr属性withCredentials = true</li>
+<li>对于服务器端，需要在 response header中设置如下两个字段:<br>Access-Control-Allow-Origin: <a href="http://www.yourhost.com" target="_blank" rel="noopener">http://www.yourhost.com</a><br>Access-Control-Allow-Credentials:true</li>
+</ul>
+</li>
+<li>jsonp实现跨域：基本原理就是通过动态创建script标签,然后利用src属性进行跨域，例如：</li>
+</ol>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 定义一个fun函数</span></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">fun</span>(<span class="params">fata</span>) </span>&#123;</span><br><span class="line">    <span class="built_in">console</span>.log(data);</span><br><span class="line">&#125;;</span><br><span class="line"><span class="comment">// 创建一个脚本，并且告诉后端回调函数名叫fun</span></span><br><span class="line"><span class="keyword">var</span> body = <span class="built_in">document</span>.getElementsByTagName(<span class="string">'body'</span>)[<span class="number">0</span>];</span><br><span class="line"><span class="keyword">var</span> script = <span class="built_in">document</span>.gerElement(<span class="string">'script'</span>);</span><br><span class="line">script.type = <span class="string">'text/javasctipt'</span>;</span><br><span class="line">script.src = <span class="string">'demo.js?callback=fun'</span>;</span><br><span class="line">body.appendChild(script);</span><br><span class="line"></span><br><span class="line"><span class="comment">//返回的脚本会直接执行，我们也就拿到了想要的数据</span></span><br><span class="line">fun(&#123;<span class="string">"name"</span>: <span class="string">"name"</span>&#125;)</span><br></pre></td></tr></table></figure>
+<p><strong>什么是闭包，闭包的作用是什么</strong></p>
+<p>浅显点来说，闭包指的是定义在函数内部的函数，它能够访问函数外部无法访问到的变量，那么如果将其返回到外部作用域，则我们就能够在外部作用域访问到函数内的变量了。换句话说，所谓闭包函数，即这个<strong>函数</strong>封闭了它自己的定义时的<strong>环境</strong>，形成了一个闭包。当然这样的说法是很不严谨的，具体请看<a href="https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Closures" target="_blank" rel="noopener">MDN</a></p>
+<p>作用：访问内部变量、实现封装(私有方法)、保存某个变量的值</p>
+<p><strong>typeof返回的类型</strong></p>
+<ul>
+<li>object</li>
+<li>string</li>
+<li>number</li>
+<li>function</li>
+<li>symbol</li>
+<li>undefined</li>
+<li>boolean</li>
+</ul>
+<p><strong>谈谈你对作用域链的理解</strong></p>
+<p>我们先来看一段代码</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">person</span>(<span class="params">hobby</span>)</span>&#123;</span><br><span class="line">  <span class="keyword">var</span> name = <span class="string">'小明'</span>;</span><br><span class="line">  <span class="keyword">var</span> age = <span class="string">'12'</span>;</span><br><span class="line">  <span class="built_in">console</span>.log(name, age, hobby);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<ol>
+<li>person定义以后生成函数对象，函数对象有一个[[scope]]属性指向定义person时的作用域空间，也就是person定义时所在的变量对象</li>
+<li>person运行时生成当前变量对象，变量对象会把传参和内部定义的局部变量和函数全部设置为自己的属性</li>
+<li>比如person(‘打羽毛球’)运行时要查找name，就是去当前变量对象查找name属性，如果查找不到，就查找person函数对象的[[scope]]属性引用的变量对象</li>
+<li>综上，函数运行时查找资源，是先查当前变量对象，查找不到就找该函数对象[[scope]]属性引用的变量对象，以此类推，一直向上找，直到全局对象，如果还查找不到，就报出语法错误</li>
+</ol>
+<p><strong>你对前端性能优化有什么看法</strong></p>
+<p>这个比较多了，请移步<a href="https://teobler.com/20170721-performance-optimization.html">我的另一篇文章</a></p>
+<p><strong>谈谈你对原型链的理解</strong></p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">Person</span>(<span class="params">name,age</span>)</span>&#123;</span><br><span class="line">    <span class="keyword">this</span>.name=name;</span><br><span class="line">    <span class="keyword">this</span>.age=age;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">Person.prototype=&#123;</span><br><span class="line">    <span class="string">"constructor"</span>:Person,</span><br><span class="line">    <span class="string">"showName"</span>:<span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">        <span class="built_in">console</span>.log(<span class="keyword">this</span>.name);</span><br><span class="line">    &#125;,</span><br><span class="line">    <span class="string">"showAge"</span>:<span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">        <span class="built_in">console</span>.log(<span class="keyword">this</span>.age);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">var</span> newPerson=<span class="keyword">new</span> Person(<span class="string">'小明'</span>,<span class="number">21</span>);</span><br></pre></td></tr></table></figure>
+<p>代码中我们通过new构造函数Person，生成实例化对象newPerson，那么newPerson就有一个隐形属性<code>__proto__</code>指向Person.prototype原型对象。</p>
+<ol>
+<li>现在访问newPerson.name,因为newPerson对象上有name属性，值为“小明”，这个可以直接访问到</li>
+<li>现在我们访问newPerson.showName方法呢，newPerson对象上并没有直接定义showName方法，访问不到，然后newPerson就会通过<code>__proto__</code>属性找到Person.prototype，也就是Person的原型对象，看看能不能访问到showName方法，现在是可以访问到了。</li>
+<li>如果Person.prototype对象里面也没有showName方法呢？那就通过Person.prototype对象的<code>__proto__</code>继续找，在原型链查找中，一般到Object.prototype.<code>__proto__</code>还查找不到时，就会终止查找，因为ECMA规范里说明Object.prototype.<code>__proto__</code>是原型链终点，值为null，而这个时候那个没有访问到的属性值设置为undefined，并不爆出语法错误，这是原型链查找和作用域链查找的一个显著区别</li>
+</ol>
+<p><strong>什么是ajax</strong></p>
+<p>简单来说ajax就是一种在不刷新整个网页的前提下向服务器发送请求，并接收数据填充页面的一种技术。关键在于<strong>异步请求数据，局部刷新页面内容</strong>。我们来看一个例子：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// ajax基于XMLHttpRequest对象</span></span><br><span class="line"><span class="keyword">var</span> request = <span class="keyword">new</span> XMLHttpRequest();</span><br><span class="line"></span><br><span class="line"><span class="comment">// 当请求成功后监听状态变化</span></span><br><span class="line">request.onreadystatechange = <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">  <span class="keyword">if</span> (<span class="keyword">this</span>.readyState == <span class="number">4</span> &amp;&amp; <span class="keyword">this</span>.status == <span class="number">200</span>) &#123;</span><br><span class="line">    <span class="built_in">console</span>.log(request.responseText) <span class="comment">// 此处为返回内容</span></span><br><span class="line">  &#125;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 设置请求参数</span></span><br><span class="line">request.open(<span class="string">"GET"</span>, <span class="string">"filename"</span>, <span class="literal">true</span>);</span><br><span class="line"></span><br><span class="line"><span class="comment">// 发送请求</span></span><br><span class="line">request.send();</span><br></pre></td></tr></table></figure>
+<p><strong>谈谈你对webpack的看法</strong></p>
+<p>WebPack 是一个模块打包工具，你可以使用WebPack管理你的模块依赖，并编绎输出模块们所需的静态文件。它能够很好地管理、打包Web开发中所用到的HTML、JavaScript、CSS以及各种静态文件（图片、字体等），让开发过程更加高效。对于不同类型的资源，webpack有对应的模块加载器。webpack模块打包器会分析模块间的依赖关系，最后 生成了优化且合并后的静态资源。</p>
+<p>webpack的两大特色：</p>
+<ol>
+<li>code splitting（可以自动完成）</li>
+<li>loader 可以处理各种类型的静态文件，并且支持串联操作<br>webpack 是以commonJS的形式来书写脚本滴，但对 AMD/CMD 的支持也很全面，方便旧项目进行代码迁移。</li>
+</ol>
+<p>webpack具有requireJs和browserify的功能，但仍有很多自己的新特性：</p>
+<ol>
+<li>对 CommonJS 、 AMD 、ES6的语法做了兼容</li>
+<li>对js、css、图片等资源文件都支持打包</li>
+<li>串联式模块加载器以及插件机制，让其具有更好的灵活性和扩展性，例如提供对CoffeeScript、ES6的支持</li>
+<li>有独立的配置文件webpack.config.js</li>
+<li>可以将代码切割成不同的chunk，实现按需加载，降低了初始化时间</li>
+<li>支持 SourceUrls 和 SourceMaps，易于调试</li>
+<li>具有强大的Plugin接口，大多是内部插件，使用起来比较灵活</li>
+<li>webpack 使用异步 IO 并具有多级缓存。这使得 webpack 很快且在增量编译上更加快</li>
+</ol>
+<h2 id="安全相关"><a href="#安全相关" class="headerlink" title="安全相关"></a>安全相关</h2><p>这方面的知识说实话到写文章之前我没有经过任何实践，但是遇到了问题也没办法，只能先理解概念，日后有机会了慢慢实践吧</p>
+<p><strong>sql注入原理</strong></p>
+<p>就是通过把SQL命令插入到Web表单递交或输入域名或页面请求的查询字符串，最终达到欺骗服务器执行恶意的SQL命令。总的来说有以下几点：</p>
+<ol>
+<li>永远不要信任用户的输入，要对用户的输入进行校验，可以通过正则表达式，或限制长度，对单引号和双”-“进行转换等</li>
+<li>永远不要使用动态拼装SQL，可以使用参数化的SQL或者直接使用存储过程进行数据查询存取</li>
+<li>永远不要使用管理员权限的数据库连接，为每个应用使用单独的权限有限的数据库连接</li>
+<li>不要把机密信息明文存放，请加密或者hash掉密码和敏感的信息</li>
+</ol>
+<p><strong>XSS原理及防范</strong></p>
+<p>Xss(cross-site scripting)攻击指的是攻击者往Web页面里插入恶意 html 标签或者 javascript 代码。比如：攻击者在论坛中放一个看似安全的链接，骗取用户点击后，窃取cookie中的用户私密信息；或者攻击者在论坛中加一个恶意表单，当用户提交表单的时候，却把信息传送到攻击者的服务器中，而不是用户原本以为的信任站点。</p>
+<p>XSS防范方法：</p>
+<ul>
+<li>首先代码里对用户输入的地方和变量都需要仔细检查长度和对<code>&lt; &gt; , ; , ’</code>等字符做过滤；其次任何内容写到页面之前都必须加以encode，避免不小心把 html、 tag 弄出来。这一个层面做好，至少可以堵住超过一半的 XSS 攻击</li>
+<li>其次，避免直接在cookie 中泄露用户隐私，例如email、密码等等</li>
+<li>再次，通过使 cookie 和系统 ip 绑定来降低 cookie 泄露后的危险。这样攻击者得到的 cookie 没有实际价值，不可能拿来重放</li>
+<li>如果网站不需要再浏览器端对cookie 进行操作，可以在Set-Cookie 末尾加上 HttpOnly 来防止javascript 代码直接获取cookie</li>
+<li>最后，尽量采用 POST 而非 GET 提交表单</li>
+</ul>
+<p><strong>XSS与CSRF有什么区别吗？</strong></p>
+<p>XSS是获取信息，不需要提前知道其他用户页面的代码和数据包。CSRF是代替用户完成指定的动作，需要知道其他用户页面的代码和数据包。</p>
+<p>要完成一次CSRF攻击，受害者必须依次完成两个步骤：</p>
+<ol>
+<li>登录受信任网站A，并在本地生成Cookie</li>
+<li>在不登出A的情况下，访问危险网站B。</li>
+</ol>
+<p>CSRF的防御：</p>
+<ul>
+<li>服务端的CSRF方式方法很多样，但总的思想都是一致的，就是在客户端页面增加伪随机数</li>
+<li>通过验证码的方法</li>
+<li>Web Worker 和webSocket</li>
+</ul>
+<p>worker主线程：</p>
+<blockquote>
+<p>1.通过 worker = new Worker( url ) 加载一个JS文件来创建一个worker，同时返回一个worker实例。</p>
+<p>2.通过worker.postMessage( data ) 方法来向worker发送数据。</p>
+<p>3.绑定worker.onmessage方法来接收worker发送过来的数据。</p>
+<p>4.可以使用 worker.terminate() 来终止一个worker的执行。</p>
+</blockquote>
+<p>WebSocket是Web应用程序的传输协议，它提供了双向的，按序到达的数据流。他是一个Html5协议，WebSocket的连接是持久的，他通过在客户端和服务器之间保持双工连接，服务器的更新可以被及时推送给客户端，而不需要客户端以一定时间间隔去轮询。</p>
+<p><strong>HTTP和HTTPS有什么区别，为什么HTTPS要安全</strong></p>
+<p>HTTP协议通常承载于TCP协议之上，在HTTP和TCP之间添加一个安全协议层（SSL或TSL），这个时候，就成了我们常说的HTTPS。</p>
+<p>默认HTTP的端口号为80，HTTPS的端口号为443。</p>
+<p>因为网络请求需要中间有很多的服务器路由器的转发。中间的节点都可能篡改信息，而如果使用HTTPS，密钥在你和终点站才有。https之所以比http安全，是因为他利用ssl/tsl协议传输。它包含证书，卸载，流量转发，负载均衡，页面适配，浏览器适配，refer传递等。保障了传输过程的安全性</p>
+<h2 id="网络相关"><a href="#网络相关" class="headerlink" title="网络相关"></a>网络相关</h2><p><strong>TCP协议的三次握手与四次挥手你知道吗</strong></p>
+<p>TCP连接作为一种可靠的连接协议，为了保证连接的可靠性，在连接和断开连接时分别进行了3次和4次连接和断开确定，具体内容如下：</p>
+<p>三次握手：</p>
+<ol>
+<li>建立连接时，客户端发送syn包（syn=j）到服务器，并进入SYN_SENT状态，等待服务器确认</li>
+<li>服务器收到syn包，必须确认客户的SYN（ack=j+1），同时自己也发送一个SYN包（syn=k），即SYN+ACK包，此时服务器进入SYN_RECV状态</li>
+<li>客户端收到服务器的SYN+ACK包，向服务器发送确认包ACK(ack=k+1），此包发送完毕，客户端和服务器进入ESTABLISHED（TCP连接成功）状态，完成三次握手</li>
+</ol>
+<p><img src="https://teobler-image.s3-us-west-1.amazonaws.com/TCP-connection.png" alt=""></p>
+<p>四次挥手：</p>
+<ol>
+<li>当主机A的应用程序通知TCP数据已经发送完毕时，TCP向主机B发送一个带有FIN附加标记的报文段（FIN表示英文finish）</li>
+<li>主机B收到这个FIN报文段之后，并不立即用FIN报文段回复主机A，而是先向主机A发送一个确认序号ACK，同时通知自己相应的应用程序：对方要求关闭连接（先发送ACK的目的是为了防止在这段时间内，对方重传FIN报文段）</li>
+<li>主机B的应用程序告诉TCP：我要彻底的关闭连接，TCP向主机A送一个FIN报文段</li>
+<li>主机A收到这个FIN报文段后，向主机B发送一个ACK表示连接彻底释放</li>
+</ol>
+<p><img src="https://teobler-image.s3-us-west-1.amazonaws.com/TCP-disconnection.jpg" alt=""></p>
+<p>一些标志位的解释：</p>
+<ul>
+<li>SYN：同步标志。同步序列编号（Synchronize Sequence Numbers）栏有效。该标志仅在三次握手建立TCP连接时有效。它提示TCP连接的服务端检查序列编号，该序列编号为TCP连接初始端（一般是客户端）的初始序列编号。在这里，可以把TCP序列编号看作是一个范围从0到4，294，967，295的32位计数器。通过TCP连接交换的数据中每一个字节都经过序列编号。在TCP报头中的序列编号栏包括了TCP分段中第一个字节的序列编号</li>
+<li>ACK：确认标志。确认编号（Acknowledgement Number）栏有效。大多数情况下该标志位是置位的。TCP报头内的确认编号栏内包含的确认编号（w+1，Figure：1）为下一个预期的序列编号，同时提示远端系统已经成功接收所有数据</li>
+<li>FIN：结束标志。带有该标志置位的数据包用来结束一个TCP回话，但对应端口仍处于开放状态，准备接收后续数据。<br>服务端处于监听状态，客户端用于建立连接请求的数据包(IP packet）按照TCP/IP协议堆栈组合成为TCP处理的分段（segment）</li>
+</ul>
+<p><strong>OSI七层模型是哪七层，TCP、IP、http协议分别在哪层，数据包在里边是怎么传输的</strong></p>
+<p><img src="https://teobler-image.s3-us-west-1.amazonaws.com/OSI-model.png" alt=""></p>
+<p><img src="https://teobler-image.s3-us-west-1.amazonaws.com/network-protocol.png" alt=""></p>
+<p>数据包在协议层中一层层加上该层的数据头，之后在网络节点中寻找下一跳的目标，到达目标节点后解包到对应的协议传输层获取下一跳的目的地，之后重新打包发送，到达最后的目的地之后又层层解包，得到最初发送的数据。</p>
+<p><strong>TCP和UDP的区别</strong></p>
+<p>TCP（Transmission Control Protocol，传输控制协议）是基于连接的协议，也就是说，在正式收发数据前，必须和对方建立可靠的连接。一个TCP连接必须要经过三次“对话”才能建立起来</p>
+<p>UDP（User Data Protocol，用户数据报协议）是与TCP相对应的协议。它是面向非连接的协议，它不与对方建立连接，而是直接就把数据包发送过去</p>
+<p>UDP适用于一次只传送少量数据、对可靠性要求不高的应用环境。</p>
+<p><strong>关于Http 2.0 你知道多少？</strong></p>
+<ul>
+<li>HTTP/2引入了“服务端推（server push）”的概念，它允许服务端在客户端需要数据之前就主动地将数据发送到客户端缓存中，从而提高性能</li>
+<li>HTTP/2提供更多的加密支持</li>
+<li>HTTP/2使用多路技术，允许多个消息在一个连接上同时交差</li>
+<li>它增加了头压缩（header compression），因此即使非常小的请求，其请求和响应的header都只会占用很小比例的带宽</li>
+</ul>
+<h2 id="编程通识"><a href="#编程通识" class="headerlink" title="编程通识"></a>编程通识</h2><p><strong>面向对象的理解，面向对象的三要素，是什么意思</strong></p>
+<p>首先我们需要明确的是，面向对象是相对于面向过程来讲的，我在知乎上看到过一个例子，说的很形象，这里分享下：</p>
+<p>假如你要充话费，那么你可以下个支付宝，然后绑定银行卡，然后在淘宝充值，这个叫做面向过程。然后你的女朋友也要充值话费了，但是她跟你想的是不一样的，她会想，谁会充话费呢？当然是你了，她就给你电话号码，然后你把之前的做了一遍，然后她就充值成功了。这就是面向对象。女的思维大部分是面向“对象”的！她不关心处理的细节，只关心谁可以，和结果。印证了面向对象的那句经典的话：<strong>你办事，我放心！</strong></p>
+<p>三要素：封装、继承、多态</p>
+<ul>
+<li>封装就是把客观事物封装成抽象的类，并且类可以把自己的数据和方法只让可信的类或者对象操作，对不可信的进行信息隐藏。 简单的说，一个类就是一个封装了数据以及操作这些数据的代码的逻辑实体。在一个对象内部，某些代码或某些数据可以是私有的，不能被外界访问。通过这种方式，对象对内部数据提供了不同级别的保护，以防止程序中无关的部分意外的改变或错误的使用了对象的私有部分</li>
+<li>继承是指可以让某个类型的对象获得另一个类型的对象的属性的方法。继承是指这样一种能力：它可以使用现有类的所有功能，并在无需重新编写原来的类的情况下对这些功能进行扩展。 通过继承创建的新类称为“子类”或“派生类”，被继承的类称为“基类”、“父类”或“超类”。继承的过程，就是从一般到特殊的过程。要实现继承，可以通过“继承”（Inheritance）和“组合”（Composition）来实现。继承概念的实现方式有二类：实现继承与接口继承。实现继承是指直接使用基类的属性和方法而无需额外编码的能力；接口继承是指仅使用属性和方法的名称、但是子类必须提供实现的能力</li>
+<li>多态就是指一个类实例的相同方法在不同情形有不同表现形式。多态机制使具有不同内部结构的对象可以共享相同的外部接口。这意味着，虽然针对不同对象的具体操作不同，但通过一个公共的类，它们（那些操作）可以通过相同的方式予以调用（继承与多态是一个整体不可分割的概念，可以参考<a href="https://teobler.com/20170730-perfessional-JavaScript-notes-1.html#面向对象的程序设计">我之前的这篇文章</a>）</li>
+</ul>
+<p><strong>栈和队列的区别?</strong></p>
+<ul>
+<li>栈的插入和删除操作都是在一端进行的，而队列的操作却是在两端进行的</li>
+<li>队列先进先出，栈先进后出</li>
+<li>栈只允许在表尾一端进行插入和删除，而队列只允许在表尾一端进行插入，在表头一端进行删除</li>
+<li>栈区（stack）— 由编译器自动分配释放，存放函数的参数值，局部变量的值等</li>
+<li>堆区（heap） — 一般由程序员分配释放，若程序员不释放，程序结束时可能由OS回收</li>
+<li>堆（数据结构）：堆可以被看成是一棵树，如：堆排序</li>
+<li>栈（数据结构）：一种先进后出的数据结构</li>
+</ul>
+<p><strong>你所熟知的数据结构、差别、使用场景</strong></p>
+<ol>
+<li><p><strong>单向链表</strong>：典型的应用场合是各类缓冲池和栈的实现，适用于只从一端单向访问的场合，这种场合一般来说：</p>
+<ul>
+<li>删除时，只适合删除第一个元素</li>
+<li>添加时，只直接添加到最后一个元素的后面或者添加到第一个元素的前面</li>
+<li>属于单向迭代器，只能从一个方向走到头（只支持前进或后退，取决于实现），查找效率极差。不适合大量查询的场合。</li>
+</ul>
+</li>
+<li><p><strong>双向链表</strong>：这种典型的应用场景是各种不需要排序的数据列表管理，相比单向链表，拥有前向和后向两个指针地址，所以适合以下场合：</p>
+<ul>
+<li>删除时，可以删除任意元素，而只需要极小的开销</li>
+<li>添加时，当知道它的前一个或后一个位置的元素时，只需要极小的开销</li>
+<li>属于双向迭代器，可以从头走到尾或从尾走到头，但同样查找时需要遍历，效率与单向链表无改善，不适合大量查询的场合。</li>
+</ul>
+</li>
+<li><p><strong>数组</strong>：这种数据结构使用一段连续的空间来存贮元素，所以可以直接通过索引来获取到某个元素，而且可以通过对元素的内容进行排序，然后使用二分法查找，从而提供查找效率。其适合的场合主要是：</p>
+<ul>
+<li>不会频繁增删元素的场合，因为增删元素都牵涉到元素空间的重新分配，频繁的内存分配操作会大幅降低操作效率。但添加操作时，可以通过预分配足够的空间来优化添加时的效率</li>
+<li>属于随机迭代器，可以随机访问任意元素。对于已排序的元素查找起来效率较高</li>
+</ul>
+</li>
+<li><p><strong>二叉树</strong>：（含红黑树、平衡二叉树等）这个数据结构类似于双向链表，任意插入元素时都会自动排序，红黑树和平衡二叉树都使二叉树尽量平衡，从而使查询时和二分法类似。它适合的场合主要是：</p>
+<ul>
+<li>需要时刻保证列表元素的有序排列</li>
+<li>需要频繁的增删和查询操作</li>
+<li>属于双向迭代器，不能随机访问任意元素</li>
+</ul>
+</li>
+<li><p><strong>哈希桶</strong>：这个数据结构使用数组和链表来管理元素，在好的桶尺寸和哈希算法支持下，理想上可以达到接近数组的随机访问效率。其适合的场合主要是：</p>
+<ul>
+<li>不需要保证元素的顺序（因为它是按哈希值决定插入到那个桶里，与原始数据内容无关）</li>
+<li>需要频繁的增删和查询操作</li>
+<li>属于单向或双向迭代器（取决于具体实现），不能随机访问任意元素</li>
+</ul>
+</li>
+</ol>
+<p><strong>XML和JSON的区别？</strong></p>
+<ol>
+<li>数据体积方面，JSON相对于XML来讲，数据的体积小，传递的速度更快些</li>
+<li>数据交互方面，JSON与JavaScript的交互更加方便，更容易解析处理，更好的数据交互</li>
+<li>数据描述方面，JSON对数据的描述性比XML较差</li>
+<li>传输速度方面，JSON的速度要远远快于XML</li>
+</ol>
+<h2 id="算法"><a href="#算法" class="headerlink" title="算法"></a>算法</h2><p><strong>二叉树求和</strong></p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> sum = <span class="number">0</span>;</span><br><span class="line">preOrder = <span class="function">(<span class="params">Node</span>) =&gt;</span> &#123;</span><br><span class="line">  <span class="keyword">if</span>(Node) &#123;</span><br><span class="line">    sum += Node;</span><br><span class="line">    preOrder(Node.children[<span class="number">0</span>]);</span><br><span class="line">    preOrder(Node.children[<span class="number">1</span>]);</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p><strong>数组去重</strong></p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 法1</span></span><br><span class="line"><span class="keyword">let</span> arr = [<span class="number">1</span>,<span class="number">1</span>,<span class="string">'1'</span>,<span class="string">'1'</span>,<span class="literal">null</span>,<span class="literal">null</span>,<span class="literal">undefined</span>,<span class="literal">undefined</span>];</span><br><span class="line"><span class="keyword">let</span> newArr = <span class="built_in">Array</span>.from(<span class="keyword">new</span> <span class="built_in">Set</span>(arr));</span><br><span class="line"></span><br><span class="line"><span class="comment">// 法2</span></span><br><span class="line">unique = <span class="function">(<span class="params">arr</span>) =&gt;</span> &#123;</span><br><span class="line">  <span class="keyword">let</span> res = arr.filter(<span class="function">(<span class="params">item, index, arr</span>) =&gt;</span> &#123;</span><br><span class="line">    <span class="keyword">return</span> arr.indexOf(item) === index;</span><br><span class="line">  &#125;)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>在记录了两个算法以后实在是觉得抛开一线互联网公司，一般的公司其实前端的算法题目在所有技术岗中算是比较“弱智”，而自己的实力实在是够不到一线的边，所以目前来说遇到的算法题目觉得没有太多记录的必要，需要的小伙伴建议刷刷《剑指offer》和 leetcode 好了，这里就不再记录我遇到的算法题目了。</p>
+
+    
+  </div>
+</article>
+
+  </div>
+  <aside id="aside-bar">
+    
+  <div id="toc" class="toc-article">
+    <strong class="toc-title">文章目录</strong>
+    <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#前端相关"><span class="toc-text">前端相关</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#安全相关"><span class="toc-text">安全相关</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#网络相关"><span class="toc-text">网络相关</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#编程通识"><span class="toc-text">编程通识</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#算法"><span class="toc-text">算法</span></a></li></ol>
+  </div>
+
+
+    
+  <div id="recent-post" class="recent-post">
+    <strong class="recent-post-title">
+      近期文章
+    </strong>
+    <ul class="recent-post-list">
+      
+         <li class="recent-post-list">
+           <a href="/20200516-react-concurrent-mode-suspense.html" title="React Concurrent Mode 之 Suspense 实践" >React Concurrent Mode 之 Suspense 实践</a>
+         </li>
+      
+         <li class="recent-post-list">
+           <a href="/20200304-devtool-editing-and-debugging.html" title="(1)你真的会用Chrome devtool吗?" >(1)你真的会用Chrome devtool吗?</a>
+         </li>
+      
+         <li class="recent-post-list">
+           <a href="/20200222-webpack-core-concepts.html" title="Webpack原理(3) — 核心概念" >Webpack原理(3) — 核心概念</a>
+         </li>
+      
+         <li class="recent-post-list">
+           <a href="/20200219-first-in-webpack.html" title="Webpack原理(2) — 加载原理" >Webpack原理(2) — 加载原理</a>
+         </li>
+      
+         <li class="recent-post-list">
+           <a href="/20200211-tdd-with-react-hooks.html" title="用React hooks实现TDD" >用React hooks实现TDD</a>
+         </li>
+      
+         <li class="recent-post-list">
+           <a href="/20200107-reduce-bundle-size.html" title="如何减小前端代码打包体积" >如何减小前端代码打包体积</a>
+         </li>
+      
+         <li class="recent-post-list">
+           <a href="/20190906-error-handler.html" title="React中的错误处理" >React中的错误处理</a>
+         </li>
+      
+         <li class="recent-post-list">
+           <a href="/20190903-compose.html" title="函数式初识(6) - 组合" >函数式初识(6) - 组合</a>
+         </li>
+      
+         <li class="recent-post-list">
+           <a href="/20190831-partial-and-currying.html" title="函数式初识(5) - 偏函数和柯里化" >函数式初识(5) - 偏函数和柯里化</a>
+         </li>
+      
+         <li class="recent-post-list">
+           <a href="/20190829-closure.html" title="函数式初识(4) - 闭包" >函数式初识(4) - 闭包</a>
+         </li>
+      
+    </ul>
+  </div>
+
+
+  </aside>
+</div>
+
+
+
+
+  <div class="box-prev-next clearfix">
+    <a class="show pull-left" href="/20170817-professional-JavaScript-notes-3.html">
+        <i class="icon icon-angle-left"></i>
+    </a>
+    <a class="show pull-right" href="/20171119-frankfang-zhihu-live.html">
+        <i class="icon icon-angle-right"></i>
+    </a>
+  </div>
+
+
+
+
+
+  <a id="backTop" class="back-top">
+    <i class="icon-angle-up"></i>
+  </a>
+
+
+
+
+  <div class="modal" id="modal">
+  <span id="cover" class="cover hide"></span>
+  <div id="modal-dialog" class="modal-dialog hide-dialog">
+    <div class="modal-header">
+      <span id="close" class="btn-close">关闭</span>
+    </div>
+    <hr>
+    <div class="modal-body">
+      <ul class="list-toolbox">
+        
+          <li class="item-toolbox">
+            <a
+              class="CIRCLE"
+              href="/archives/"
+              rel="noopener noreferrer"
+              target="_self"
+              >
+              博客
+            </a>
+          </li>
+        
+          <li class="item-toolbox">
+            <a
+              class="CIRCLE"
+              href="/categories/"
+              rel="noopener noreferrer"
+              target="_self"
+              >
+              分类
+            </a>
+          </li>
+        
+          <li class="item-toolbox">
+            <a
+              class="CIRCLE"
+              href="/tags/"
+              rel="noopener noreferrer"
+              target="_self"
+              >
+              标签
+            </a>
+          </li>
+        
+          <li class="item-toolbox">
+            <a
+              class="CIRCLE"
+              href="/about/"
+              rel="noopener noreferrer"
+              target="_self"
+              >
+              关于
+            </a>
+          </li>
+        
+          <li class="item-toolbox">
+            <a
+              class="CIRCLE"
+              href="/search/"
+              rel="noopener noreferrer"
+              target="_self"
+              >
+              搜索
+            </a>
+          </li>
+        
+      </ul>
+
+    </div>
+  </div>
+</div>
+
+
+
+  
+      <div class="fexo-comments comments-post">
+    
+  <section class="disqus-comments">
+    <div id="disqus_thread">
+      <noscript>Please enable JavaScript to view the <a href="//disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+    </div>
+  </section>
+
+  <script>
+    var disqus_shortname = 'teobler';
+    
+    var disqus_url = 'https://teobler.com/20171105-interview-questions.html';
+    
+    (function(){
+      var dsq = document.createElement('script');
+      dsq.type = 'text/javascript';
+      dsq.async = true;
+      dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+      (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    })();
+  </script>
+
+  <script id="dsq-count-scr" src="//teobler.disqus.com/count.js" async></script>
+
+
+
+    
+
+
+
+
+    
+
+    
+	
+  </div>
+
+  
+
+  <script type="text/javascript">
+  function loadScript(url, callback) {
+    var script = document.createElement('script')
+    script.type = 'text/javascript';
+
+    if (script.readyState) { //IE
+      script.onreadystatechange = function() {
+        if (script.readyState == 'loaded' ||
+          script.readyState == 'complete') {
+          script.onreadystatechange = null;
+          callback();
+        }
+      };
+    } else { //Others
+      script.onload = function() {
+        callback();
+      };
+    }
+
+    script.src = url;
+    document.getElementsByTagName('head')[0].appendChild(script);
+  }
+
+  window.onload = function() {
+    loadScript('/js/bundle.js?235683', function() {
+      // load success
+    });
+  }
+</script>
+
+</body>
+</html>

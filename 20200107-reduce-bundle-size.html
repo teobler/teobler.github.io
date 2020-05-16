@@ -1,0 +1,671 @@
+<!DOCTYPE html>
+
+
+  <html lang="zh-CN" class="light page-post">
+
+
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="content-language" content="zh-CN">
+  
+  <title>如何减小前端代码打包体积 | teobler&#39;s blog</title>
+
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+  
+    <meta name="keywords" content="bundle,打包," />
+  
+
+  <meta name="360-site-verification" content="7b29d0e6eb0d7a16d22f9d0961882c3a" />
+  <meta name="sogou_site_verification" content="S1EAZKO83i"/>
+
+  <meta name="description" content="对于减小打包体积这件事，大家主要会从两个方面着手 —  第一是通过压缩、删除废代码、重复代码等手段实实在在地减少打包的大小； 第二是通过将打包拆分成小包，进行懒加载，让用户下载的单个包变小，达到快速加载网页的目的； 这篇文章主要也是中这两个方面入手，但是由于一些手段会将两者杂糅在一起，所以文章就不做细分了，将两种方式都放在一起。 1. Bundle分析在优化你的打包体积之前，你至少需要对你的包体积">
+<meta name="keywords" content="bundle,打包">
+<meta property="og:type" content="article">
+<meta property="og:title" content="如何减小前端代码打包体积">
+<meta property="og:url" content="https://teobler.com/20200107-reduce-bundle-size.html">
+<meta property="og:site_name" content="teobler&#39;s blog">
+<meta property="og:description" content="对于减小打包体积这件事，大家主要会从两个方面着手 —  第一是通过压缩、删除废代码、重复代码等手段实实在在地减少打包的大小； 第二是通过将打包拆分成小包，进行懒加载，让用户下载的单个包变小，达到快速加载网页的目的； 这篇文章主要也是中这两个方面入手，但是由于一些手段会将两者杂糅在一起，所以文章就不做细分了，将两种方式都放在一起。 1. Bundle分析在优化你的打包体积之前，你至少需要对你的包体积">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:image" content="https://teobler-image.s3-us-west-1.amazonaws.com/webpack-bundle-analyzer.gif">
+<meta property="og:image" content="https://teobler-image.s3-us-west-1.amazonaws.com/perfoemance.png">
+<meta property="og:image" content="https://teobler-image.s3-us-west-1.amazonaws.com/coverage.png">
+<meta property="og:image" content="https://teobler-image.s3-us-west-1.amazonaws.com/bundle-buddy.png">
+<meta property="og:image" content="https://teobler-image.s3-us-west-1.amazonaws.com/bundle-buddy2.png">
+<meta property="og:updated_time" content="2020-02-15T02:49:44.539Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="如何减小前端代码打包体积">
+<meta name="twitter:description" content="对于减小打包体积这件事，大家主要会从两个方面着手 —  第一是通过压缩、删除废代码、重复代码等手段实实在在地减少打包的大小； 第二是通过将打包拆分成小包，进行懒加载，让用户下载的单个包变小，达到快速加载网页的目的； 这篇文章主要也是中这两个方面入手，但是由于一些手段会将两者杂糅在一起，所以文章就不做细分了，将两种方式都放在一起。 1. Bundle分析在优化你的打包体积之前，你至少需要对你的包体积">
+<meta name="twitter:image" content="https://teobler-image.s3-us-west-1.amazonaws.com/webpack-bundle-analyzer.gif">
+
+  
+
+  
+    <link rel="icon" href="/favicon.ico">
+  
+
+  <link href="/css/styles.css?v=c114cbe6" rel="stylesheet">
+
+
+  
+
+  
+<!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-158204206-1"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'UA-158204206-1');
+</script>
+
+
+
+  
+  <script type="text/javascript">
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "//hm.baidu.com/hm.js?57e94d016e201fba3603a8a2b0263af0";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+  
+  <script type="text/javascript">
+	(function(){
+	    var bp = document.createElement('script');
+	    var curProtocol = window.location.protocol.split(':')[0];
+	    if (curProtocol === 'https') {
+	        bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';        
+	    }
+	    else {
+	        bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+	    }
+	    var s = document.getElementsByTagName("script")[0];
+	    s.parentNode.insertBefore(bp, s);
+	})();
+  </script>
+
+
+  
+  <script src="https://jspassport.ssl.qhimg.com/11.0.1.js?d182b3f28525f2db83acfaaf6e696dba" id="sozz"></script>
+
+
+
+  
+    <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+  
+
+  
+    <link rel="stylesheet" href="//cdn.bootcss.com/font-awesome/4.3.0/css/font-awesome.min.css">
+  
+
+  <script data-ad-client="ca-pub-8160236896214353" async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+</head>
+
+<body>
+
+
+  
+    <span id="toolbox-mobile" class="toolbox-mobile">导航</span>
+  
+
+  <div class="post-header CENTER">
+   
+  <div class="toolbox">
+    <a class="toolbox-entry" href="/">
+      <span class="toolbox-entry-text">导航</span>
+      <i class="icon-angle-down"></i>
+      <i class="icon-home"></i>
+    </a>
+    <ul class="list-toolbox">
+      
+        <li class="item-toolbox">
+          <a
+            class="CIRCLE"
+            href="/archives/"
+            rel="noopener noreferrer"
+            target="_self"
+            >
+            博客
+          </a>
+        </li>
+      
+        <li class="item-toolbox">
+          <a
+            class="CIRCLE"
+            href="/categories/"
+            rel="noopener noreferrer"
+            target="_self"
+            >
+            分类
+          </a>
+        </li>
+      
+        <li class="item-toolbox">
+          <a
+            class="CIRCLE"
+            href="/tags/"
+            rel="noopener noreferrer"
+            target="_self"
+            >
+            标签
+          </a>
+        </li>
+      
+        <li class="item-toolbox">
+          <a
+            class="CIRCLE"
+            href="/about/"
+            rel="noopener noreferrer"
+            target="_self"
+            >
+            关于
+          </a>
+        </li>
+      
+        <li class="item-toolbox">
+          <a
+            class="CIRCLE"
+            href="/search/"
+            rel="noopener noreferrer"
+            target="_self"
+            >
+            搜索
+          </a>
+        </li>
+      
+    </ul>
+  </div>
+
+
+</div>
+
+<div id="post-container" class="container">
+  <div class="content content-post CENTER">
+     <article id="post-20200107-reduce-bundle-size" class="article article-type-post" itemprop="blogPost">
+  <header class="article-header">
+    <h1 class="post-title">如何减小前端代码打包体积</h1>
+
+    <div class="article-meta">
+       <div>
+          <span>
+            <i class="icon-calendar"></i>
+            <span>2020.01.07</span>
+          </span>
+
+          
+            <span class="article-author">
+              <i class="icon-user"></i>
+              <span>teobler</span>
+            </span>
+          
+
+          
+  <span class="article-category">
+    <i class="icon-list"></i>
+    <a class="article-category-link" href="/categories/技术细节/">技术细节</a>
+  </span>
+
+
+
+          
+            <span>
+              <i class="icon-comment"></i>
+              <a href="https://teobler.com/20200107-reduce-bundle-size.html#disqus_thread"></a>
+            </span>
+          
+
+          
+          <i class="fa fa-eye"></i>
+            <span id="busuanzi_container_page_pv">
+               &nbsp热度 <span id="busuanzi_value_page_pv">
+               <i class="fa fa-spinner fa-spin"></i></span>℃
+            </span>
+          
+
+          
+      </div>
+
+      <div>
+        <i class="icon-text"></i>
+        <span class="post-count">全篇字数: 3.9k</span>
+        &nbsp
+        <i class="icon-calendar-1"></i>
+        <span class="post-count">预计花费: 15分钟</span>
+      </div>
+      
+    </div>
+  </header>
+
+  <div class="article-content">
+    
+      <p>对于减小打包体积这件事，大家主要会从两个方面着手 — </p>
+<p>第一是通过压缩、删除废代码、重复代码等手段实实在在地减少打包的大小；</p>
+<p>第二是通过将打包拆分成小包，进行懒加载，让用户下载的单个包变小，达到快速加载网页的目的；</p>
+<p>这篇文章主要也是中这两个方面入手，但是由于一些手段会将两者杂糅在一起，所以文章就不做细分了，将两种方式都放在一起。</p>
+<h2 id="1-Bundle分析"><a href="#1-Bundle分析" class="headerlink" title="1. Bundle分析"></a>1. Bundle分析</h2><p>在优化你的打包体积之前，你至少需要对你的包体积有一个大概的了解，否则直接就上手进行“优化”，说不定得到的是负优化，况且还有一种不知从哪里下手的感觉。</p>
+<h3 id="1-插件可视化分析"><a href="#1-插件可视化分析" class="headerlink" title="1. 插件可视化分析"></a>1. 插件可视化分析</h3><p><a href="https://github.com/webpack-contrib/webpack-bundle-analyzer" target="_blank" rel="noopener">webpack-bundle-analyzer</a>是一个可以将你的包内容可视化的webpack插件，它运行后的结果大概长下面这个样子：</p>
+<p><img src="https://teobler-image.s3-us-west-1.amazonaws.com/webpack-bundle-analyzer.gif" alt="webpack-bundle-analyzer"></p>
+<p>它能够将每一个模块的大小信息，甚至是压缩后的信息占你总的打包体积按照树形结构可视化出来，可以让你直观的看出打包后的重复模块，过于大的模块等等，让你可以对症下药。</p>
+<h3 id="2-“预算”"><a href="#2-“预算”" class="headerlink" title="2. “预算”"></a>2. “预算”</h3><p>其实优化打包体积这件事并不是一蹴而就的，你的包体积一定会随着项目的不断进行越来越大，如果你仅仅是做一次就不管了的话，那么这一次优化在未来肯定会消失的无踪无际的。</p>
+<p>正确的做法应该是组内不同的role共同定下一个<strong>合理</strong>的指标，然后定期去检查线上的打包大小是否已经超过了预警值，如果超过了，那么就需要进行一次适当的优化。</p>
+<p>那么怎样的指标算是合理的呢？</p>
+<p>专业的做法当然是运营的同学拿出一个数据报表，多快的加载速度能够帮助转化多少的用户，为了多少用户我们必须达到多少的加载速率，反推出我们的打包体积应该在多大是合理的。</p>
+<p>简单粗暴的做法可以打开Chrome的Audits，跑一遍performance测试，然后Chrome会告诉你 — 你该想想办法治治你的JS了，比如这样:</p>
+<p><img src="https://teobler-image.s3-us-west-1.amazonaws.com/perfoemance.png" alt="perfoemance"></p>
+<p><strong>但是需要注意的是，这里的加载速度并不代表这是因为你的打包体积过大导致的，所以具体的情况还需要结合第一部分的webpack插件进行分析。</strong></p>
+<h2 id="2-代码拆分"><a href="#2-代码拆分" class="headerlink" title="2. 代码拆分"></a>2. 代码拆分</h2><p>代码拆分是一个有效的减少打包文件中重复模块的方式。拆分后的代码可以在特定的时间进行加载，避免在刚进入网页时加载所有的资源造成block。而什么时候你应该进行代码拆分了呢？幸运的是Chrome依旧给我们提供了工具 — 在聚焦DevTools时使用esc键打开一个新的tab，在新的tab最左边有一个more tools的按钮，里面有一个<strong>coverage</strong>的工具，它可以识别出当前路由下所包含的未使用代码的脚本：</p>
+<p><img src="https://teobler-image.s3-us-west-1.amazonaws.com/coverage.png" alt="coverage"></p>
+<p>如图展示了一个网页JS包的使用情况，可以看到在当前路由下绝大多数JS代码都是无用的，这个时候我们就可以考虑是不是可以通过代码拆分将这部分无用的代码拆出当前路由\入口。</p>
+<h3 id="1-入口打包"><a href="#1-入口打包" class="headerlink" title="1. 入口打包"></a>1. 入口打包</h3><p>如果你正在开发的不是单页面应用程序(SPA)，或者是一个混合应用程序，其中某些页面不使用客户端路由，但其他页面有可能使用。在这样的情况下，跨多个入口拆分代码是有意义的。此时我们根据各个入口进行代码拆分，当用户访问入口1时不会去下载入口2的包，以拆分的方式减小了用户下载的包大小。</p>
+<p>在webpack中，我们可以通过在entry配置中指定它们来按入口拆分代码，如下所示：</p>
+<pre><code>module.exports = {
+  // ...
+  entry: {
+    main: path.join(__dirname, &quot;src&quot;, &quot;index.js&quot;),
+    detail: path.join(__dirname, &quot;src&quot;, &quot;detail.js&quot;),
+    favorites: path.join(__dirname, &quot;src&quot;, &quot;favorites.js&quot;)
+  },
+  // ...
+};
+</code></pre><p>当有多个入口点时，webpack将它们全部视为单独的依赖树，这意味着代码会自动以命名进行拆分，如下所示：</p>
+<pre><code>                   Asset       Size  Chunks             Chunk Names
+js/favorites.15793084.js   37.1 KiB       0  [emitted]  favorites
+   js/detail.47980e29.js   44.8 KiB       1  [emitted]  detail
+     js/main.7ce05625.js   49.4 KiB       2  [emitted]  main
+              index.html  955 bytes          [emitted]
+             detail.html  957 bytes          [emitted]
+          favorites.html  960 bytes          [emitted]
+</code></pre><h3 id="2-公共库的打包"><a href="#2-公共库的打包" class="headerlink" title="2. 公共库的打包"></a>2. 公共库的打包</h3><p>如果单纯的按照入口来进行打包的话，可能出现的问题就是各个入口重复依赖了一些公共的包。这是因为webpack将每个入口视为自己单独的依赖关系树，而不评估它们之间共享的代码。如果<a href="https://webpack.js.org/configuration/devtool/" target="_blank" rel="noopener">我们启用webpack中的source maps</a>并使用<a href="https://github.com/samccone/bundle-buddy" target="_blank" rel="noopener">Bundle Buddy</a>或<a href="https://github.com/webpack-contrib/webpack-bundle-analyzer" target="_blank" rel="noopener">webpack-bundle-analyzer</a>等工具分析我们的代码，我们可以看到每个块中有多少重复代码：</p>
+<p><img src="https://teobler-image.s3-us-west-1.amazonaws.com/bundle-buddy.png" alt="bundle-buddy"></p>
+<p>这里的重复代码来自公共依赖包脚本。为了解决这个问题，我们将告诉webpack为这些脚本创建一个单独的代码块。为此，我们将使用<a href="https://webpack.js.org/plugins/split-chunks-plugin/#optimization-splitchunks" target="_blank" rel="noopener">optimization.splitChunks配置对象</a> ：</p>
+<pre><code>module.exports = {
+  // ...
+  optimization: {
+    splitChunks: {
+      cacheGroups: {
+        // Split vendor code to its own chunk(s)
+        vendors: {
+          test: /[\\/]node_modules[\\/]/i,
+          chunks: &quot;all&quot;
+        }
+      }
+    },
+    // The runtime should be in its own chunk
+    runtimeChunk: {
+        name: &quot;runtime&quot;
+    }
+   },
+  // ...
+};
+</code></pre><p>此配置表示“我想为公共依赖包脚本输出单独的块”（从node_modules文件夹加载的那些）。这很有效，因为所有公共依赖脚本都是由npm安装到node_modules ，我们使用<a href="https://webpack.js.org/plugins/split-chunks-plugin/#splitchunks-cachegroups-test" target="_blank" rel="noopener">test选项</a>来检查此路径。<a href="https://webpack.js.org/configuration/optimization/#optimization-runtimechunk" target="_blank" rel="noopener">runtimeChunk选项</a>还制定以将<a href="https://webpack.js.org/concepts/manifest/#runtime" target="_blank" rel="noopener">webpack的运行时</a>分离到自己的代码块中，以避免在我们的应用代码中重复使用它。当我们将这些选项添加到配置并重建应用程序时，输出显示我们的应用程序的公共依赖包脚本已移至单独的文件：</p>
+<pre><code>                                       Asset      Size  Chunks             Chunk Names
+js/vendors~detail~favorites~main.29eb30bb.js  30.1 KiB       0  [emitted]  vendors~detail~favorites~main
+                         js/main.06d0afde.js  16.5 KiB       2  [emitted]  main
+                       js/detail.1acdbb27.js  13.4 KiB       3  [emitted]  detail
+                    js/favorites.230214a7.js  5.52 KiB       4  [emitted]  favorites vendors~detail~favorites~main
+                      js/runtime.2642dc2d.js  1.46 KiB       1  [emitted]  runtime
+                                  index.html   1.1 KiB          [emitted]
+                                 detail.html   1.1 KiB          [emitted]
+                              favorites.html   1.1 KiB          [emitted]
+</code></pre><p>由于公共依赖包脚本，运行时和共享代码现在已拆分为专有代码块，因此我们也减小了入口脚本的大小。感谢我们的努力，Bundle Buddy为我们带来了更好的结果：</p>
+<p><img src="https://teobler-image.s3-us-west-1.amazonaws.com/bundle-buddy2.png" alt="bundle-buddy2"></p>
+<p>但是其实到了这一步我们还可以做得更好，可以想象一下，你在项目中依赖了很多NPM modules，这些modules其实还是有别的依赖，那么我们其实可以将这些真正的”公共“部分再进行拆分，拆分出一个common包，进一步减小各个包之间的重复代码：</p>
+<pre><code>module.exports = {
+  // ...
+  optimization: {
+    splitChunks: {
+      cacheGroups: {
+        // Split vendor code to its own chunk(s)
+        vendors: {
+          test: /[\\/]node_modules[\\/]/i,
+          chunks: &quot;all&quot;
+        },
+        // Split code common to all chunks to its own chunk
+        commons: {
+          name: &quot;commons&quot;,    // The name of the chunk containing all common code
+          chunks: &quot;initial&quot;,  // TODO: Document
+          minChunks: 2        // This is the number of modules
+        }
+      }
+    },
+    // The runtime should be in its own chunk
+    runtimeChunk: {
+      name: &quot;runtime&quot;
+    }
+  },
+  // ...
+};
+</code></pre><p>当我们使用公共代码拆分时，块之间共同的代码将被拆分为一个名为commons的新代码块，如下输出所示：</p>
+<pre><code>                   Asset      Size  Chunks             Chunk Names
+  js/commons.e039cc73.js    40 KiB       0  [emitted]  commons
+     js/main.5b71b65c.js  7.82 KiB       2  [emitted]  main
+   js/detail.b3ac6f73.js  5.17 KiB       3  [emitted]  detail
+js/favorites.8da9eb04.js  2.18 KiB       4  [emitted]  favorites
+  js/runtime.2642dc2d.js  1.46 KiB       1  [emitted]  runtime
+              index.html  1.08 KiB          [emitted]
+             detail.html  1.08 KiB          [emitted]
+          favorites.html  1.08 KiB          [emitted]
+</code></pre><p>当我们重新运行Bundle Buddy时，我们应该会被告知我们的bundle不再有重复代码块。</p>
+<p>以上按照入口打包和公共组件库的打包的具体项目实例可以参考：</p>
+<p><a href="https://github.com/malchata/code-splitting-example/tree/webpack-entry-point-splitting" target="_blank" rel="noopener">malchata/code-splitting-example</a></p>
+<h3 id="3-动态拆分打包"><a href="#3-动态拆分打包" class="headerlink" title="3. 动态拆分打包"></a>3. 动态拆分打包</h3><p>但是当你的应用是一个单页应用时，虽然我们依旧可以使用公共库打包的方式减少代码重复，但是由于是单入口的，就没有办法按照入口来进行代码拆分了，这时我们可以进行动态拆分，按照feature\route进行代码拆分，只有当用户使用到某个feature或者是访问了某一个路由时才会加载那个部分的JS脚本，减少用户一次性下载的脚本大小。</p>
+<p>通常我们会使用<a href="https://developers.google.com/web/updates/2017/11/dynamic-import?hl=zh-CN" target="_blank" rel="noopener">动态import()语句</a>来进行脚本的延迟加载，照旧，我们可以先看一个例子：</p>
+<pre><code>import { Router, Switch } from &quot;react-router&quot;;
+import * as React from &quot;react&quot;;
+import * as ReactDOM from &quot;react-dom&quot;;
+import Search from &quot;./components/Search/Search&quot;;
+import PedalDetail from &quot;./components/PedalDetail/PedalDetail&quot;;
+import Favorites from &quot;./components/Favorites/Favorites&quot;;
+
+ReactDOM.render(&lt;Router&gt;
+    &lt;Switch&gt;
+      &lt;Search path=&quot;/&quot; default/&gt;
+      &lt;PedalDetail path=&quot;/pedal/:id&quot;/&gt;
+      &lt;Favorites path=&quot;/favorites&quot;/&gt;
+    &lt;/Switch&gt;
+&lt;/Router&gt;, document.getElementById(&quot;app&quot;));
+</code></pre><p>如上所示，我们为每个路由加载了所有的组件，无论用户是否访问过它们。当以这种方式构建应用程序时，我们错过了通过延迟加载JavaScript来提高加载性能的潜在机会。在这个示例应用的情况下，我们可以通过使用动态import()来延迟加载/pedal/:id和/favorites路由所需的组件，如下所示：</p>
+<pre><code>import * as React from &quot;react&quot;;
+import * as ReactDOM from &quot;react-dom&quot;;
+import { Route, Router, Switch } from &quot;react-router&quot;;
+import { AsyncComponent } from &quot;./components/AsyncComponent&quot;;
+import Search from &quot;./components/Search/Search&quot;;
+
+ReactDOM.render(
+  &lt;Router&gt;
+    &lt;Switch&gt;
+      &lt;Search path=&quot;/&quot; default /&gt;
+      &lt;Route
+        render={props =&gt; (
+          &lt;AsyncComponent
+            importModule={() =&gt;
+              import(
+                /* webpackChunkName: &quot;Favorites.js&quot; */ &quot;./components/Favorites/Favorites&quot;
+                )
+            }
+          /&gt;
+        )}
+      /&gt;
+      &lt;Route
+        render={props =&gt; (
+          &lt;AsyncComponent
+            importModule={() =&gt;
+              import(
+                /* webpackChunkName: &quot;PedalDetail.js&quot; */ &quot;./components/PedalDetail/PedalDetail&quot;
+              )
+            }
+          /&gt;
+        )}
+      /&gt;
+    &lt;/Switch&gt;
+  &lt;/Router&gt;,
+  document.getElementById(&quot;app&quot;)
+);
+</code></pre><p>在上面的代码片段中，一个名为<strong>webpackChunkName</strong>的内联指令告诉webpack该代码块的名称应该是什么。在import()调用时，webpack为代码块提供了正确的名称，如下所示：</p>
+<pre><code>                        Asset       Size  Chunks             Chunk Names
+          js/main.b72863fc.js   10.2 KiB       0  [emitted]  main
+     js/Favorites.0ce4835e.js   3.33 KiB       2  [emitted]  Favorites
+    js/simpleSort.ef5256f9.js  358 bytes       3  [emitted]  simpleSort
+js/toggleFavorite.fc4ea97d.js  534 bytes       4  [emitted]  toggleFavorite
+  js/vendors~main.526c9b0c.js   42.9 KiB       5  [emitted]  vendors~main
+       js/runtime.a735e0fe.js   2.32 KiB       6  [emitted]  runtime
+   js/PedalDetail.ba7a0692.js   6.12 KiB       1  [emitted]  PedalDetail
+                   index.html   1.08 KiB          [emitted]
+</code></pre><p>以上按照入口打包和公共组件库的打包的具体项目实例可以参考：</p>
+<p><a href="https://github.com/malchata/code-splitting-example/tree/webpack-dynamic-splitting" target="_blank" rel="noopener">malchata/code-splitting-example</a></p>
+<p><strong>需要注意的是代码拆分虽然减少了用户下载的包大小，但是相应的用户需要下载多个包，也就是说它增加了请求数量，可能也会带来一些问题，所以请合理配合缓存和预加载，具体的方法会在别的文章中提到。</strong></p>
+<h2 id="3-UI库的打包"><a href="#3-UI库的打包" class="headerlink" title="3. UI库的打包"></a>3. UI库的打包</h2><p>为了简化项目的开发，往往不同的项目会选用不同的UI库，但是开源的UI库通常会提供一些大而全的组件，如果我们将所有组件都打包进我们的项目，显然是不行的，毕竟里面其实有很多组件我们并没有用到，而且全部打包的组件库很大，会对我们的性能产生很大的影响。</p>
+<p>良心的组件库会直接在官网中告诉你应该怎样打包可以得到一个理想体积的UI包(比如<a href="https://material-ui.com/zh/guides/minimizing-bundle-size/" target="_blank" rel="noopener">Material UI</a>，<a href="https://ant.design/docs/react/introduce-cn#%E7%A4%BA%E4%BE%8B" target="_blank" rel="noopener">ant design</a>)，只需要严格按照其教程进行打包往往体积都不会过大。</p>
+<h2 id="4-Tree-Shaking"><a href="#4-Tree-Shaking" class="headerlink" title="4. Tree Shaking"></a>4. Tree Shaking</h2><p>使用Tree Shaking可以帮助我们删除项目中的废代码，从而减少打包的体积大小，对于Tree Shaking具体的原理和实践，可以移步。</p>
+<h2 id="5-Icon的打包"><a href="#5-Icon的打包" class="headerlink" title="5. Icon的打包"></a>5. Icon的打包</h2><p>如果你想使用上面提到的技术来优化你的Icon体积的话，你的Icon就不应该是一个CSS文件或是字体文件(比如Font Awesome)，否则在打包的时候webpack没有办法Shaking你的CSS文件和字体文件的，这个时候我们可以寻找一些替代品 — 如果你的组里有专业的UX的话，请UX将SVG图标给你，然后使用类似<a href="https://github.com/gregberge/svgr/tree/master/packages/cli" target="_blank" rel="noopener">svgr</a>的工具将Icon转换成组件的形式，之后就是用到哪个就引入哪个了。当然了，既然组里已经有UX，其实这一步转换也不是很必要，毕竟UX设计的Icon理论上我们都会用到，不存在无用的打包。</p>
+<p>如果组里没有UX，需要我们自己去找Icon的话，<a href="https://github.com/react-icons/react-icons" target="_blank" rel="noopener">response-icons</a>这样的工具会是一个好的选择，其包含了SVG格式的Font Awsome和其他的一些图标包，并且可以生成一个ES Module格式的React组件，我们就不需要用户去下载一个巨大的font文件了。</p>
+<h2 id="6-NPM包的体积问题"><a href="#6-NPM包的体积问题" class="headerlink" title="6. NPM包的体积问题"></a>6. NPM包的体积问题</h2><blockquote>
+<p>“NPM 就像一个乐高商店，里面装满了积木，你可以随意挑选你喜欢的。你不需要为安装 Package 付费。但是这些 Package 会占用应用程序的字节大小，你的用户会为此买单。所以请做出明智的选择。”</p>
+</blockquote>
+<p>如果在项目的初期能够确定性能要求十分严格的话，那么在选择开源NPM包的时候，就需要考虑NPM包的大小了，假如两个包的作用类似的话，我们是不是可以考虑使用相对较小的包引用到我们的项目中呢。</p>
+<p>但是需要注意的是，不要一味的追求包的体积，作者对包的维护或者是团队对包的掌控力也是一个重要的指标，如果作者修复的速度过慢，你们是否可以自己去修改这个“小包”来解决这个问题呢？或者换句话说，团队里是不是有别的实现可以不去用这些大体积的包呢？</p>
+<h2 id="7-TSlib"><a href="#7-TSlib" class="headerlink" title="7. TSlib"></a>7. TSlib</h2><p>现在TypeScript可以说已经是前端必备的语言了，但是浏览器运行的还是JavaScript，所以我们的代码最终都会被编译成ES5的JavaScript文件，同时TypeScript的编译器会为其添加一些辅助函数，为了确保你的代码中使用的一些旧浏览器不支持的ES6+的特性。</p>
+<p>那么也就是说，大多数情况下你的TypeScript文件都会有一些辅助函数，从单个文件来看这些辅助函数的确不大，但是问题在于随着项目的增大，这些函数在每一个文件中都存在，而且由于其特殊性，webpack的tree shaking没有办法删除重复的函数，这就导致我们编译后的包含有很多重复的辅助函数代码。</p>
+<p>一个叫做<a href="https://github.com/Microsoft/tslib" target="_blank" rel="noopener">tslib</a>的包解决了这个问题，这个包里包含了TypeScript在编译时所需要的所有辅助函数，安装之后我们只需要按照教程在tsconfig中进行配置，就可以让编译器从这个包里去引入辅助函数，从而达到去重复的目的(是不是有点像code split的单独打包，没错，原理就是这样的)。</p>
+
+    
+  </div>
+</article>
+
+  </div>
+  <aside id="aside-bar">
+    
+  <div id="toc" class="toc-article">
+    <strong class="toc-title">文章目录</strong>
+    <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#1-Bundle分析"><span class="toc-text">1. Bundle分析</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1-插件可视化分析"><span class="toc-text">1. 插件可视化分析</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-“预算”"><span class="toc-text">2. “预算”</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2-代码拆分"><span class="toc-text">2. 代码拆分</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1-入口打包"><span class="toc-text">1. 入口打包</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-公共库的打包"><span class="toc-text">2. 公共库的打包</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-动态拆分打包"><span class="toc-text">3. 动态拆分打包</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#3-UI库的打包"><span class="toc-text">3. UI库的打包</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#4-Tree-Shaking"><span class="toc-text">4. Tree Shaking</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#5-Icon的打包"><span class="toc-text">5. Icon的打包</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#6-NPM包的体积问题"><span class="toc-text">6. NPM包的体积问题</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#7-TSlib"><span class="toc-text">7. TSlib</span></a></li></ol>
+  </div>
+
+
+    
+  <div id="recent-post" class="recent-post">
+    <strong class="recent-post-title">
+      近期文章
+    </strong>
+    <ul class="recent-post-list">
+      
+         <li class="recent-post-list">
+           <a href="/20200516-react-concurrent-mode-suspense.html" title="React Concurrent Mode 之 Suspense 实践" >React Concurrent Mode 之 Suspense 实践</a>
+         </li>
+      
+         <li class="recent-post-list">
+           <a href="/20200304-devtool-editing-and-debugging.html" title="(1)你真的会用Chrome devtool吗?" >(1)你真的会用Chrome devtool吗?</a>
+         </li>
+      
+         <li class="recent-post-list">
+           <a href="/20200222-webpack-core-concepts.html" title="Webpack原理(3) — 核心概念" >Webpack原理(3) — 核心概念</a>
+         </li>
+      
+         <li class="recent-post-list">
+           <a href="/20200219-first-in-webpack.html" title="Webpack原理(2) — 加载原理" >Webpack原理(2) — 加载原理</a>
+         </li>
+      
+         <li class="recent-post-list">
+           <a href="/20200211-tdd-with-react-hooks.html" title="用React hooks实现TDD" >用React hooks实现TDD</a>
+         </li>
+      
+         <li class="recent-post-list">
+           <a href="/20200107-reduce-bundle-size.html" title="如何减小前端代码打包体积" >如何减小前端代码打包体积</a>
+         </li>
+      
+         <li class="recent-post-list">
+           <a href="/20190906-error-handler.html" title="React中的错误处理" >React中的错误处理</a>
+         </li>
+      
+         <li class="recent-post-list">
+           <a href="/20190903-compose.html" title="函数式初识(6) - 组合" >函数式初识(6) - 组合</a>
+         </li>
+      
+         <li class="recent-post-list">
+           <a href="/20190831-partial-and-currying.html" title="函数式初识(5) - 偏函数和柯里化" >函数式初识(5) - 偏函数和柯里化</a>
+         </li>
+      
+         <li class="recent-post-list">
+           <a href="/20190829-closure.html" title="函数式初识(4) - 闭包" >函数式初识(4) - 闭包</a>
+         </li>
+      
+    </ul>
+  </div>
+
+
+  </aside>
+</div>
+
+
+
+
+  <div class="box-prev-next clearfix">
+    <a class="show pull-left" href="/20190906-error-handler.html">
+        <i class="icon icon-angle-left"></i>
+    </a>
+    <a class="show pull-right" href="/20200211-tdd-with-react-hooks.html">
+        <i class="icon icon-angle-right"></i>
+    </a>
+  </div>
+
+
+
+
+
+  <a id="backTop" class="back-top">
+    <i class="icon-angle-up"></i>
+  </a>
+
+
+
+
+  <div class="modal" id="modal">
+  <span id="cover" class="cover hide"></span>
+  <div id="modal-dialog" class="modal-dialog hide-dialog">
+    <div class="modal-header">
+      <span id="close" class="btn-close">关闭</span>
+    </div>
+    <hr>
+    <div class="modal-body">
+      <ul class="list-toolbox">
+        
+          <li class="item-toolbox">
+            <a
+              class="CIRCLE"
+              href="/archives/"
+              rel="noopener noreferrer"
+              target="_self"
+              >
+              博客
+            </a>
+          </li>
+        
+          <li class="item-toolbox">
+            <a
+              class="CIRCLE"
+              href="/categories/"
+              rel="noopener noreferrer"
+              target="_self"
+              >
+              分类
+            </a>
+          </li>
+        
+          <li class="item-toolbox">
+            <a
+              class="CIRCLE"
+              href="/tags/"
+              rel="noopener noreferrer"
+              target="_self"
+              >
+              标签
+            </a>
+          </li>
+        
+          <li class="item-toolbox">
+            <a
+              class="CIRCLE"
+              href="/about/"
+              rel="noopener noreferrer"
+              target="_self"
+              >
+              关于
+            </a>
+          </li>
+        
+          <li class="item-toolbox">
+            <a
+              class="CIRCLE"
+              href="/search/"
+              rel="noopener noreferrer"
+              target="_self"
+              >
+              搜索
+            </a>
+          </li>
+        
+      </ul>
+
+    </div>
+  </div>
+</div>
+
+
+
+  
+      <div class="fexo-comments comments-post">
+    
+  <section class="disqus-comments">
+    <div id="disqus_thread">
+      <noscript>Please enable JavaScript to view the <a href="//disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+    </div>
+  </section>
+
+  <script>
+    var disqus_shortname = 'teobler';
+    
+    var disqus_url = 'https://teobler.com/20200107-reduce-bundle-size.html';
+    
+    (function(){
+      var dsq = document.createElement('script');
+      dsq.type = 'text/javascript';
+      dsq.async = true;
+      dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+      (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    })();
+  </script>
+
+  <script id="dsq-count-scr" src="//teobler.disqus.com/count.js" async></script>
+
+
+
+    
+
+
+
+
+    
+
+    
+	
+  </div>
+
+  
+
+  <script type="text/javascript">
+  function loadScript(url, callback) {
+    var script = document.createElement('script')
+    script.type = 'text/javascript';
+
+    if (script.readyState) { //IE
+      script.onreadystatechange = function() {
+        if (script.readyState == 'loaded' ||
+          script.readyState == 'complete') {
+          script.onreadystatechange = null;
+          callback();
+        }
+      };
+    } else { //Others
+      script.onload = function() {
+        callback();
+      };
+    }
+
+    script.src = url;
+    document.getElementsByTagName('head')[0].appendChild(script);
+  }
+
+  window.onload = function() {
+    loadScript('/js/bundle.js?235683', function() {
+      // load success
+    });
+  }
+</script>
+
+</body>
+</html>

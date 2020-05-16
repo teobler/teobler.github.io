@@ -1,0 +1,519 @@
+<!DOCTYPE html>
+
+
+  <html lang="zh-CN" class="light page-post">
+
+
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="content-language" content="zh-CN">
+  
+  <title>函数式初识(6) - 组合 | teobler&#39;s blog</title>
+
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+  
+    <meta name="keywords" content="FP,函数式编程," />
+  
+
+  <meta name="360-site-verification" content="7b29d0e6eb0d7a16d22f9d0961882c3a" />
+  <meta name="sogou_site_verification" content="S1EAZKO83i"/>
+
+  <meta name="description" content="在Point-free的文章中我们简单的提到过组合(compose)技术，现在我们来做一些比较沉入的了解。 12345678function minus2(x) &amp;#123; return x - 2; &amp;#125;function triple(x) &amp;#123; return x * 3; &amp;#125;function increment(x) &amp;#123; return x + 1; &amp;#1">
+<meta name="keywords" content="FP,函数式编程">
+<meta property="og:type" content="article">
+<meta property="og:title" content="函数式初识(6) - 组合">
+<meta property="og:url" content="https://teobler.com/20190903-compose.html">
+<meta property="og:site_name" content="teobler&#39;s blog">
+<meta property="og:description" content="在Point-free的文章中我们简单的提到过组合(compose)技术，现在我们来做一些比较沉入的了解。 12345678function minus2(x) &amp;#123; return x - 2; &amp;#125;function triple(x) &amp;#123; return x * 3; &amp;#125;function increment(x) &amp;#123; return x + 1; &amp;#1">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:image" content="https://teobler-image.s3-us-west-1.amazonaws.com/right-to-left.png">
+<meta property="og:image" content="https://teobler-image.s3-us-west-1.amazonaws.com/candy-factory.png">
+<meta property="og:image" content="https://teobler-image.s3-us-west-1.amazonaws.com/candy-factory-box.png">
+<meta property="og:image" content="https://teobler-image.s3-us-west-1.amazonaws.com/factory-factory.png">
+<meta property="og:updated_time" content="2020-02-23T03:41:46.197Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="函数式初识(6) - 组合">
+<meta name="twitter:description" content="在Point-free的文章中我们简单的提到过组合(compose)技术，现在我们来做一些比较沉入的了解。 12345678function minus2(x) &amp;#123; return x - 2; &amp;#125;function triple(x) &amp;#123; return x * 3; &amp;#125;function increment(x) &amp;#123; return x + 1; &amp;#1">
+<meta name="twitter:image" content="https://teobler-image.s3-us-west-1.amazonaws.com/right-to-left.png">
+
+  
+
+  
+    <link rel="icon" href="/favicon.ico">
+  
+
+  <link href="/css/styles.css?v=c114cbe6" rel="stylesheet">
+
+
+  
+
+  
+<!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-158204206-1"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'UA-158204206-1');
+</script>
+
+
+
+  
+  <script type="text/javascript">
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "//hm.baidu.com/hm.js?57e94d016e201fba3603a8a2b0263af0";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+  
+  <script type="text/javascript">
+	(function(){
+	    var bp = document.createElement('script');
+	    var curProtocol = window.location.protocol.split(':')[0];
+	    if (curProtocol === 'https') {
+	        bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';        
+	    }
+	    else {
+	        bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+	    }
+	    var s = document.getElementsByTagName("script")[0];
+	    s.parentNode.insertBefore(bp, s);
+	})();
+  </script>
+
+
+  
+  <script src="https://jspassport.ssl.qhimg.com/11.0.1.js?d182b3f28525f2db83acfaaf6e696dba" id="sozz"></script>
+
+
+
+  
+    <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+  
+
+  
+    <link rel="stylesheet" href="//cdn.bootcss.com/font-awesome/4.3.0/css/font-awesome.min.css">
+  
+
+  <script data-ad-client="ca-pub-8160236896214353" async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+</head>
+
+<body>
+
+
+  
+    <span id="toolbox-mobile" class="toolbox-mobile">导航</span>
+  
+
+  <div class="post-header CENTER">
+   
+  <div class="toolbox">
+    <a class="toolbox-entry" href="/">
+      <span class="toolbox-entry-text">导航</span>
+      <i class="icon-angle-down"></i>
+      <i class="icon-home"></i>
+    </a>
+    <ul class="list-toolbox">
+      
+        <li class="item-toolbox">
+          <a
+            class="CIRCLE"
+            href="/archives/"
+            rel="noopener noreferrer"
+            target="_self"
+            >
+            博客
+          </a>
+        </li>
+      
+        <li class="item-toolbox">
+          <a
+            class="CIRCLE"
+            href="/categories/"
+            rel="noopener noreferrer"
+            target="_self"
+            >
+            分类
+          </a>
+        </li>
+      
+        <li class="item-toolbox">
+          <a
+            class="CIRCLE"
+            href="/tags/"
+            rel="noopener noreferrer"
+            target="_self"
+            >
+            标签
+          </a>
+        </li>
+      
+        <li class="item-toolbox">
+          <a
+            class="CIRCLE"
+            href="/about/"
+            rel="noopener noreferrer"
+            target="_self"
+            >
+            关于
+          </a>
+        </li>
+      
+        <li class="item-toolbox">
+          <a
+            class="CIRCLE"
+            href="/search/"
+            rel="noopener noreferrer"
+            target="_self"
+            >
+            搜索
+          </a>
+        </li>
+      
+    </ul>
+  </div>
+
+
+</div>
+
+<div id="post-container" class="container">
+  <div class="content content-post CENTER">
+     <article id="post-20190903-compose" class="article article-type-post" itemprop="blogPost">
+  <header class="article-header">
+    <h1 class="post-title">函数式初识(6) - 组合</h1>
+
+    <div class="article-meta">
+       <div>
+          <span>
+            <i class="icon-calendar"></i>
+            <span>2019.09.03</span>
+          </span>
+
+          
+            <span class="article-author">
+              <i class="icon-user"></i>
+              <span>teobler</span>
+            </span>
+          
+
+          
+  <span class="article-category">
+    <i class="icon-list"></i>
+    <a class="article-category-link" href="/categories/技术细节/">技术细节</a>
+  </span>
+
+
+
+          
+            <span>
+              <i class="icon-comment"></i>
+              <a href="https://teobler.com/20190903-compose.html#disqus_thread"></a>
+            </span>
+          
+
+          
+          <i class="fa fa-eye"></i>
+            <span id="busuanzi_container_page_pv">
+               &nbsp热度 <span id="busuanzi_value_page_pv">
+               <i class="fa fa-spinner fa-spin"></i></span>℃
+            </span>
+          
+
+          
+      </div>
+
+      <div>
+        <i class="icon-text"></i>
+        <span class="post-count">全篇字数: 2.2k</span>
+        &nbsp
+        <i class="icon-calendar-1"></i>
+        <span class="post-count">预计花费: 8分钟</span>
+      </div>
+      
+    </div>
+  </header>
+
+  <div class="article-content">
+    
+      <p>在<a href="https://teobler.com/20190822-point-free.html">Point-free</a>的文章中我们简单的提到过组合(compose)技术，现在我们来做一些比较沉入的了解。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">minus2</span>(<span class="params">x</span>) </span>&#123; <span class="keyword">return</span> x - <span class="number">2</span>; &#125;</span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">triple</span>(<span class="params">x</span>) </span>&#123; <span class="keyword">return</span> x * <span class="number">3</span>; &#125;</span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">increment</span>(<span class="params">x</span>) </span>&#123; <span class="keyword">return</span> x + <span class="number">1</span>; &#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 算总价</span></span><br><span class="line"><span class="keyword">let</span> temp = increment(<span class="number">4</span>);</span><br><span class="line">temp = triple(temp);</span><br><span class="line">totalCost = basePrice + minus2(temp);</span><br></pre></td></tr></table></figure>
+<p>可以看到这段代码其实就是在利用一个中间变量去计算最终的购物总价，为了理解这段代码，你需要将所有东西串联起来，理解了第一个去理解第二个，然后将第一个和第二个联合起来，就得到了中间那个变量是个啥，然后要将之前的基础价格加起来也就是说你需要将所有东西放到一起来理解 — 中间变量，基础价格，所有的函数。</p>
+<p>这个时候我想跟大家介绍一种思想 — 抽象(abstraction)。抽象指的是在两个原本“耦合”在一起的事物中加入一个语义边界使其分离。那么语义边界是啥？在下面的例子里我们来慢慢揭晓。其实抽象并不是要将与主体不相关的东西隐藏起来，它更希望是将它们独立分离开。使我们能够对两个或多个事物进行独立思考并且不用考虑另外的事物对它的影响，更容易去分析和理解。所以对于第6行到第8行代码，我们要想办法分离他们，并不是说我们要隐藏。</p>
+<p>接下来我需要你在代码和虚拟故事中不断切换自己的身份：</p>
+<p><img src="https://teobler-image.s3-us-west-1.amazonaws.com/right-to-left.png" alt="right-to-left"></p>
+<p>我们假设你是流水线上的一个工人，你的任务是维护和改造这条流水线。第一步我们将融化的巧克力倒进漏斗，然后千克力就被变成一个个大的巧克力方糖；然后进入下一个机器，这个机器将大的方糖切成小方糖；再然后小方糖进入最后一个机器，被做成糖果。</p>
+<p>有一天，老板老找你说：小伙，我们这个机器供应不足啊，这不行啊，你想想办法，加加速，多做点，但是我没多余的厂房了，你自己想想办法哈。</p>
+<p>我们回到代码里，想想那些中间变量。那些中间变量其实除了给我们增加理解负担以外并没有什么用了。所以，我们来看看能不能用一种大家常用的方式干掉它：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">totalCost = basePrice + minus2(triple(increment(<span class="number">4</span>)));</span><br></pre></td></tr></table></figure>
+<p>其实，这就是函数的组合 — 一个函数接收一个参数，然后将其唯一的返回值作为下一个函数的参数。那么这么来看，我们用这种方式干掉了中间变量，是不是就节省了很多空间呢？</p>
+<p>然后我们回到工厂里，我们是不是就可以想象，如果我们能把工厂里的中间变量干掉，那是不是在节省了空间的同时我们还可以加快加工的速度呢？比如这样：</p>
+<p><img src="https://teobler-image.s3-us-west-1.amazonaws.com/candy-factory.png" alt="candy-factory"></p>
+<p>然后你的老板很开心，心里想996果然是有效果的。不过资本家嘛，肯定还有别的想法的，过了一段时间，老板又来找你了。老板说厂里的机器太多了，你是工头，你能清楚的记得啥时候按启动键，啥时候应该把料放到下一个机器里，但是流水线上的工人不知道哇，你能不能把流水线搞简单点，就一台机器，巧克力放进去，糖就出来了，这样可以减(ci)轻(tui)点工人的负担。这个时候该你犯嘀咕了，先不说能不能做到，就算能做到，中间某一步出问题了咋办？我把机器拆了去看哪出问题了？那我不得好好研究研究，不给自己挖坑，以后修机器咋整呢。</p>
+<p>回到代码里，我们的代码也有相同的问题，这个时候我们的解决办法也很简单 — 函数提取：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">shippingRate</span>(<span class="params">x</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">return</span> minus2(triple(increment(x)));</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">totalCost = basePrice + shippingRate(<span class="number">4</span>);</span><br></pre></td></tr></table></figure>
+<p>所以在最后一行我们的代码就被拆分成两个部分了，比之前简洁了很多，这个时候其实我们已经做了一个完整的抽象。还记得上面说的语义边界吗？这里的语义边界就是函数名，语义边界将如何去做(函数定义)和做了什么(函数调用)做了分离。</p>
+<p>回到工厂里来，是的没错，为了完成老板的任务，其实我们只需要在整个机器外边套一个大箱子就可以了，箱子上我们搞一个控制面板，方便我们修机器，对于工人来说，他们只需要打开开关，放入材料，所有的一切就可以自动运转了。就像这样：</p>
+<p><img src="https://teobler-image.s3-us-west-1.amazonaws.com/candy-factory-box.png" alt="candy-factory-box"></p>
+<p>然后过了几天，老板想扩充市场了，他不但想做巧克力，还想做小黑兔奶糖，可能还要做别的玩意，可是他又不想买一堆新机器，成本太高了，他想让你改造发明下，能不能用机器去生产机器，我想做奶糖，就用大机器去生产一个奶糖机器，然后奶糖机器就可以用来做奶糖，想做巧克力就生产一个巧克力机器，然后就可以用它生产巧克力。</p>
+<p>回到代码里来，在真实的代码环境中，如果真的需要我们计算消费价格，我们可能有许许多多的价格需要计算，那么为了计算这些价格，我们就需要定义许许多多的价格计算函数，那我们能不能定义一个“组合”函数去生成这一堆的函数呢？比如这样：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">composeThree</span>(<span class="params">fn2, fn1, fn0</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="function"><span class="keyword">function</span> <span class="title">composed</span>(<span class="params">v</span>) </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> fn2(fn1(fn0(v)));</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>然后我们的计算函数就可以这样定义：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> shippingRate = composeThree(minus2, triple, increment);</span><br><span class="line"></span><br><span class="line">totalCost = basePrice + shippingRate(<span class="number">4</span>);</span><br></pre></td></tr></table></figure>
+<p>于是利用我们已经定义好的“函数组件”，我们可以定义出各种各样的计算函数：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> internetShippingRate = composeThree(double, increment, minus1);</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> xxxShippingRate = composeThree(increment, triple, minus4);</span><br></pre></td></tr></table></figure>
+<p>这样的定义不仅仅是<a href="https://teobler.com/20190822-point-free.html">Point-free风格</a>的，而且要更加偏向于声明式，更易于理解。可以看出<code>compose</code>函数实际上是一个“从右到左”的执行过程，我们将最初的参数传给最右边的函数，计算后的返回值传入左边的函数，直到计算出最终结果。</p>
+<p>其实<strong>组合就是一条声明式的数据流</strong>。数据经过了一系列的函数运算之后得到最终的返回值。所以其实组合的思想在于，你的所有程序都是一系列的数据流，你的任何程序都是拿到一个输入值，做一些事情，然后返回一个值，下一个部分再拿到这个值，以此反复。所以组合技术对于函数式编程是至关重要的。</p>
+<p>最后一次，我们回到工厂里，按照代码里面的解决办法，其实我们的工厂就有了这么一个解决方案：</p>
+<p><img src="https://teobler-image.s3-us-west-1.amazonaws.com/factory-factory.png" alt="factory-factory"></p>
+<h3 id="Pipe-VS-Compose"><a href="#Pipe-VS-Compose" class="headerlink" title="Pipe VS Compose"></a>Pipe VS Compose</h3><p>Compose是一种从右到左的定义方式，相对应的，Pipe是一种从左到右的定义方式。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">minus2</span>(<span class="params">x</span>) </span>&#123; <span class="keyword">return</span> x - <span class="number">2</span>; &#125;</span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">triple</span>(<span class="params">x</span>) </span>&#123; <span class="keyword">return</span> x * <span class="number">3</span>; &#125;</span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">increment</span>(<span class="params">x</span>) </span>&#123; <span class="keyword">return</span> x + <span class="number">1</span>; &#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> f = composeThree(minus2, triple, increment);</span><br><span class="line"><span class="keyword">const</span> p = pipeThree(increment, triple, minus2);</span><br><span class="line"></span><br><span class="line">f(<span class="number">4</span>); <span class="comment">// 7</span></span><br><span class="line">g(<span class="number">4</span>); <span class="comment">// 7</span></span><br></pre></td></tr></table></figure>
+<p>为什么有两个方向呢？我也不知道，只能说一个大概的理解。当我们有一组函数是这样调用的<code>A(B(C()))</code>，那么他们的执行顺序是 — C =&gt; B =&gt; A。表面上来看他们的执行顺序是从右到左的，但是其实是从内到外的。所以其实compose的参数顺序是符合真正的函数复合调用的书写顺序的。但是为了更加迎合我们的人脑思考，就有了Pipe，因为大脑一般会思考一个从左到右的执行顺序。</p>
+<h3 id="结合律与柯里化"><a href="#结合律与柯里化" class="headerlink" title="结合律与柯里化"></a>结合律与柯里化</h3><p>众所周知，结合律也是数学中的一个定律。compose是严格遵守结合律的：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">compose(fn1, compose(fn2, fn3)) === compose(compose(fn1, fn2), fn3);</span><br></pre></td></tr></table></figure>
+<p>所以组合就可以与柯里化完美运用：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">sum</span>(<span class="params">x, y</span>) </span>&#123; <span class="keyword">return</span> x + y; &#125;</span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">triple</span>(<span class="params">x</span>) </span>&#123; <span class="keyword">return</span> x * <span class="number">3</span>; &#125;</span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">divBy</span>(<span class="params">y, x</span>) </span>&#123; <span class="keyword">return</span> x / y; &#125;</span><br><span class="line"></span><br><span class="line">divBy(<span class="number">2</span>, triple(sum(<span class="number">3</span>, <span class="number">5</span>))); <span class="comment">// 12</span></span><br><span class="line"></span><br><span class="line">sum = curry(<span class="number">2</span>, sum);</span><br><span class="line">divBy = curry(<span class="number">2</span>, divBy);</span><br><span class="line"></span><br><span class="line">compose(</span><br><span class="line">    divBy(<span class="number">2</span>),</span><br><span class="line">    triple,</span><br><span class="line">    sum(<span class="number">3</span>)</span><br><span class="line">)(<span class="number">5</span>);</span><br><span class="line"><span class="comment">// 12</span></span><br></pre></td></tr></table></figure>
+<h3 id="Point-free-with-composition"><a href="#Point-free-with-composition" class="headerlink" title="Point-free with composition"></a>Point-free with composition</h3><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> mod2 = mod(<span class="number">2</span>);</span><br><span class="line"><span class="keyword">const</span> eq1 = eq(<span class="number">1</span>);</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">isOdd</span>(<span class="params">x</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">return</span> eq1(mod(x));</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> isOdd = compose(eq1, mod2);</span><br><span class="line"><span class="keyword">const</span> isOdd = compose(eq(<span class="number">1</span>), mod(<span class="number">2</span>));</span><br></pre></td></tr></table></figure>
+
+    
+  </div>
+</article>
+
+  </div>
+  <aside id="aside-bar">
+    
+  <div id="toc" class="toc-article">
+    <strong class="toc-title">文章目录</strong>
+    <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#Pipe-VS-Compose"><span class="toc-text">Pipe VS Compose</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#结合律与柯里化"><span class="toc-text">结合律与柯里化</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Point-free-with-composition"><span class="toc-text">Point-free with composition</span></a></li></ol>
+  </div>
+
+
+    
+  <div id="recent-post" class="recent-post">
+    <strong class="recent-post-title">
+      近期文章
+    </strong>
+    <ul class="recent-post-list">
+      
+         <li class="recent-post-list">
+           <a href="/20200516-react-concurrent-mode-suspense.html" title="React Concurrent Mode 之 Suspense 实践" >React Concurrent Mode 之 Suspense 实践</a>
+         </li>
+      
+         <li class="recent-post-list">
+           <a href="/20200304-devtool-editing-and-debugging.html" title="(1)你真的会用Chrome devtool吗?" >(1)你真的会用Chrome devtool吗?</a>
+         </li>
+      
+         <li class="recent-post-list">
+           <a href="/20200222-webpack-core-concepts.html" title="Webpack原理(3) — 核心概念" >Webpack原理(3) — 核心概念</a>
+         </li>
+      
+         <li class="recent-post-list">
+           <a href="/20200219-first-in-webpack.html" title="Webpack原理(2) — 加载原理" >Webpack原理(2) — 加载原理</a>
+         </li>
+      
+         <li class="recent-post-list">
+           <a href="/20200211-tdd-with-react-hooks.html" title="用React hooks实现TDD" >用React hooks实现TDD</a>
+         </li>
+      
+         <li class="recent-post-list">
+           <a href="/20200107-reduce-bundle-size.html" title="如何减小前端代码打包体积" >如何减小前端代码打包体积</a>
+         </li>
+      
+         <li class="recent-post-list">
+           <a href="/20190906-error-handler.html" title="React中的错误处理" >React中的错误处理</a>
+         </li>
+      
+         <li class="recent-post-list">
+           <a href="/20190903-compose.html" title="函数式初识(6) - 组合" >函数式初识(6) - 组合</a>
+         </li>
+      
+         <li class="recent-post-list">
+           <a href="/20190831-partial-and-currying.html" title="函数式初识(5) - 偏函数和柯里化" >函数式初识(5) - 偏函数和柯里化</a>
+         </li>
+      
+         <li class="recent-post-list">
+           <a href="/20190829-closure.html" title="函数式初识(4) - 闭包" >函数式初识(4) - 闭包</a>
+         </li>
+      
+    </ul>
+  </div>
+
+
+  </aside>
+</div>
+
+
+
+
+  <div class="box-prev-next clearfix">
+    <a class="show pull-left" href="/20190831-partial-and-currying.html">
+        <i class="icon icon-angle-left"></i>
+    </a>
+    <a class="show pull-right" href="/20190906-error-handler.html">
+        <i class="icon icon-angle-right"></i>
+    </a>
+  </div>
+
+
+
+
+
+  <a id="backTop" class="back-top">
+    <i class="icon-angle-up"></i>
+  </a>
+
+
+
+
+  <div class="modal" id="modal">
+  <span id="cover" class="cover hide"></span>
+  <div id="modal-dialog" class="modal-dialog hide-dialog">
+    <div class="modal-header">
+      <span id="close" class="btn-close">关闭</span>
+    </div>
+    <hr>
+    <div class="modal-body">
+      <ul class="list-toolbox">
+        
+          <li class="item-toolbox">
+            <a
+              class="CIRCLE"
+              href="/archives/"
+              rel="noopener noreferrer"
+              target="_self"
+              >
+              博客
+            </a>
+          </li>
+        
+          <li class="item-toolbox">
+            <a
+              class="CIRCLE"
+              href="/categories/"
+              rel="noopener noreferrer"
+              target="_self"
+              >
+              分类
+            </a>
+          </li>
+        
+          <li class="item-toolbox">
+            <a
+              class="CIRCLE"
+              href="/tags/"
+              rel="noopener noreferrer"
+              target="_self"
+              >
+              标签
+            </a>
+          </li>
+        
+          <li class="item-toolbox">
+            <a
+              class="CIRCLE"
+              href="/about/"
+              rel="noopener noreferrer"
+              target="_self"
+              >
+              关于
+            </a>
+          </li>
+        
+          <li class="item-toolbox">
+            <a
+              class="CIRCLE"
+              href="/search/"
+              rel="noopener noreferrer"
+              target="_self"
+              >
+              搜索
+            </a>
+          </li>
+        
+      </ul>
+
+    </div>
+  </div>
+</div>
+
+
+
+  
+      <div class="fexo-comments comments-post">
+    
+  <section class="disqus-comments">
+    <div id="disqus_thread">
+      <noscript>Please enable JavaScript to view the <a href="//disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+    </div>
+  </section>
+
+  <script>
+    var disqus_shortname = 'teobler';
+    
+    var disqus_url = 'https://teobler.com/20190903-compose.html';
+    
+    (function(){
+      var dsq = document.createElement('script');
+      dsq.type = 'text/javascript';
+      dsq.async = true;
+      dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+      (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    })();
+  </script>
+
+  <script id="dsq-count-scr" src="//teobler.disqus.com/count.js" async></script>
+
+
+
+    
+
+
+
+
+    
+
+    
+	
+  </div>
+
+  
+
+  <script type="text/javascript">
+  function loadScript(url, callback) {
+    var script = document.createElement('script')
+    script.type = 'text/javascript';
+
+    if (script.readyState) { //IE
+      script.onreadystatechange = function() {
+        if (script.readyState == 'loaded' ||
+          script.readyState == 'complete') {
+          script.onreadystatechange = null;
+          callback();
+        }
+      };
+    } else { //Others
+      script.onload = function() {
+        callback();
+      };
+    }
+
+    script.src = url;
+    document.getElementsByTagName('head')[0].appendChild(script);
+  }
+
+  window.onload = function() {
+    loadScript('/js/bundle.js?235683', function() {
+      // load success
+    });
+  }
+</script>
+
+</body>
+</html>

@@ -1,0 +1,510 @@
+<!DOCTYPE html>
+
+
+  <html lang="zh-CN" class="light page-post">
+
+
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="content-language" content="zh-CN">
+  
+  <title>用React hooks实现TDD | teobler&#39;s blog</title>
+
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+  
+    <meta name="keywords" content="React,TDD,单元测试,测试驱动开发," />
+  
+
+  <meta name="360-site-verification" content="7b29d0e6eb0d7a16d22f9d0961882c3a" />
+  <meta name="sogou_site_verification" content="S1EAZKO83i"/>
+
+  <meta name="description" content="本文首发于我的个人博客: https://teobler.com, 转载请注明出处  由于篇幅所限文章中并没有给出demo的所有代码，大家如果有兴趣可以将代码clone到本地从commit来看整个demo的TDD过程，配合文章来看会比较清晰。本文涉及的所有代码地址: teobler/TDD-with-React-hooks-demo 前端TDD的痛从进公司前认识了TDD，到实践TDD，过程中自己">
+<meta name="keywords" content="React,TDD,单元测试,测试驱动开发">
+<meta property="og:type" content="article">
+<meta property="og:title" content="用React hooks实现TDD">
+<meta property="og:url" content="https://teobler.com/20200211-tdd-with-react-hooks.html">
+<meta property="og:site_name" content="teobler&#39;s blog">
+<meta property="og:description" content="本文首发于我的个人博客: https://teobler.com, 转载请注明出处  由于篇幅所限文章中并没有给出demo的所有代码，大家如果有兴趣可以将代码clone到本地从commit来看整个demo的TDD过程，配合文章来看会比较清晰。本文涉及的所有代码地址: teobler/TDD-with-React-hooks-demo 前端TDD的痛从进公司前认识了TDD，到实践TDD，过程中自己">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:updated_time" content="2020-02-15T02:49:44.540Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="用React hooks实现TDD">
+<meta name="twitter:description" content="本文首发于我的个人博客: https://teobler.com, 转载请注明出处  由于篇幅所限文章中并没有给出demo的所有代码，大家如果有兴趣可以将代码clone到本地从commit来看整个demo的TDD过程，配合文章来看会比较清晰。本文涉及的所有代码地址: teobler/TDD-with-React-hooks-demo 前端TDD的痛从进公司前认识了TDD，到实践TDD，过程中自己">
+
+  
+
+  
+    <link rel="icon" href="/favicon.ico">
+  
+
+  <link href="/css/styles.css?v=c114cbe6" rel="stylesheet">
+
+
+  
+
+  
+<!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-158204206-1"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'UA-158204206-1');
+</script>
+
+
+
+  
+  <script type="text/javascript">
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "//hm.baidu.com/hm.js?57e94d016e201fba3603a8a2b0263af0";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+  
+  <script type="text/javascript">
+	(function(){
+	    var bp = document.createElement('script');
+	    var curProtocol = window.location.protocol.split(':')[0];
+	    if (curProtocol === 'https') {
+	        bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';        
+	    }
+	    else {
+	        bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+	    }
+	    var s = document.getElementsByTagName("script")[0];
+	    s.parentNode.insertBefore(bp, s);
+	})();
+  </script>
+
+
+  
+  <script src="https://jspassport.ssl.qhimg.com/11.0.1.js?d182b3f28525f2db83acfaaf6e696dba" id="sozz"></script>
+
+
+
+  
+    <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+  
+
+  
+    <link rel="stylesheet" href="//cdn.bootcss.com/font-awesome/4.3.0/css/font-awesome.min.css">
+  
+
+  <script data-ad-client="ca-pub-8160236896214353" async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+</head>
+
+<body>
+
+
+  
+    <span id="toolbox-mobile" class="toolbox-mobile">导航</span>
+  
+
+  <div class="post-header CENTER">
+   
+  <div class="toolbox">
+    <a class="toolbox-entry" href="/">
+      <span class="toolbox-entry-text">导航</span>
+      <i class="icon-angle-down"></i>
+      <i class="icon-home"></i>
+    </a>
+    <ul class="list-toolbox">
+      
+        <li class="item-toolbox">
+          <a
+            class="CIRCLE"
+            href="/archives/"
+            rel="noopener noreferrer"
+            target="_self"
+            >
+            博客
+          </a>
+        </li>
+      
+        <li class="item-toolbox">
+          <a
+            class="CIRCLE"
+            href="/categories/"
+            rel="noopener noreferrer"
+            target="_self"
+            >
+            分类
+          </a>
+        </li>
+      
+        <li class="item-toolbox">
+          <a
+            class="CIRCLE"
+            href="/tags/"
+            rel="noopener noreferrer"
+            target="_self"
+            >
+            标签
+          </a>
+        </li>
+      
+        <li class="item-toolbox">
+          <a
+            class="CIRCLE"
+            href="/about/"
+            rel="noopener noreferrer"
+            target="_self"
+            >
+            关于
+          </a>
+        </li>
+      
+        <li class="item-toolbox">
+          <a
+            class="CIRCLE"
+            href="/search/"
+            rel="noopener noreferrer"
+            target="_self"
+            >
+            搜索
+          </a>
+        </li>
+      
+    </ul>
+  </div>
+
+
+</div>
+
+<div id="post-container" class="container">
+  <div class="content content-post CENTER">
+     <article id="post-20200211-tdd-with-react-hooks" class="article article-type-post" itemprop="blogPost">
+  <header class="article-header">
+    <h1 class="post-title">用React hooks实现TDD</h1>
+
+    <div class="article-meta">
+       <div>
+          <span>
+            <i class="icon-calendar"></i>
+            <span>2020.02.11</span>
+          </span>
+
+          
+            <span class="article-author">
+              <i class="icon-user"></i>
+              <span>teobler</span>
+            </span>
+          
+
+          
+  <span class="article-category">
+    <i class="icon-list"></i>
+    <a class="article-category-link" href="/categories/技术/">技术</a>
+  </span>
+
+
+
+          
+            <span>
+              <i class="icon-comment"></i>
+              <a href="https://teobler.com/20200211-tdd-with-react-hooks.html#disqus_thread"></a>
+            </span>
+          
+
+          
+          <i class="fa fa-eye"></i>
+            <span id="busuanzi_container_page_pv">
+               &nbsp热度 <span id="busuanzi_value_page_pv">
+               <i class="fa fa-spinner fa-spin"></i></span>℃
+            </span>
+          
+
+          
+      </div>
+
+      <div>
+        <i class="icon-text"></i>
+        <span class="post-count">全篇字数: 1.7k</span>
+        &nbsp
+        <i class="icon-calendar-1"></i>
+        <span class="post-count">预计花费: 7分钟</span>
+      </div>
+      
+    </div>
+  </header>
+
+  <div class="article-content">
+    
+      <blockquote>
+<p>本文首发于我的个人博客: <a href="https://teobler.com/">https://teobler.com</a>, 转载请注明出处</p>
+</blockquote>
+<p>由于篇幅所限文章中并没有给出demo的所有代码，大家如果有兴趣可以将代码clone到本地从commit来看整个demo的TDD过程，配合文章来看会比较清晰。本文涉及的所有代码地址: <a href="https://github.com/teobler/TDD-with-React-hooks-demo" target="_blank" rel="noopener">teobler/TDD-with-React-hooks-demo</a></p>
+<h2 id="前端TDD的痛"><a href="#前端TDD的痛" class="headerlink" title="前端TDD的痛"></a>前端TDD的痛</h2><p>从进公司前认识了TDD，到实践TDD，过程中自己遇到或者小伙伴们一起讨论的比较频繁的一个问题是 — 前端不太好TDD / 前端TDD的投入收益比不高。为啥会这样呢？</p>
+<p>我们假设你在写前端时全程TDD，那么你需要做的是 — 先assert页面上有一个button，然后去实现这个button，之后assert点击这个button之后会发生什么，最后再去实现相应的逻辑。</p>
+<p>这个过程中有一个问题，因为前端中UI和逻辑强耦合，所以在TDD的时候你需要先实现UI，然后选中这个UI上的组件，trigger相应的行为，这个过程给开发人员增加了不少负担。</p>
+<p>诚然，这样写出来的代码严格遵循了TDD的做法，也得到了TDD给我们带来的各种好处，但是据我观察下来，身边的小伙伴们没有一个人认同这样的做法。大家的痛点在于UI部分的TDD过于痛苦并且收益太低，而且由于UI和逻辑强耦合，后续的逻辑部分也需要先选取页面上的元素trigger出相应的执行逻辑。</p>
+<p>这些痛点在项目组引入了hooks之后有了显著的改善，从引入hooks到现在快一年的时间，组里的小伙伴们一起总结除了一套测试策略。在此我们将React的组件分为三类 — 纯逻辑组件(比如request的处理组件，utils函数等)，纯UI组件(比如展示用的Layout，Container组件等)和两者结合的混合组件(比如某个页面)。</p>
+<h2 id="纯逻辑组件"><a href="#纯逻辑组件" class="headerlink" title="纯逻辑组件"></a>纯逻辑组件</h2><p>这部分组件没啥好说的，全都是逻辑，tasking，测试，实现，重构一条龙，具体咋写我们这里不讨论。</p>
+<figure class="highlight typescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// combineClass.test.ts</span></span><br><span class="line">describe(<span class="string">'combineClass'</span>, <span class="function"><span class="params">()</span> =&gt;</span> &#123;</span><br><span class="line">    it(<span class="string">'should return prefixed string given only one class name'</span>, <span class="function"><span class="params">()</span> =&gt;</span> &#123;</span><br><span class="line">        <span class="keyword">const</span> result = combineClass(<span class="string">'class-one'</span>);</span><br><span class="line">        expect(result).toEqual(<span class="string">'prefix-class-one'</span>);</span><br><span class="line">    &#125;);</span><br><span class="line"></span><br><span class="line">    it(<span class="string">'should trim space for class name'</span>, <span class="function"><span class="params">()</span> =&gt;</span> &#123;</span><br><span class="line">        <span class="keyword">const</span> result = combineClass(<span class="string">'class-one '</span>);</span><br><span class="line">        expect(result).toEqual(<span class="string">'prefix-class-one'</span>);</span><br><span class="line">    &#125;);</span><br><span class="line"></span><br><span class="line">    it(<span class="string">'should combine two class name and second class name should not add prefix'</span>, <span class="function"><span class="params">()</span> =&gt;</span> &#123;</span><br><span class="line">        <span class="keyword">const</span> result = combineClass(<span class="string">'class-one'</span>, <span class="string">'class-two'</span>);</span><br><span class="line">        expect(result).toEqual(<span class="string">'prefix-class-one class-two'</span>);</span><br><span class="line">    &#125;);</span><br><span class="line"></span><br><span class="line">    it(<span class="string">'should combine three class name and tail class name should not add prefix'</span>, <span class="function"><span class="params">()</span> =&gt;</span> &#123;</span><br><span class="line">        <span class="keyword">const</span> result = combineClass(<span class="string">'class-one'</span>, <span class="string">'class-two'</span>, <span class="string">'class-three'</span>);</span><br><span class="line">        expect(result).toEqual(<span class="string">'prefix-class-one class-two class-three'</span>);</span><br><span class="line">    &#125;);</span><br><span class="line">&#125;);</span><br><span class="line"></span><br><span class="line"><span class="comment">// combineClass.ts</span></span><br><span class="line"><span class="keyword">const</span> CLASS_PREFIX = <span class="string">"prefix-"</span>;</span><br><span class="line"><span class="keyword">export</span> <span class="keyword">const</span> combineClass = <span class="function">(<span class="params">...className: <span class="built_in">string</span>[]</span>) =&gt;</span> &#123;</span><br><span class="line">    <span class="keyword">const</span> resultName = className.slice(<span class="number">0</span>);</span><br><span class="line">    resultName[<span class="number">0</span>] = CLASS_PREFIX + className[<span class="number">0</span>];</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> resultName</span><br><span class="line">        .join(<span class="string">' '</span>)</span><br><span class="line">        .trim();</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<h2 id="纯UI组件"><a href="#纯UI组件" class="headerlink" title="纯UI组件"></a>纯UI组件</h2><p>这类组件我们没有一个个去测试组件里面的元素，而是按照UX的要求build完组件以后加上一个jest的json snapshot测试。</p>
+<blockquote>
+<p>注意这里的snapshot并不是大家印象中的e2e测试中的截图，而是jest里将组件render出来之后使用json生成一份UI的dom结构，在下次测试时，生成一份新的快照与旧的快照进行比对，从而得出两个UI不一样的地方，实现对UI的保护。</p>
+</blockquote>
+<p>但是其实使用snapshot测试有两个问题：</p>
+<ol>
+<li>snapshot相比较于一般的单元测试来说运行速度较慢，如果项目中大量使用的snapshot测试的话，在运行所有单元测试的时候会比较明显的感受到单元测试的速度被拖慢了，一定程度上违背了单元测试快速反馈的初衷；</li>
+<li>维护snapshot的人工成本较大，snapshot测试最大的问题在于你只要改动了任何UI的部分，这个测试都会挂掉，这个时候就需要仔细对比不同的地方以决定是更新snapshot还是改错地方了，而如果此时团队里有“省心”的队友无脑更新snapshot的话，这个测试相当于浪费了资源。</li>
+</ol>
+<figure class="highlight typescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// Content.test.tsx</span></span><br><span class="line">describe(<span class="string">'Content'</span>, <span class="function"><span class="params">()</span> =&gt;</span> &#123;</span><br><span class="line">    it(<span class="string">'should render correctly'</span>, <span class="function"><span class="params">()</span> =&gt;</span> &#123;</span><br><span class="line">        <span class="keyword">const</span> &#123;container&#125; = render(&lt;Content/&gt;);</span><br><span class="line">        expect(container).toMatchSnapshot();</span><br><span class="line">    &#125;);</span><br><span class="line">&#125;);</span><br><span class="line"></span><br><span class="line"><span class="comment">// Content.test.tsx.snap</span></span><br><span class="line"><span class="comment">// Jest Snapshot v1, https://goo.gl/fbAQLP</span></span><br><span class="line"></span><br><span class="line">exports[<span class="string">`Content should render correctly 1`</span>] = <span class="string">`</span></span><br><span class="line"><span class="string">&lt;div&gt;</span></span><br><span class="line"><span class="string">  &lt;main</span></span><br><span class="line"><span class="string">    class="prefix-layout-content"</span></span><br><span class="line"><span class="string">  /&gt;</span></span><br><span class="line"><span class="string">&lt;/div&gt;</span></span><br><span class="line"><span class="string">`</span>;</span><br><span class="line"></span><br><span class="line"><span class="comment">// Content.tsx</span></span><br><span class="line"><span class="keyword">export</span> <span class="keyword">const</span> Content: React.FC&lt;React.HTMLAttributes&lt;HTMLElement&gt;&gt; = <span class="function">(<span class="params">props</span>) =&gt;</span> &#123;</span><br><span class="line">    <span class="keyword">const</span> &#123; className = <span class="string">''</span>, children, ...restProps &#125; = props;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> (</span><br><span class="line">        &lt;main className=&#123;combineClass(<span class="string">'layout-content'</span>, className)&#125; &#123;...restProps&#125;&gt;</span><br><span class="line">            &#123;children&#125;</span><br><span class="line">        &lt;<span class="regexp">/main&gt;</span></span><br><span class="line"><span class="regexp">    );</span></span><br><span class="line"><span class="regexp">&#125;;</span></span><br></pre></td></tr></table></figure>
+<h2 id="逻辑与UI混合组件"><a href="#逻辑与UI混合组件" class="headerlink" title="逻辑与UI混合组件"></a>逻辑与UI混合组件</h2><p>这个部分我们就需要hooks的帮忙了，这样的组件不是UI和逻辑强耦合嘛，那我们就可以将两者拆开。于是这样的组件我们会这样写：</p>
+<ol>
+<li><p>首先将UI页面build出来，但是需要的callback全部写成空函数</p>
+</li>
+<li><p>将所有callback或者是页面需要用到的逻辑抽到一个hook中</p>
+</li>
+<li><p>此时hook里的代码没有UI只有逻辑，故可以使用测试库对hook进行单独的逻辑测试，所以此时hook的开发可以按照逻辑组件的开发进行TDD</p>
+</li>
+<li><p>整个混合组件开发完成后，补上一个snapshot测试，需要注意的是可能该组件在渲染时需要一些数据，在写snapshot测试时应该确保准备的数据是完备的，否则快照会渲染出一份根本没有数据的错误组件</p>
+</li>
+</ol>
+<figure class="highlight typescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// usePageExample.test.ts</span></span><br><span class="line"><span class="keyword">import</span> &#123;act, renderHook&#125; <span class="keyword">from</span> <span class="string">"@testing-library/react-hooks"</span>;</span><br><span class="line"></span><br><span class="line">describe(<span class="string">'usePageExample'</span>, <span class="function"><span class="params">()</span> =&gt;</span> &#123;</span><br><span class="line">    <span class="keyword">let</span> mockGetUserId: jest.Mock;</span><br><span class="line"><span class="keyword">let</span> mockValidate: jest.Mock;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">beforeAll(<span class="function"><span class="params">()</span> =&gt;</span> &#123;</span><br><span class="line">    mockGetUserId = jest.fn();</span><br><span class="line">    mockValidate = jest.fn();</span><br><span class="line"></span><br><span class="line">    jest.mock(<span class="string">'../../../../request/someRequest'</span>, <span class="function"><span class="params">()</span> =&gt;</span> (&#123;</span><br><span class="line">        getUserId: mockGetUserId,</span><br><span class="line">    &#125;));</span><br><span class="line">    jest.mock(<span class="string">'../../../../validator/formValidator'</span>, <span class="function"><span class="params">()</span> =&gt;</span> (&#123;</span><br><span class="line">        formValidate: mockValidate,</span><br><span class="line">    &#125;));</span><br><span class="line">&#125;);</span><br><span class="line"></span><br><span class="line">afterAll(<span class="function"><span class="params">()</span> =&gt;</span> &#123;</span><br><span class="line">    mockGetUserId.mockReset();</span><br><span class="line">    mockValidate.mockReset();</span><br><span class="line">&#125;);</span><br><span class="line"></span><br><span class="line">it(<span class="string">'should trigger request with test string when click button'</span>, <span class="function"><span class="params">()</span> =&gt;</span> &#123;</span><br><span class="line">    <span class="keyword">const</span> &#123;usePageExample&#125; = <span class="built_in">require</span>(<span class="string">'../usePageExample'</span>);</span><br><span class="line">    <span class="keyword">const</span> &#123;result&#125; = renderHook(<span class="function"><span class="params">()</span> =&gt;</span> usePageExample());</span><br><span class="line"></span><br><span class="line">    act(<span class="function"><span class="params">()</span> =&gt;</span> &#123;</span><br><span class="line">        result.current.onClick();</span><br><span class="line">    &#125;);</span><br><span class="line"></span><br><span class="line">    expect(mockGetUserId).toBeCalled();</span><br><span class="line">&#125;);</span><br><span class="line"></span><br><span class="line">it(<span class="string">'should validate form values before submit'</span>, <span class="function"><span class="params">()</span> =&gt;</span> &#123;</span><br><span class="line">    <span class="keyword">const</span> &#123;usePageExample&#125; = <span class="built_in">require</span>(<span class="string">'../usePageExample'</span>);</span><br><span class="line">    <span class="keyword">const</span> &#123;result&#125; = renderHook(<span class="function"><span class="params">()</span> =&gt;</span> usePageExample());</span><br><span class="line">    <span class="keyword">const</span> formValues = &#123;id: <span class="string">'1'</span>, name: <span class="string">'name'</span>&#125;;</span><br><span class="line"></span><br><span class="line">    act(<span class="function"><span class="params">()</span> =&gt;</span> &#123;</span><br><span class="line">        result.current.onSubmit(formValues);</span><br><span class="line">    &#125;);</span><br><span class="line"></span><br><span class="line">    expect(mockValidate).toBeCalledWith(formValues);</span><br><span class="line">&#125;);</span><br><span class="line"></span><br><span class="line">&#125;);</span><br><span class="line"></span><br><span class="line"><span class="comment">// usePageExample.ts</span></span><br><span class="line"><span class="keyword">import</span> &#123;getUserId&#125; <span class="keyword">from</span> <span class="string">"../../../request/someRequest"</span>;</span><br><span class="line"><span class="keyword">import</span> &#123;formValidate&#125; <span class="keyword">from</span> <span class="string">"../../../validator/formValidator"</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">export</span> <span class="keyword">interface</span> IFormValues &#123;</span><br><span class="line">    email: <span class="built_in">string</span>;</span><br><span class="line">    name: <span class="built_in">string</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">export</span> <span class="keyword">const</span> usePageExample = <span class="function"><span class="params">()</span> =&gt;</span> &#123;</span><br><span class="line">    <span class="keyword">const</span> onClick = <span class="function"><span class="params">()</span> =&gt;</span> &#123;</span><br><span class="line">        getUserId();</span><br><span class="line">    &#125;;</span><br><span class="line">    <span class="keyword">const</span> onSubmit = <span class="function">(<span class="params">formValues: IFormValues</span>) =&gt;</span> &#123;</span><br><span class="line">        formValidate(formValues);</span><br><span class="line">    &#125;;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> &#123;onClick, onSubmit&#125;;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="comment">// PageExample.tsx</span></span><br><span class="line"><span class="keyword">import</span> * <span class="keyword">as</span> React <span class="keyword">from</span> <span class="string">"react"</span>;</span><br><span class="line"><span class="keyword">import</span> &#123;usePageExample&#125; <span class="keyword">from</span> <span class="string">"./hooks/usePageExample"</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">export</span> <span class="keyword">const</span> PageExample: React.FC&lt;IPageExampleProps&gt; = <span class="function"><span class="params">()</span> =&gt;</span> &#123;</span><br><span class="line">    <span class="keyword">const</span> &#123;onClick, onSubmit&#125; = usePageExample();</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> (</span><br><span class="line">        &lt;div&gt;</span><br><span class="line">            &lt;form onSubmit=&#123;<span class="function"><span class="params">()</span> =&gt;</span> onSubmit&#125;&gt;</span><br><span class="line">                &lt;input <span class="keyword">type</span>=<span class="string">"text"</span>/&gt;</span><br><span class="line">            &lt;<span class="regexp">/form&gt;</span></span><br><span class="line"><span class="regexp">            &lt;button onClick=&#123;onClick&#125;&gt;test&lt;/</span>button&gt;</span><br><span class="line">        &lt;<span class="regexp">/div&gt;</span></span><br><span class="line"><span class="regexp">    );</span></span><br><span class="line"><span class="regexp">&#125;;</span></span><br></pre></td></tr></table></figure>
+<p>这篇文章算是给大家提供了一个hooks的TDD思路，当然其中还有一些我们也觉得不是很完善的地方(比如UI的测试)，大家如果有更好的实践的话欢迎一起讨论。</p>
+
+    
+  </div>
+</article>
+
+  </div>
+  <aside id="aside-bar">
+    
+  <div id="toc" class="toc-article">
+    <strong class="toc-title">文章目录</strong>
+    <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#前端TDD的痛"><span class="toc-text">前端TDD的痛</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#纯逻辑组件"><span class="toc-text">纯逻辑组件</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#纯UI组件"><span class="toc-text">纯UI组件</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#逻辑与UI混合组件"><span class="toc-text">逻辑与UI混合组件</span></a></li></ol>
+  </div>
+
+
+    
+  <div id="recent-post" class="recent-post">
+    <strong class="recent-post-title">
+      近期文章
+    </strong>
+    <ul class="recent-post-list">
+      
+         <li class="recent-post-list">
+           <a href="/20200516-react-concurrent-mode-suspense.html" title="React Concurrent Mode 之 Suspense 实践" >React Concurrent Mode 之 Suspense 实践</a>
+         </li>
+      
+         <li class="recent-post-list">
+           <a href="/20200304-devtool-editing-and-debugging.html" title="(1)你真的会用Chrome devtool吗?" >(1)你真的会用Chrome devtool吗?</a>
+         </li>
+      
+         <li class="recent-post-list">
+           <a href="/20200222-webpack-core-concepts.html" title="Webpack原理(3) — 核心概念" >Webpack原理(3) — 核心概念</a>
+         </li>
+      
+         <li class="recent-post-list">
+           <a href="/20200219-first-in-webpack.html" title="Webpack原理(2) — 加载原理" >Webpack原理(2) — 加载原理</a>
+         </li>
+      
+         <li class="recent-post-list">
+           <a href="/20200211-tdd-with-react-hooks.html" title="用React hooks实现TDD" >用React hooks实现TDD</a>
+         </li>
+      
+         <li class="recent-post-list">
+           <a href="/20200107-reduce-bundle-size.html" title="如何减小前端代码打包体积" >如何减小前端代码打包体积</a>
+         </li>
+      
+         <li class="recent-post-list">
+           <a href="/20190906-error-handler.html" title="React中的错误处理" >React中的错误处理</a>
+         </li>
+      
+         <li class="recent-post-list">
+           <a href="/20190903-compose.html" title="函数式初识(6) - 组合" >函数式初识(6) - 组合</a>
+         </li>
+      
+         <li class="recent-post-list">
+           <a href="/20190831-partial-and-currying.html" title="函数式初识(5) - 偏函数和柯里化" >函数式初识(5) - 偏函数和柯里化</a>
+         </li>
+      
+         <li class="recent-post-list">
+           <a href="/20190829-closure.html" title="函数式初识(4) - 闭包" >函数式初识(4) - 闭包</a>
+         </li>
+      
+    </ul>
+  </div>
+
+
+  </aside>
+</div>
+
+
+
+
+  <div class="box-prev-next clearfix">
+    <a class="show pull-left" href="/20200107-reduce-bundle-size.html">
+        <i class="icon icon-angle-left"></i>
+    </a>
+    <a class="show pull-right" href="/20200219-first-in-webpack.html">
+        <i class="icon icon-angle-right"></i>
+    </a>
+  </div>
+
+
+
+
+
+  <a id="backTop" class="back-top">
+    <i class="icon-angle-up"></i>
+  </a>
+
+
+
+
+  <div class="modal" id="modal">
+  <span id="cover" class="cover hide"></span>
+  <div id="modal-dialog" class="modal-dialog hide-dialog">
+    <div class="modal-header">
+      <span id="close" class="btn-close">关闭</span>
+    </div>
+    <hr>
+    <div class="modal-body">
+      <ul class="list-toolbox">
+        
+          <li class="item-toolbox">
+            <a
+              class="CIRCLE"
+              href="/archives/"
+              rel="noopener noreferrer"
+              target="_self"
+              >
+              博客
+            </a>
+          </li>
+        
+          <li class="item-toolbox">
+            <a
+              class="CIRCLE"
+              href="/categories/"
+              rel="noopener noreferrer"
+              target="_self"
+              >
+              分类
+            </a>
+          </li>
+        
+          <li class="item-toolbox">
+            <a
+              class="CIRCLE"
+              href="/tags/"
+              rel="noopener noreferrer"
+              target="_self"
+              >
+              标签
+            </a>
+          </li>
+        
+          <li class="item-toolbox">
+            <a
+              class="CIRCLE"
+              href="/about/"
+              rel="noopener noreferrer"
+              target="_self"
+              >
+              关于
+            </a>
+          </li>
+        
+          <li class="item-toolbox">
+            <a
+              class="CIRCLE"
+              href="/search/"
+              rel="noopener noreferrer"
+              target="_self"
+              >
+              搜索
+            </a>
+          </li>
+        
+      </ul>
+
+    </div>
+  </div>
+</div>
+
+
+
+  
+      <div class="fexo-comments comments-post">
+    
+  <section class="disqus-comments">
+    <div id="disqus_thread">
+      <noscript>Please enable JavaScript to view the <a href="//disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+    </div>
+  </section>
+
+  <script>
+    var disqus_shortname = 'teobler';
+    
+    var disqus_url = 'https://teobler.com/20200211-tdd-with-react-hooks.html';
+    
+    (function(){
+      var dsq = document.createElement('script');
+      dsq.type = 'text/javascript';
+      dsq.async = true;
+      dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+      (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    })();
+  </script>
+
+  <script id="dsq-count-scr" src="//teobler.disqus.com/count.js" async></script>
+
+
+
+    
+
+
+
+
+    
+
+    
+	
+  </div>
+
+  
+
+  <script type="text/javascript">
+  function loadScript(url, callback) {
+    var script = document.createElement('script')
+    script.type = 'text/javascript';
+
+    if (script.readyState) { //IE
+      script.onreadystatechange = function() {
+        if (script.readyState == 'loaded' ||
+          script.readyState == 'complete') {
+          script.onreadystatechange = null;
+          callback();
+        }
+      };
+    } else { //Others
+      script.onload = function() {
+        callback();
+      };
+    }
+
+    script.src = url;
+    document.getElementsByTagName('head')[0].appendChild(script);
+  }
+
+  window.onload = function() {
+    loadScript('/js/bundle.js?235683', function() {
+      // load success
+    });
+  }
+</script>
+
+</body>
+</html>

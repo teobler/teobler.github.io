@@ -1,0 +1,505 @@
+<!DOCTYPE html>
+
+
+  <html lang="zh-CN" class="light page-post">
+
+
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="content-language" content="zh-CN">
+  
+  <title>函数式初识(5) - 偏函数和柯里化 | teobler&#39;s blog</title>
+
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+  
+    <meta name="keywords" content="FP,函数式编程," />
+  
+
+  <meta name="360-site-verification" content="7b29d0e6eb0d7a16d22f9d0961882c3a" />
+  <meta name="sogou_site_verification" content="S1EAZKO83i"/>
+
+  <meta name="description" content="从通用到特殊在前面的文章中我们已经提到过在函数式编程中，一个函数“形状”的重要性，我们力求每一个函数都是一元函数，以便我们将各个函数组合在一起，但是我们总会遇到各种各样的情况迫使我们的函数是一元二元甚至是多元的，这时我们就需要借助柯里化来“改变函数的形状”，使其能够适应别的函数。同时这也是将一个函数从“一般化”引向“特殊化”的过程，这在函数式编程中极其重要。 123const ajax = (ur">
+<meta name="keywords" content="FP,函数式编程">
+<meta property="og:type" content="article">
+<meta property="og:title" content="函数式初识(5) - 偏函数和柯里化">
+<meta property="og:url" content="https://teobler.com/20190831-partial-and-currying.html">
+<meta property="og:site_name" content="teobler&#39;s blog">
+<meta property="og:description" content="从通用到特殊在前面的文章中我们已经提到过在函数式编程中，一个函数“形状”的重要性，我们力求每一个函数都是一元函数，以便我们将各个函数组合在一起，但是我们总会遇到各种各样的情况迫使我们的函数是一元二元甚至是多元的，这时我们就需要借助柯里化来“改变函数的形状”，使其能够适应别的函数。同时这也是将一个函数从“一般化”引向“特殊化”的过程，这在函数式编程中极其重要。 123const ajax = (ur">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:updated_time" content="2020-02-15T02:49:44.538Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="函数式初识(5) - 偏函数和柯里化">
+<meta name="twitter:description" content="从通用到特殊在前面的文章中我们已经提到过在函数式编程中，一个函数“形状”的重要性，我们力求每一个函数都是一元函数，以便我们将各个函数组合在一起，但是我们总会遇到各种各样的情况迫使我们的函数是一元二元甚至是多元的，这时我们就需要借助柯里化来“改变函数的形状”，使其能够适应别的函数。同时这也是将一个函数从“一般化”引向“特殊化”的过程，这在函数式编程中极其重要。 123const ajax = (ur">
+
+  
+
+  
+    <link rel="icon" href="/favicon.ico">
+  
+
+  <link href="/css/styles.css?v=c114cbe6" rel="stylesheet">
+
+
+  
+
+  
+<!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-158204206-1"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'UA-158204206-1');
+</script>
+
+
+
+  
+  <script type="text/javascript">
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "//hm.baidu.com/hm.js?57e94d016e201fba3603a8a2b0263af0";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+  
+  <script type="text/javascript">
+	(function(){
+	    var bp = document.createElement('script');
+	    var curProtocol = window.location.protocol.split(':')[0];
+	    if (curProtocol === 'https') {
+	        bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';        
+	    }
+	    else {
+	        bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+	    }
+	    var s = document.getElementsByTagName("script")[0];
+	    s.parentNode.insertBefore(bp, s);
+	})();
+  </script>
+
+
+  
+  <script src="https://jspassport.ssl.qhimg.com/11.0.1.js?d182b3f28525f2db83acfaaf6e696dba" id="sozz"></script>
+
+
+
+  
+    <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+  
+
+  
+    <link rel="stylesheet" href="//cdn.bootcss.com/font-awesome/4.3.0/css/font-awesome.min.css">
+  
+
+  <script data-ad-client="ca-pub-8160236896214353" async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+</head>
+
+<body>
+
+
+  
+    <span id="toolbox-mobile" class="toolbox-mobile">导航</span>
+  
+
+  <div class="post-header CENTER">
+   
+  <div class="toolbox">
+    <a class="toolbox-entry" href="/">
+      <span class="toolbox-entry-text">导航</span>
+      <i class="icon-angle-down"></i>
+      <i class="icon-home"></i>
+    </a>
+    <ul class="list-toolbox">
+      
+        <li class="item-toolbox">
+          <a
+            class="CIRCLE"
+            href="/archives/"
+            rel="noopener noreferrer"
+            target="_self"
+            >
+            博客
+          </a>
+        </li>
+      
+        <li class="item-toolbox">
+          <a
+            class="CIRCLE"
+            href="/categories/"
+            rel="noopener noreferrer"
+            target="_self"
+            >
+            分类
+          </a>
+        </li>
+      
+        <li class="item-toolbox">
+          <a
+            class="CIRCLE"
+            href="/tags/"
+            rel="noopener noreferrer"
+            target="_self"
+            >
+            标签
+          </a>
+        </li>
+      
+        <li class="item-toolbox">
+          <a
+            class="CIRCLE"
+            href="/about/"
+            rel="noopener noreferrer"
+            target="_self"
+            >
+            关于
+          </a>
+        </li>
+      
+        <li class="item-toolbox">
+          <a
+            class="CIRCLE"
+            href="/search/"
+            rel="noopener noreferrer"
+            target="_self"
+            >
+            搜索
+          </a>
+        </li>
+      
+    </ul>
+  </div>
+
+
+</div>
+
+<div id="post-container" class="container">
+  <div class="content content-post CENTER">
+     <article id="post-20190831-partial-and-currying" class="article article-type-post" itemprop="blogPost">
+  <header class="article-header">
+    <h1 class="post-title">函数式初识(5) - 偏函数和柯里化</h1>
+
+    <div class="article-meta">
+       <div>
+          <span>
+            <i class="icon-calendar"></i>
+            <span>2019.08.31</span>
+          </span>
+
+          
+            <span class="article-author">
+              <i class="icon-user"></i>
+              <span>teobler</span>
+            </span>
+          
+
+          
+  <span class="article-category">
+    <i class="icon-list"></i>
+    <a class="article-category-link" href="/categories/技术细节/">技术细节</a>
+  </span>
+
+
+
+          
+            <span>
+              <i class="icon-comment"></i>
+              <a href="https://teobler.com/20190831-partial-and-currying.html#disqus_thread"></a>
+            </span>
+          
+
+          
+          <i class="fa fa-eye"></i>
+            <span id="busuanzi_container_page_pv">
+               &nbsp热度 <span id="busuanzi_value_page_pv">
+               <i class="fa fa-spinner fa-spin"></i></span>℃
+            </span>
+          
+
+          
+      </div>
+
+      <div>
+        <i class="icon-text"></i>
+        <span class="post-count">全篇字数: 1.9k</span>
+        &nbsp
+        <i class="icon-calendar-1"></i>
+        <span class="post-count">预计花费: 6分钟</span>
+      </div>
+      
+    </div>
+  </header>
+
+  <div class="article-content">
+    
+      <h2 id="从通用到特殊"><a href="#从通用到特殊" class="headerlink" title="从通用到特殊"></a>从通用到特殊</h2><p>在前面的文章中我们已经提到过在函数式编程中，一个函数“形状”的重要性，我们力求每一个函数都是一元函数，以便我们将各个函数组合在一起，但是我们总会遇到各种各样的情况迫使我们的函数是一元二元甚至是多元的，这时我们就需要借助柯里化来“改变函数的形状”，使其能够适应别的函数。同时这也是将一个函数从“一般化”引向“特殊化”的过程，这在函数式编程中极其重要。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> ajax = (url, data, cb) &#123;<span class="comment">/*..*/</span>&#125;</span><br><span class="line"></span><br><span class="line">ajax(CUSTOMER_API, &#123; <span class="attr">id</span>: <span class="number">33</span> &#125;, renderCustomer);</span><br></pre></td></tr></table></figure>
+<p>假如我们有一个函数<code>ajax</code>，然后我们通过传入一些参数调用它，它的作用是通过请求某个API拿到数据后在页面中渲染UI。一个很常见的函数，但是或许我们在调用的时候给了太多的信息量，这需要代码的阅读者思考这里发生了什么，我们其实可以让它传达的信息更简单些，能让读者一瞬间清晰的理解代码想要表达的内容，当然不是为了让代码单纯的更短，实际上可能会更长。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> getCustomer (data, cb) &#123;</span><br><span class="line">    <span class="keyword">return</span> ajax(CUSTOMER_API, data, cb);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">getCustomer(&#123; <span class="attr">id</span>: <span class="number">33</span> &#125;, renderCustomer);</span><br></pre></td></tr></table></figure>
+<p>因为<code>url</code>其实是一个hard code，我们实际上只需要request data和callback就可以调用这个函数，那么我们将<code>ajax</code>封装用<code>getCustomer</code>起来，这个时候再去调用，就会少了一个变量，同时也少了一些信息量，能让读者一眼看出这个函数想干嘛。但是其实这个功劳是函数名带来的，这个名字要比<code>ajax</code>更加语义化，更能让人明白目的。</p>
+<p>这样的变化其实并没有让代码变简单，但是因为多封装了一层函数，表面上看起来代码变复杂了，但是你可以将一个“一般化”的函数变成一个“特殊化”函数，并给它取了一个语义化的函数名，能让人一眼看出这个特殊的函数目的是什么，更容易理解。</p>
+<p>按照这个思路，其实我们可以进一步将这个更加“特殊化”，向读者传递更加深层的信息。比如我们需要拿到当前特定登录用户的信息，那么我们可以有下面这样一个函数，可以更加详细的表达这些信息：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> getCurrentUser (cb) &#123;</span><br><span class="line">    <span class="comment">// return ajax(CUSTOMER_API, &#123; id: 33&#125;, cb);</span></span><br><span class="line">    <span class="keyword">return</span> getCustomer(&#123; <span class="attr">id</span>: <span class="number">33</span>&#125;, cb);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">getCurrentUser(renderCustomer);</span><br></pre></td></tr></table></figure>
+<p>值得注意的是我们在定义<code>getCurrentUser</code>这个函数的时候，我们其实可以用<code>ajax</code>这个函数去定义，不用是因为<code>getCustomer</code>能让我们更加清晰的去表达各个函数之间层层递进的关系。</p>
+<h2 id="参数顺序"><a href="#参数顺序" class="headerlink" title="参数顺序"></a>参数顺序</h2><p>当你想要让一个函数从“一般化”到“特殊化” — 也就是让一个多元函数逐渐变成一个一元、二元函数 — 的时候，我们需要重点考虑传入参数的顺序。参数的优先级应该也是从一般化到特殊化的，也就是说最闲传入的参数应该是一个一般化的参数，后面的参数越来越多具体。假如你一开始传入的就是一个很具体的参数，那么后面的参数将难以与其匹配，这个函数将直接成为一个单一作用的函数。</p>
+<p>例如上面的<code>ajax</code>函数，如果我一开始传入的参数就是一个callback，那么我得到的新的柯里化函数只能用作render，别无它用，这也违背了函数式中函数组件复用的原则。所以在设计函数的时候，参数的顺序是一个很重要的点，这一点可以从各个函数式的三方库中(ramda.js, lodash/fp等)去吸取经验。</p>
+<p>比如<code>ramda</code>库中的<code>map</code>函数，其所接受的第一个参数是callback回调函数，第二个参数时传入这个callbak的数组，第一个参数使这个map函数成为了一个特殊化的<strong>mapper</strong>，之后可以很轻易的复用它，它可以接受各种输入返回需要的值。假如第一个参数使数组，那么返回的新函数将是一个只用于该数组的map函数。</p>
+<h2 id="偏函数-partial-和柯里化-currying"><a href="#偏函数-partial-和柯里化-currying" class="headerlink" title="偏函数(partial)和柯里化(currying)"></a>偏函数(partial)和柯里化(currying)</h2><p>偏函数和柯里化是每一个函数式编程的库都会为你提供的两个工具函数，有了这两个函数，我们就可以不必手动去写如同上面例子的”函数特殊化”，这一切可以交给工具函数帮我们实现。我们不关心其内部怎么实现的，我们在此只说怎么使用它们。</p>
+<p>看到偏函数这个名字是不是有点熟悉，不错，它来源于数学中的偏导：</p>
+<blockquote>
+<p>在<a href="https://zh.wikipedia.org/wiki/%E6%95%B0%E5%AD%A6" target="_blank" rel="noopener">数学</a>中，一个多变量的函数的<strong>偏导数</strong>（英语：partial derivative）是它关于其中一个变量的<a href="https://zh.wikipedia.org/wiki/%E5%AF%BC%E6%95%B0" target="_blank" rel="noopener">导数</a>，而保持其他变量恒定（相对于<a href="https://zh.wikipedia.org/wiki/%E5%85%A8%E5%AF%BC%E6%95%B0" target="_blank" rel="noopener">全导数</a>，在其中所有变量都允许变化）</p>
+</blockquote>
+<p>那么这样就很好理解了，其实偏函数相当于提前设定好了某个函数需要的部分参数，并返回一个新的函数来等待接下来的参数传入：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> ajax(url, data, cb) &#123; <span class="comment">/*...*/</span> &#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> getCustomer = partial(ajax, CUSTOMER_API);</span><br><span class="line"><span class="comment">// const getCurrentUser = partial(ajax, CUSTOMER_API, &#123; id:33 &#125;);</span></span><br><span class="line"><span class="keyword">const</span> getCurrentUser = partial(getCustomer, &#123; <span class="attr">id</span>: <span class="number">33</span> &#125;);</span><br><span class="line"></span><br><span class="line">getCustomer(&#123; <span class="attr">id</span>: <span class="number">33</span>&#125;, renderCustomer);</span><br><span class="line">getCurrentUser(renderCustomer);</span><br></pre></td></tr></table></figure>
+<p>熟悉函数式的同学可能会更加喜欢柯里化，柯里化能将一个接受多个参数的函数转换成一次只接受一个参数的函数，没接收一个新的参数，将会返回一个新的函数等待接下来的一个参数，一直到所有参数接受完成后返回运算的结果：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// const ajax =&gt; url =&gt; data =&gt; cb =&gt; ajax(url, data, cb);</span></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">ajax</span>(<span class="params">url</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="function"><span class="keyword">function</span> <span class="title">getData</span>(<span class="params">data</span>) </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="function"><span class="keyword">function</span> <span class="title">getCB</span>(<span class="params">cb</span>) </span>&#123;</span><br><span class="line">            <span class="keyword">return</span> ajax(url, data, cb);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">ajax(CUSTOMER_API)(&#123; <span class="attr">id</span>: <span class="number">33</span>&#125;)(renderCustomer);</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> getCustomer = ajax(CUSTOMER_API);</span><br><span class="line"><span class="keyword">const</span> getCurrentUser = getCustomer(&#123; <span class="attr">id</span>: <span class="number">33</span>&#125;);</span><br></pre></td></tr></table></figure>
+<p>当然这里我们是手动定义了一个天然柯里化的函数，但是如果每个函数都这样写那就太累了，所以我们用库来帮我们完成这件事：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> ajax = curry(<span class="number">3</span>, <span class="function"><span class="keyword">function</span> <span class="title">ajax</span>(<span class="params">url, data, cb</span>) </span>&#123;<span class="comment">/*...*/</span>&#125;);</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> getCustomer = ajax(CUSTOMER_API);</span><br><span class="line"><span class="keyword">const</span> getCurrentUser = getCustomer(&#123; <span class="attr">id</span>: <span class="number">33</span>&#125;);</span><br></pre></td></tr></table></figure>
+<p>curry函数要你告诉它你想要柯里化的函数有几个参数，然后再传入那个函数就ok了。</p>
+<h2 id="异同点"><a href="#异同点" class="headerlink" title="异同点"></a>异同点</h2><ul>
+<li>两者都为了达成一个目的 — 将一个一般化的通用函数变成一个特殊化的函数。</li>
+<li>柯里化能做到”一次付费终生使用“，你只需要柯里化一次你的函数，那么这个函数就能被任意级别的特殊化，并且柯里化没有预先传入参数，所有参数需要你在接下来的使用中逐个传入。</li>
+<li>偏函数是”一次定型”的，每一次如果你想要继续改变函数的形状，你都需要再次调用工具函数，并且在最开始就传入了一部分初始参数，剩下的参数在调用时一次传入。</li>
+</ul>
+
+    
+  </div>
+</article>
+
+  </div>
+  <aside id="aside-bar">
+    
+  <div id="toc" class="toc-article">
+    <strong class="toc-title">文章目录</strong>
+    <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#从通用到特殊"><span class="toc-text">从通用到特殊</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#参数顺序"><span class="toc-text">参数顺序</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#偏函数-partial-和柯里化-currying"><span class="toc-text">偏函数(partial)和柯里化(currying)</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#异同点"><span class="toc-text">异同点</span></a></li></ol>
+  </div>
+
+
+    
+  <div id="recent-post" class="recent-post">
+    <strong class="recent-post-title">
+      近期文章
+    </strong>
+    <ul class="recent-post-list">
+      
+         <li class="recent-post-list">
+           <a href="/20200516-react-concurrent-mode-suspense.html" title="React Concurrent Mode 之 Suspense 实践" >React Concurrent Mode 之 Suspense 实践</a>
+         </li>
+      
+         <li class="recent-post-list">
+           <a href="/20200304-devtool-editing-and-debugging.html" title="(1)你真的会用Chrome devtool吗?" >(1)你真的会用Chrome devtool吗?</a>
+         </li>
+      
+         <li class="recent-post-list">
+           <a href="/20200222-webpack-core-concepts.html" title="Webpack原理(3) — 核心概念" >Webpack原理(3) — 核心概念</a>
+         </li>
+      
+         <li class="recent-post-list">
+           <a href="/20200219-first-in-webpack.html" title="Webpack原理(2) — 加载原理" >Webpack原理(2) — 加载原理</a>
+         </li>
+      
+         <li class="recent-post-list">
+           <a href="/20200211-tdd-with-react-hooks.html" title="用React hooks实现TDD" >用React hooks实现TDD</a>
+         </li>
+      
+         <li class="recent-post-list">
+           <a href="/20200107-reduce-bundle-size.html" title="如何减小前端代码打包体积" >如何减小前端代码打包体积</a>
+         </li>
+      
+         <li class="recent-post-list">
+           <a href="/20190906-error-handler.html" title="React中的错误处理" >React中的错误处理</a>
+         </li>
+      
+         <li class="recent-post-list">
+           <a href="/20190903-compose.html" title="函数式初识(6) - 组合" >函数式初识(6) - 组合</a>
+         </li>
+      
+         <li class="recent-post-list">
+           <a href="/20190831-partial-and-currying.html" title="函数式初识(5) - 偏函数和柯里化" >函数式初识(5) - 偏函数和柯里化</a>
+         </li>
+      
+         <li class="recent-post-list">
+           <a href="/20190829-closure.html" title="函数式初识(4) - 闭包" >函数式初识(4) - 闭包</a>
+         </li>
+      
+    </ul>
+  </div>
+
+
+  </aside>
+</div>
+
+
+
+
+  <div class="box-prev-next clearfix">
+    <a class="show pull-left" href="/20190829-closure.html">
+        <i class="icon icon-angle-left"></i>
+    </a>
+    <a class="show pull-right" href="/20190903-compose.html">
+        <i class="icon icon-angle-right"></i>
+    </a>
+  </div>
+
+
+
+
+
+  <a id="backTop" class="back-top">
+    <i class="icon-angle-up"></i>
+  </a>
+
+
+
+
+  <div class="modal" id="modal">
+  <span id="cover" class="cover hide"></span>
+  <div id="modal-dialog" class="modal-dialog hide-dialog">
+    <div class="modal-header">
+      <span id="close" class="btn-close">关闭</span>
+    </div>
+    <hr>
+    <div class="modal-body">
+      <ul class="list-toolbox">
+        
+          <li class="item-toolbox">
+            <a
+              class="CIRCLE"
+              href="/archives/"
+              rel="noopener noreferrer"
+              target="_self"
+              >
+              博客
+            </a>
+          </li>
+        
+          <li class="item-toolbox">
+            <a
+              class="CIRCLE"
+              href="/categories/"
+              rel="noopener noreferrer"
+              target="_self"
+              >
+              分类
+            </a>
+          </li>
+        
+          <li class="item-toolbox">
+            <a
+              class="CIRCLE"
+              href="/tags/"
+              rel="noopener noreferrer"
+              target="_self"
+              >
+              标签
+            </a>
+          </li>
+        
+          <li class="item-toolbox">
+            <a
+              class="CIRCLE"
+              href="/about/"
+              rel="noopener noreferrer"
+              target="_self"
+              >
+              关于
+            </a>
+          </li>
+        
+          <li class="item-toolbox">
+            <a
+              class="CIRCLE"
+              href="/search/"
+              rel="noopener noreferrer"
+              target="_self"
+              >
+              搜索
+            </a>
+          </li>
+        
+      </ul>
+
+    </div>
+  </div>
+</div>
+
+
+
+  
+      <div class="fexo-comments comments-post">
+    
+  <section class="disqus-comments">
+    <div id="disqus_thread">
+      <noscript>Please enable JavaScript to view the <a href="//disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+    </div>
+  </section>
+
+  <script>
+    var disqus_shortname = 'teobler';
+    
+    var disqus_url = 'https://teobler.com/20190831-partial-and-currying.html';
+    
+    (function(){
+      var dsq = document.createElement('script');
+      dsq.type = 'text/javascript';
+      dsq.async = true;
+      dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+      (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    })();
+  </script>
+
+  <script id="dsq-count-scr" src="//teobler.disqus.com/count.js" async></script>
+
+
+
+    
+
+
+
+
+    
+
+    
+	
+  </div>
+
+  
+
+  <script type="text/javascript">
+  function loadScript(url, callback) {
+    var script = document.createElement('script')
+    script.type = 'text/javascript';
+
+    if (script.readyState) { //IE
+      script.onreadystatechange = function() {
+        if (script.readyState == 'loaded' ||
+          script.readyState == 'complete') {
+          script.onreadystatechange = null;
+          callback();
+        }
+      };
+    } else { //Others
+      script.onload = function() {
+        callback();
+      };
+    }
+
+    script.src = url;
+    document.getElementsByTagName('head')[0].appendChild(script);
+  }
+
+  window.onload = function() {
+    loadScript('/js/bundle.js?235683', function() {
+      // load success
+    });
+  }
+</script>
+
+</body>
+</html>

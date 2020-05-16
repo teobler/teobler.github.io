@@ -1,0 +1,505 @@
+<!DOCTYPE html>
+
+
+  <html lang="zh-CN" class="light page-post">
+
+
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="content-language" content="zh-CN">
+  
+  <title>Webpack原理(1) — Why Webpack | teobler&#39;s blog</title>
+
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+  
+    <meta name="keywords" content="webpack," />
+  
+
+  <meta name="360-site-verification" content="7b29d0e6eb0d7a16d22f9d0961882c3a" />
+  <meta name="sogou_site_verification" content="S1EAZKO83i"/>
+
+  <meta name="description" content="最近稍微打败了一点自己的懒癌，刚好工作上的压力没有那么大了，有时间能够看看前端的东西了。看了一部分webpack相关的东西，自己记录一下。这一篇主要介绍下webpack的历史以及我们为什么要使用webpack，当然，只能从我的角度力争保持不“篡改”历史，要是有不对的地方希望的指出。 我们怎么使用JS众所周知，我们在HTML文件中使用JavaScript只能通过script标签来引入： 12345&amp;">
+<meta name="keywords" content="webpack">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Webpack原理(1) — Why Webpack">
+<meta property="og:url" content="https://teobler.com/20190308-why-webpack.html">
+<meta property="og:site_name" content="teobler&#39;s blog">
+<meta property="og:description" content="最近稍微打败了一点自己的懒癌，刚好工作上的压力没有那么大了，有时间能够看看前端的东西了。看了一部分webpack相关的东西，自己记录一下。这一篇主要介绍下webpack的历史以及我们为什么要使用webpack，当然，只能从我的角度力争保持不“篡改”历史，要是有不对的地方希望的指出。 我们怎么使用JS众所周知，我们在HTML文件中使用JavaScript只能通过script标签来引入： 12345&amp;">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:updated_time" content="2020-02-19T01:35:05.216Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Webpack原理(1) — Why Webpack">
+<meta name="twitter:description" content="最近稍微打败了一点自己的懒癌，刚好工作上的压力没有那么大了，有时间能够看看前端的东西了。看了一部分webpack相关的东西，自己记录一下。这一篇主要介绍下webpack的历史以及我们为什么要使用webpack，当然，只能从我的角度力争保持不“篡改”历史，要是有不对的地方希望的指出。 我们怎么使用JS众所周知，我们在HTML文件中使用JavaScript只能通过script标签来引入： 12345&amp;">
+
+  
+
+  
+    <link rel="icon" href="/favicon.ico">
+  
+
+  <link href="/css/styles.css?v=c114cbe6" rel="stylesheet">
+
+
+  
+
+  
+<!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-158204206-1"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'UA-158204206-1');
+</script>
+
+
+
+  
+  <script type="text/javascript">
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "//hm.baidu.com/hm.js?57e94d016e201fba3603a8a2b0263af0";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+  
+  <script type="text/javascript">
+	(function(){
+	    var bp = document.createElement('script');
+	    var curProtocol = window.location.protocol.split(':')[0];
+	    if (curProtocol === 'https') {
+	        bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';        
+	    }
+	    else {
+	        bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+	    }
+	    var s = document.getElementsByTagName("script")[0];
+	    s.parentNode.insertBefore(bp, s);
+	})();
+  </script>
+
+
+  
+  <script src="https://jspassport.ssl.qhimg.com/11.0.1.js?d182b3f28525f2db83acfaaf6e696dba" id="sozz"></script>
+
+
+
+  
+    <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+  
+
+  
+    <link rel="stylesheet" href="//cdn.bootcss.com/font-awesome/4.3.0/css/font-awesome.min.css">
+  
+
+  <script data-ad-client="ca-pub-8160236896214353" async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+</head>
+
+<body>
+
+
+  
+    <span id="toolbox-mobile" class="toolbox-mobile">导航</span>
+  
+
+  <div class="post-header CENTER">
+   
+  <div class="toolbox">
+    <a class="toolbox-entry" href="/">
+      <span class="toolbox-entry-text">导航</span>
+      <i class="icon-angle-down"></i>
+      <i class="icon-home"></i>
+    </a>
+    <ul class="list-toolbox">
+      
+        <li class="item-toolbox">
+          <a
+            class="CIRCLE"
+            href="/archives/"
+            rel="noopener noreferrer"
+            target="_self"
+            >
+            博客
+          </a>
+        </li>
+      
+        <li class="item-toolbox">
+          <a
+            class="CIRCLE"
+            href="/categories/"
+            rel="noopener noreferrer"
+            target="_self"
+            >
+            分类
+          </a>
+        </li>
+      
+        <li class="item-toolbox">
+          <a
+            class="CIRCLE"
+            href="/tags/"
+            rel="noopener noreferrer"
+            target="_self"
+            >
+            标签
+          </a>
+        </li>
+      
+        <li class="item-toolbox">
+          <a
+            class="CIRCLE"
+            href="/about/"
+            rel="noopener noreferrer"
+            target="_self"
+            >
+            关于
+          </a>
+        </li>
+      
+        <li class="item-toolbox">
+          <a
+            class="CIRCLE"
+            href="/search/"
+            rel="noopener noreferrer"
+            target="_self"
+            >
+            搜索
+          </a>
+        </li>
+      
+    </ul>
+  </div>
+
+
+</div>
+
+<div id="post-container" class="container">
+  <div class="content content-post CENTER">
+     <article id="post-20190308-why-webpack" class="article article-type-post" itemprop="blogPost">
+  <header class="article-header">
+    <h1 class="post-title">Webpack原理(1) — Why Webpack</h1>
+
+    <div class="article-meta">
+       <div>
+          <span>
+            <i class="icon-calendar"></i>
+            <span>2019.03.08</span>
+          </span>
+
+          
+            <span class="article-author">
+              <i class="icon-user"></i>
+              <span>teobler</span>
+            </span>
+          
+
+          
+  <span class="article-category">
+    <i class="icon-list"></i>
+    <a class="article-category-link" href="/categories/技术/">技术</a>
+  </span>
+
+
+
+          
+            <span>
+              <i class="icon-comment"></i>
+              <a href="https://teobler.com/20190308-why-webpack.html#disqus_thread"></a>
+            </span>
+          
+
+          
+          <i class="fa fa-eye"></i>
+            <span id="busuanzi_container_page_pv">
+               &nbsp热度 <span id="busuanzi_value_page_pv">
+               <i class="fa fa-spinner fa-spin"></i></span>℃
+            </span>
+          
+
+          
+      </div>
+
+      <div>
+        <i class="icon-text"></i>
+        <span class="post-count">全篇字数: 2.5k</span>
+        &nbsp
+        <i class="icon-calendar-1"></i>
+        <span class="post-count">预计花费: 8分钟</span>
+      </div>
+      
+    </div>
+  </header>
+
+  <div class="article-content">
+    
+      <p>最近稍微打败了一点自己的懒癌，刚好工作上的压力没有那么大了，有时间能够看看前端的东西了。看了一部分webpack相关的东西，自己记录一下。这一篇主要介绍下webpack的历史以及我们为什么要使用webpack，当然，只能从我的角度力争保持不“篡改”历史，要是有不对的地方希望的指出。</p>
+<h2 id="我们怎么使用JS"><a href="#我们怎么使用JS" class="headerlink" title="我们怎么使用JS"></a>我们怎么使用JS</h2><p>众所周知，我们在HTML文件中使用JavaScript只能通过<code>script</code>标签来引入：</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">script</span> <span class="attr">src</span>=<span class="string">"./index.js"</span>&gt;</span><span class="undefined"></span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;<span class="name">script</span>&gt;</span><span class="undefined"></span></span><br><span class="line"><span class="javascript">	<span class="built_in">console</span>.log(<span class="string">'Hello World'</span>);</span></span><br><span class="line"><span class="undefined"></span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<p>如果只是这样用，<strong>有什么问题呢</strong>？这样引入JavaScript是没办法大量引入的，什么算大量呢？也不用多，加入某个页面我需要20个JavaScript文件，怎么办？好像我只能加20个<code>script</code>标签，然后一个一个去请求。但是这样的话首先会使页面加载变慢，你需要在加载页面后去请求大量的script，更为重要的是，浏览器是有请求限制的：</p>
+<p>浏览器只允许一定数量的请求能够 ‘fetch data’，所以如果在同一时刻发起大量的请求的话，对于浏览器来说会有相当严重的性能问题。可能有人会说，9102年了，我用HTTP/2啊，没问题。是，对于大部分情况来说的确没有问题了，name对于特殊情况呢？比如Airbnb和MS的outlook，他们用超过3000个modules去进行构建。</p>
+<p>咋办呢？那我<strong>把所有需要的JavaScript代码写到同一个文件里</strong>就好了嘛，是的，历史就是这么发展的，所以老程序员们可能都见到过那种一万十万行的巨大的JavaScript文件。这种办法的确缓解了上述问题，可是，这样的文件，我还需要讲缺点嘛？不说别的，假如我用到的某个function有问题，我想debug一下，咋整呢？闹呢？<strong>我在第一行定义了一个变量，我要去第一万行找它，然后这他么还是一个全局变量，咋玩呢？</strong></p>
+<p>然后呢，万能的前端同学们想到了一个办法 — IIFE 啥是IIFE呢 — immediately invoked function expression，中文是立即执行函数，它可以干啥用呢：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> outerScope = <span class="number">1</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> whatever = (<span class="function"><span class="keyword">function</span>(<span class="params">dataWillUsedInside</span>)</span>&#123;</span><br><span class="line">    <span class="keyword">var</span> outerScope = <span class="number">0</span>;</span><br><span class="line">    <span class="keyword">return</span> &#123;</span><br><span class="line">        someAttribute: <span class="string">'youWantThis'</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;)(<span class="number">0</span>);</span><br><span class="line"></span><br><span class="line"><span class="comment">// 1</span></span><br><span class="line"><span class="built_in">console</span>.log(outerScope);</span><br></pre></td></tr></table></figure>
+<p>这下游戏规则好像变简单了一点了，我们可以自己写很多JS文件，然后把它们封装成一个个的IIFE，然后封装到一个文件里面，好了，解决了一个问题，至少变量污染的问题解决了嘛。然后呢，开始进入工具时代了，这个时候大家开始寻找各种各样的工具 — make, grunt, gulp, broccoli…</p>
+<p><strong>那么新的问题又来了</strong> — 如果我想修改下某个文件，然后呢，我需要编译所有的文件，包括那些我都没有动过的。第二个问题是，比如我想引某个库，按需引用？不存在的，我只能一坨的引进来，这就有点可怕了，尤其还是以当时的网络状况来看。而且说不定你还需要引好多个库呢，那也只能全部放进来。而且这样编写成IIFE的“文件”由于各种原因会导致你的网页加载很慢。</p>
+<h2 id="JS的模块化"><a href="#JS的模块化" class="headerlink" title="JS的模块化"></a>JS的模块化</h2><p>所以这个时候前端的同学们又开始想办法了，我们得有<strong>模块化</strong>这个东西呀。Node其实就是把V8“拿”到了server端，那么问题来了，没有了browser，没有了DOM，我们还怎么使用JS？所以Node.JS的出现带来了模块化，带来了CommonJS。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// index.js</span></span><br><span class="line"><span class="keyword">const</span> path = <span class="built_in">require</span>(<span class="string">'path'</span>);</span><br><span class="line"><span class="keyword">const</span> [add, subtract] = <span class="built_in">require</span>(<span class="string">''</span>./math<span class="string">');</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">/*</span></span><br><span class="line"><span class="string"> * math.js (has two named exports [add, subtract])</span></span><br><span class="line"><span class="string"> */</span></span><br><span class="line"><span class="string">const divideFn = require('</span>./division<span class="string">');</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">exports.add = (first, second) =&gt; first + second;</span></span><br><span class="line"><span class="string">exports.subtract = (first, second) =&gt; first - second;</span></span><br><span class="line"><span class="string">exports.divide = divideFn;</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">/*</span></span><br><span class="line"><span class="string"> * dibision.js (has a exports '</span>divide<span class="string">')</span></span><br><span class="line"><span class="string"> */</span></span><br><span class="line"><span class="string">module.exports = (first, second) =&gt; first / second;</span></span><br></pre></td></tr></table></figure>
+<p>上面的代码是一个简单的CommonJS的例子，有三个文件，他们可以通过使用<code>require</code>相互引用。你可以使用匿名的默认exports，也可以使用具名的导出。之后再在别的文件内以特定的语法导入。所以到现在我们就解决了作用域的问题，我们不再需要IFFE了，这个时候我们不用再担心变量污染的问题了，同时也解决了IFFE的缺点。而同时出现的NPM更是让各个开发者自己写的各种包能够让每一个人使用。</p>
+<p>可是还有问题，这玩意儿是Node的，<strong>不支持浏览器</strong>。而且如果你是一个写过别的语言的程序员的话你也应该知道动态绑定，但是CommonJS并<strong>不支持动态绑定</strong>。于是自我引用和循环引用层出不穷。而且他的<strong>同步算法贼慢</strong>。又为了解决这些问题，出现了一些有意思的东西：browserify, requireJS, systemJS…这些工具的目的很简单，就是让你能够在浏览器里面使用CommonJS。但是它们并<strong>不支持静态引入</strong>，也就是说你要用某个库你还是只能全部引进来。而且也并不是所有人在写库的时候都会使用CommonJS，毕竟还有个AMD不是吗。所以可以说这套玩意儿不能算是’module system’。</p>
+<p>于是<strong>ES Module</strong>出现了。据说与之相关的文档，在1998年就能看到，所以这是一个断断续续设计并开发了大概10多20年的玩意儿，不过他的语法更友好了些，至少不是一些<code>require</code>之类的让人看到一头雾水的词语了：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> &#123;uniq, forOf, bar&#125; <span class="keyword">from</span> <span class="string">'lodash-es'</span>;</span><br><span class="line"><span class="keyword">import</span> * <span class="keyword">as</span> utils <span class="keyword">from</span> <span class="string">'utils'</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">export</span> <span class="keyword">const</span> uniqConst = uniq([<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>, <span class="number">4</span>]);</span><br></pre></td></tr></table></figure>
+<p>现在看起来我们好像有了一个完整的module system了，重用，封装这些基本特性看起来都还不错。但是呢？<strong>几个问题又来了</strong>：这玩意儿好像挺难使用在Node里面的 — 这也是现在好多团队正在努力的方向；而且它直接在浏览器里面使用的话 — 非常非常慢，慢到你以为网站挂了，而且不用多，10个modules就能达到这个效果。因为在浏览器从上到下读取这个JS文件的时候，首先遇到<code>import</code>，然后去找这个包在哪，找到相应的路径，然后验证一下这些东西还能不能用，最后把这个文件读进来，然后继续在这个文件里重复这个步骤 — 一直到所有的依赖都读完了。需要注意的是，这一切都是在<code>runtime</code>完成的，也就是在加载你的网页的时候。</p>
+<h2 id="webpack横空出世"><a href="#webpack横空出世" class="headerlink" title="webpack横空出世"></a>webpack横空出世</h2><p>之前我们提到过，一个NPM中的包可能是用的不同的module format，你不能说哪一种是不对的不能使用的，所以在面对不同的方法的时候你也需要使用不同的使用方法。而且需要说明的是，上面我们说的所有东西都只是关于JS的，别忘了一个web app还有CSS还有各种静态资源。我们需要的是一个支持所有module format，并且同时还能支持除了JS以外的别的文件的一个“系统”或者说工具。</p>
+<p>webpack是什么？ </p>
+<blockquote>
+<p>webpack is a module bundler lets you write any module format(mixed also), compiles then for the browser. And it supports static async bundling.</p>
+</blockquote>
+<p>很简单有很强大的定义对吧，它几乎解决了上面所有的问题，那么它是怎么被创造出来的呢？这是一个有意思的小故事。</p>
+<p>2012年，一个叫做Tobias的，在Newberg(美国一个城市)读master的德国人要写一片学位论文。他之前是写c#的，从来没有写过一个web界面。他在一些特定的场景需要用到Google Web Toolkit中的一个叫做code splitting的功能。而在他的论文中他需要写一个web app，他就想找一个包含这个功能的库来用。他找到的这个库叫webmake，这也是一个bundler。但是却没有code splitting这个功能，于是他提了一个<a href="https://github.com/medikoo/modules-webmake/issues/7" target="_blank" rel="noopener">issue</a>，并且写了一堆如何实现这个功能的代码，希望维护者能够加入这个功能。在一番讨论过后维护者拒绝了他，于是在经过同意之后，他把这个库fork到了了过去并自己加上了这个功能，给新的库取名为webpack。</p>
+<p>2014年，Dan Abramov在Stack Overflow上提了一个关于<a href="https://stackoverflow.com/questions/24581873/what-exactly-is-hot-module-replacement-in-webpack" target="_blank" rel="noopener">hot module replacement</a>的问题，Tobias用很大的篇幅给他介绍了这个还在开发的功能，详细解释了这个功能怎么在webpack里工作的，以及这个功能有多棒，你可以不用刷新浏览器了！</p>
+<p>2015年，这时在Instagram工作的Pete Hunt通过一次演讲告诉了世界他们是如何使用webpack打包发布他们的react app的。然后你懂得，webpack就火了。像Facebook这样的公司也开始使用webpack了。但是其实Tobias只是每周大概花5 6个小时在webpack中。</p>
+<p>是的，在这两个讨论中，webpack彻底火了，走向了世界。</p>
+<p>中国有句话叫做“以史为鉴，可以知兴替”。在了解这些历史的时候除了觉得很有意思，也会有一些思考：在历史的大潮里，有多少人是可以做那个改变方向的人？又有多少人死在了历史的长河里？要想不被淹死，只有奋力向上。</p>
+<p>下篇开始正式进入webpack，至于啥时候写，看我啥时候不懒吧。</p>
+
+    
+  </div>
+</article>
+
+  </div>
+  <aside id="aside-bar">
+    
+  <div id="toc" class="toc-article">
+    <strong class="toc-title">文章目录</strong>
+    <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#我们怎么使用JS"><span class="toc-text">我们怎么使用JS</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#JS的模块化"><span class="toc-text">JS的模块化</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#webpack横空出世"><span class="toc-text">webpack横空出世</span></a></li></ol>
+  </div>
+
+
+    
+  <div id="recent-post" class="recent-post">
+    <strong class="recent-post-title">
+      近期文章
+    </strong>
+    <ul class="recent-post-list">
+      
+         <li class="recent-post-list">
+           <a href="/20200516-react-concurrent-mode-suspense.html" title="React Concurrent Mode 之 Suspense 实践" >React Concurrent Mode 之 Suspense 实践</a>
+         </li>
+      
+         <li class="recent-post-list">
+           <a href="/20200304-devtool-editing-and-debugging.html" title="(1)你真的会用Chrome devtool吗?" >(1)你真的会用Chrome devtool吗?</a>
+         </li>
+      
+         <li class="recent-post-list">
+           <a href="/20200222-webpack-core-concepts.html" title="Webpack原理(3) — 核心概念" >Webpack原理(3) — 核心概念</a>
+         </li>
+      
+         <li class="recent-post-list">
+           <a href="/20200219-first-in-webpack.html" title="Webpack原理(2) — 加载原理" >Webpack原理(2) — 加载原理</a>
+         </li>
+      
+         <li class="recent-post-list">
+           <a href="/20200211-tdd-with-react-hooks.html" title="用React hooks实现TDD" >用React hooks实现TDD</a>
+         </li>
+      
+         <li class="recent-post-list">
+           <a href="/20200107-reduce-bundle-size.html" title="如何减小前端代码打包体积" >如何减小前端代码打包体积</a>
+         </li>
+      
+         <li class="recent-post-list">
+           <a href="/20190906-error-handler.html" title="React中的错误处理" >React中的错误处理</a>
+         </li>
+      
+         <li class="recent-post-list">
+           <a href="/20190903-compose.html" title="函数式初识(6) - 组合" >函数式初识(6) - 组合</a>
+         </li>
+      
+         <li class="recent-post-list">
+           <a href="/20190831-partial-and-currying.html" title="函数式初识(5) - 偏函数和柯里化" >函数式初识(5) - 偏函数和柯里化</a>
+         </li>
+      
+         <li class="recent-post-list">
+           <a href="/20190829-closure.html" title="函数式初识(4) - 闭包" >函数式初识(4) - 闭包</a>
+         </li>
+      
+    </ul>
+  </div>
+
+
+  </aside>
+</div>
+
+
+
+
+  <div class="box-prev-next clearfix">
+    <a class="show pull-left" href="/20190219-new-journey.html">
+        <i class="icon icon-angle-left"></i>
+    </a>
+    <a class="show pull-right" href="/20190818-why-fp.html">
+        <i class="icon icon-angle-right"></i>
+    </a>
+  </div>
+
+
+
+
+
+  <a id="backTop" class="back-top">
+    <i class="icon-angle-up"></i>
+  </a>
+
+
+
+
+  <div class="modal" id="modal">
+  <span id="cover" class="cover hide"></span>
+  <div id="modal-dialog" class="modal-dialog hide-dialog">
+    <div class="modal-header">
+      <span id="close" class="btn-close">关闭</span>
+    </div>
+    <hr>
+    <div class="modal-body">
+      <ul class="list-toolbox">
+        
+          <li class="item-toolbox">
+            <a
+              class="CIRCLE"
+              href="/archives/"
+              rel="noopener noreferrer"
+              target="_self"
+              >
+              博客
+            </a>
+          </li>
+        
+          <li class="item-toolbox">
+            <a
+              class="CIRCLE"
+              href="/categories/"
+              rel="noopener noreferrer"
+              target="_self"
+              >
+              分类
+            </a>
+          </li>
+        
+          <li class="item-toolbox">
+            <a
+              class="CIRCLE"
+              href="/tags/"
+              rel="noopener noreferrer"
+              target="_self"
+              >
+              标签
+            </a>
+          </li>
+        
+          <li class="item-toolbox">
+            <a
+              class="CIRCLE"
+              href="/about/"
+              rel="noopener noreferrer"
+              target="_self"
+              >
+              关于
+            </a>
+          </li>
+        
+          <li class="item-toolbox">
+            <a
+              class="CIRCLE"
+              href="/search/"
+              rel="noopener noreferrer"
+              target="_self"
+              >
+              搜索
+            </a>
+          </li>
+        
+      </ul>
+
+    </div>
+  </div>
+</div>
+
+
+
+  
+      <div class="fexo-comments comments-post">
+    
+  <section class="disqus-comments">
+    <div id="disqus_thread">
+      <noscript>Please enable JavaScript to view the <a href="//disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+    </div>
+  </section>
+
+  <script>
+    var disqus_shortname = 'teobler';
+    
+    var disqus_url = 'https://teobler.com/20190308-why-webpack.html';
+    
+    (function(){
+      var dsq = document.createElement('script');
+      dsq.type = 'text/javascript';
+      dsq.async = true;
+      dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+      (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    })();
+  </script>
+
+  <script id="dsq-count-scr" src="//teobler.disqus.com/count.js" async></script>
+
+
+
+    
+
+
+
+
+    
+
+    
+	
+  </div>
+
+  
+
+  <script type="text/javascript">
+  function loadScript(url, callback) {
+    var script = document.createElement('script')
+    script.type = 'text/javascript';
+
+    if (script.readyState) { //IE
+      script.onreadystatechange = function() {
+        if (script.readyState == 'loaded' ||
+          script.readyState == 'complete') {
+          script.onreadystatechange = null;
+          callback();
+        }
+      };
+    } else { //Others
+      script.onload = function() {
+        callback();
+      };
+    }
+
+    script.src = url;
+    document.getElementsByTagName('head')[0].appendChild(script);
+  }
+
+  window.onload = function() {
+    loadScript('/js/bundle.js?235683', function() {
+      // load success
+    });
+  }
+</script>
+
+</body>
+</html>
