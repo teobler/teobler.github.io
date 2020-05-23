@@ -2,6 +2,13 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
+    <loc>https://teobler.com/20200523-devtool-performance-networking-auditing-and-node.html</loc>
+    
+    <lastmod>2020-05-23T03:00:55.289Z</lastmod>
+    
+  </url>
+  
+  <url>
     <loc>https://teobler.com/20200516-react-concurrent-mode-suspense.html</loc>
     
     <lastmod>2020-05-16T03:06:28.380Z</lastmod>
@@ -107,14 +114,14 @@
   </url>
   
   <url>
-    <loc>https://teobler.com/20190831-partial-and-currying.html</loc>
+    <loc>https://teobler.com/20190829-closure.html</loc>
     
     <lastmod>2020-02-15T02:49:44.538Z</lastmod>
     
   </url>
   
   <url>
-    <loc>https://teobler.com/20190829-closure.html</loc>
+    <loc>https://teobler.com/20190831-partial-and-currying.html</loc>
     
     <lastmod>2020-02-15T02:49:44.538Z</lastmod>
     
@@ -128,6 +135,13 @@
   </url>
   
   <url>
+    <loc>https://teobler.com/20190822-point-free.html</loc>
+    
+    <lastmod>2020-02-15T02:49:44.537Z</lastmod>
+    
+  </url>
+  
+  <url>
     <loc>https://teobler.com/20190827-newline-in-html.html</loc>
     
     <lastmod>2020-02-15T02:49:44.537Z</lastmod>
@@ -135,9 +149,9 @@
   </url>
   
   <url>
-    <loc>https://teobler.com/20190822-point-free.html</loc>
+    <loc>https://teobler.com/20180929-first-in-tw.html</loc>
     
-    <lastmod>2020-02-15T02:49:44.537Z</lastmod>
+    <lastmod>2020-02-15T02:49:44.536Z</lastmod>
     
   </url>
   
@@ -156,20 +170,6 @@
   </url>
   
   <url>
-    <loc>https://teobler.com/20180929-first-in-tw.html</loc>
-    
-    <lastmod>2020-02-15T02:49:44.536Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>https://teobler.com/20171124-flex-grammar.html</loc>
-    
-    <lastmod>2020-02-15T02:49:44.535Z</lastmod>
-    
-  </url>
-  
-  <url>
     <loc>https://teobler.com/20171119-frankfang-zhihu-live.html</loc>
     
     <lastmod>2020-02-15T02:49:44.535Z</lastmod>
@@ -178,6 +178,13 @@
   
   <url>
     <loc>https://teobler.com/20180201-internship-summary.html</loc>
+    
+    <lastmod>2020-02-15T02:49:44.535Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>https://teobler.com/20171124-flex-grammar.html</loc>
     
     <lastmod>2020-02-15T02:49:44.535Z</lastmod>
     
@@ -240,14 +247,14 @@
   </url>
   
   <url>
-    <loc>https://teobler.com/20170702-interview-sharing.html</loc>
+    <loc>https://teobler.com/20170710-setTimeout-and-setInterval.html</loc>
     
     <lastmod>2020-02-15T02:49:44.532Z</lastmod>
     
   </url>
   
   <url>
-    <loc>https://teobler.com/20170710-setTimeout-and-setInterval.html</loc>
+    <loc>https://teobler.com/20170702-interview-sharing.html</loc>
     
     <lastmod>2020-02-15T02:49:44.532Z</lastmod>
     
