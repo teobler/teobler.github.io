@@ -2,6 +2,13 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
+    <loc>https://teobler.com/20200601-SAML2&OIDC.html</loc>
+    
+    <lastmod>2020-06-01T10:18:11.067Z</lastmod>
+    
+  </url>
+  
+  <url>
     <loc>https://teobler.com/20200523-devtool-performance-networking-auditing-and-node.html</loc>
     
     <lastmod>2020-05-23T03:00:55.289Z</lastmod>
@@ -65,13 +72,6 @@
   </url>
   
   <url>
-    <loc>https://teobler.com/link/index.html</loc>
-    
-    <lastmod>2020-02-15T02:49:44.541Z</lastmod>
-    
-  </url>
-  
-  <url>
     <loc>https://teobler.com/categories/index.html</loc>
     
     <lastmod>2020-02-15T02:49:44.541Z</lastmod>
@@ -80,6 +80,13 @@
   
   <url>
     <loc>https://teobler.com/project/index.html</loc>
+    
+    <lastmod>2020-02-15T02:49:44.541Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>https://teobler.com/link/index.html</loc>
     
     <lastmod>2020-02-15T02:49:44.541Z</lastmod>
     
@@ -100,14 +107,14 @@
   </url>
   
   <url>
-    <loc>https://teobler.com/20200107-reduce-bundle-size.html</loc>
+    <loc>https://teobler.com/20190906-error-handler.html</loc>
     
     <lastmod>2020-02-15T02:49:44.539Z</lastmod>
     
   </url>
   
   <url>
-    <loc>https://teobler.com/20190906-error-handler.html</loc>
+    <loc>https://teobler.com/20200107-reduce-bundle-size.html</loc>
     
     <lastmod>2020-02-15T02:49:44.539Z</lastmod>
     
@@ -149,14 +156,14 @@
   </url>
   
   <url>
-    <loc>https://teobler.com/20180929-first-in-tw.html</loc>
+    <loc>https://teobler.com/20190818-why-fp.html</loc>
     
     <lastmod>2020-02-15T02:49:44.536Z</lastmod>
     
   </url>
   
   <url>
-    <loc>https://teobler.com/20190818-why-fp.html</loc>
+    <loc>https://teobler.com/20180929-first-in-tw.html</loc>
     
     <lastmod>2020-02-15T02:49:44.536Z</lastmod>
     
@@ -177,6 +184,13 @@
   </url>
   
   <url>
+    <loc>https://teobler.com/20171124-flex-grammar.html</loc>
+    
+    <lastmod>2020-02-15T02:49:44.535Z</lastmod>
+    
+  </url>
+  
+  <url>
     <loc>https://teobler.com/20180201-internship-summary.html</loc>
     
     <lastmod>2020-02-15T02:49:44.535Z</lastmod>
@@ -184,9 +198,9 @@
   </url>
   
   <url>
-    <loc>https://teobler.com/20171124-flex-grammar.html</loc>
+    <loc>https://teobler.com/20171105-interview-questions.html</loc>
     
-    <lastmod>2020-02-15T02:49:44.535Z</lastmod>
+    <lastmod>2020-02-15T02:49:44.534Z</lastmod>
     
   </url>
   
@@ -199,13 +213,6 @@
   
   <url>
     <loc>https://teobler.com/20170817-professional-JavaScript-notes-3.html</loc>
-    
-    <lastmod>2020-02-15T02:49:44.534Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>https://teobler.com/20171105-interview-questions.html</loc>
     
     <lastmod>2020-02-15T02:49:44.534Z</lastmod>
     
@@ -247,14 +254,14 @@
   </url>
   
   <url>
-    <loc>https://teobler.com/20170710-setTimeout-and-setInterval.html</loc>
+    <loc>https://teobler.com/20170702-interview-sharing.html</loc>
     
     <lastmod>2020-02-15T02:49:44.532Z</lastmod>
     
   </url>
   
   <url>
-    <loc>https://teobler.com/20170702-interview-sharing.html</loc>
+    <loc>https://teobler.com/20170710-setTimeout-and-setInterval.html</loc>
     
     <lastmod>2020-02-15T02:49:44.532Z</lastmod>
     
