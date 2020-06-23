@@ -4,6 +4,26 @@
 
     
   <url>
+    <loc>https://teobler.com/20200623-apple-ecosystem.html</loc>
+    <lastmod>2020-06-23T00:30:08.054Z</lastmod>
+    <data>
+        <display>
+        <title>我被苹果绑架了</title>
+        <pubTime>2020-06-23T00:29:00.000Z</pubTime>
+        
+        <tag>Apple</tag>
+         
+         
+           
+             
+              <breadCrumb title="随笔" url="https://teobler.com/categories/%E9%9A%8F%E7%AC%94/"/>
+          
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
     <loc>https://teobler.com/20200601-SAML2&OIDC.html</loc>
     <lastmod>2020-06-01T10:18:11.067Z</lastmod>
     <data>
@@ -248,28 +268,6 @@
 
     
   <url>
-    <loc>https://teobler.com/20190829-closure.html</loc>
-    <lastmod>2020-02-15T02:49:44.538Z</lastmod>
-    <data>
-        <display>
-        <title>函数式初识(4) - 闭包</title>
-        <pubTime>2019-08-29T10:30:56.000Z</pubTime>
-        
-        <tag>FP</tag>
-         
-        <tag>函数式编程</tag>
-         
-         
-           
-             
-              <breadCrumb title="技术细节" url="https://teobler.com/categories/%E6%8A%80%E6%9C%AF%E7%BB%86%E8%8A%82/"/>
-          
-        </display>
-    </data>
-    </url>
-
-    
-  <url>
     <loc>https://teobler.com/20190831-partial-and-currying.html</loc>
     <lastmod>2020-02-15T02:49:44.538Z</lastmod>
     <data>
@@ -292,16 +290,36 @@
 
     
   <url>
-    <loc>https://teobler.com/20190821-pure-function.html</loc>
-    <lastmod>2020-02-15T02:49:44.537Z</lastmod>
+    <loc>https://teobler.com/20190829-closure.html</loc>
+    <lastmod>2020-02-15T02:49:44.538Z</lastmod>
     <data>
         <display>
-        <title>函数式初识(2) - 纯函数</title>
-        <pubTime>2019-08-21T10:30:56.000Z</pubTime>
+        <title>函数式初识(4) - 闭包</title>
+        <pubTime>2019-08-29T10:30:56.000Z</pubTime>
         
         <tag>FP</tag>
          
         <tag>函数式编程</tag>
+         
+         
+           
+             
+              <breadCrumb title="技术细节" url="https://teobler.com/categories/%E6%8A%80%E6%9C%AF%E7%BB%86%E8%8A%82/"/>
+          
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
+    <loc>https://teobler.com/20190827-newline-in-html.html</loc>
+    <lastmod>2020-02-15T02:49:44.537Z</lastmod>
+    <data>
+        <display>
+        <title>HTML换行</title>
+        <pubTime>2019-08-27T10:30:56.000Z</pubTime>
+        
+        <tag>HTML</tag>
          
          
            
@@ -336,14 +354,16 @@
 
     
   <url>
-    <loc>https://teobler.com/20190827-newline-in-html.html</loc>
+    <loc>https://teobler.com/20190821-pure-function.html</loc>
     <lastmod>2020-02-15T02:49:44.537Z</lastmod>
     <data>
         <display>
-        <title>HTML换行</title>
-        <pubTime>2019-08-27T10:30:56.000Z</pubTime>
+        <title>函数式初识(2) - 纯函数</title>
+        <pubTime>2019-08-21T10:30:56.000Z</pubTime>
         
-        <tag>HTML</tag>
+        <tag>FP</tag>
+         
+        <tag>函数式编程</tag>
          
          
            
@@ -418,26 +438,6 @@
 
     
   <url>
-    <loc>https://teobler.com/20171119-frankfang-zhihu-live.html</loc>
-    <lastmod>2020-02-15T02:49:44.535Z</lastmod>
-    <data>
-        <display>
-        <title>方应杭前端live</title>
-        <pubTime>2017-11-19T15:25:56.000Z</pubTime>
-        
-        <tag>职业规划</tag>
-         
-         
-           
-             
-              <breadCrumb title="职业" url="https://teobler.com/categories/%E8%81%8C%E4%B8%9A/"/>
-          
-        </display>
-    </data>
-    </url>
-
-    
-  <url>
     <loc>https://teobler.com/20171124-flex-grammar.html</loc>
     <lastmod>2020-02-15T02:49:44.535Z</lastmod>
     <data>
@@ -451,6 +451,26 @@
            
              
               <breadCrumb title="技术" url="https://teobler.com/categories/%E6%8A%80%E6%9C%AF/"/>
+          
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
+    <loc>https://teobler.com/20171119-frankfang-zhihu-live.html</loc>
+    <lastmod>2020-02-15T02:49:44.535Z</lastmod>
+    <data>
+        <display>
+        <title>方应杭前端live</title>
+        <pubTime>2017-11-19T15:25:56.000Z</pubTime>
+        
+        <tag>职业规划</tag>
+         
+         
+           
+             
+              <breadCrumb title="职业" url="https://teobler.com/categories/%E8%81%8C%E4%B8%9A/"/>
           
         </display>
     </data>
@@ -480,21 +500,19 @@
 
     
   <url>
-    <loc>https://teobler.com/20171105-interview-questions.html</loc>
+    <loc>https://teobler.com/20170817-professional-JavaScript-notes-3.html</loc>
     <lastmod>2020-02-15T02:49:44.534Z</lastmod>
     <data>
         <display>
-        <title>我的笔试与面试题目</title>
-        <pubTime>2017-11-05T04:06:35.000Z</pubTime>
+        <title>JS高级程序设计读书笔记(下)</title>
+        <pubTime>2017-08-17T10:48:46.000Z</pubTime>
         
-        <tag>面试</tag>
-         
-        <tag>面试题</tag>
+        <tag>JavaScript</tag>
          
          
            
              
-              <breadCrumb title="职业" url="https://teobler.com/categories/%E8%81%8C%E4%B8%9A/"/>
+              <breadCrumb title="技术" url="https://teobler.com/categories/%E6%8A%80%E6%9C%AF/"/>
           
         </display>
     </data>
@@ -522,19 +540,21 @@
 
     
   <url>
-    <loc>https://teobler.com/20170817-professional-JavaScript-notes-3.html</loc>
+    <loc>https://teobler.com/20171105-interview-questions.html</loc>
     <lastmod>2020-02-15T02:49:44.534Z</lastmod>
     <data>
         <display>
-        <title>JS高级程序设计读书笔记(下)</title>
-        <pubTime>2017-08-17T10:48:46.000Z</pubTime>
+        <title>我的笔试与面试题目</title>
+        <pubTime>2017-11-05T04:06:35.000Z</pubTime>
         
-        <tag>JavaScript</tag>
+        <tag>面试</tag>
+         
+        <tag>面试题</tag>
          
          
            
              
-              <breadCrumb title="技术" url="https://teobler.com/categories/%E6%8A%80%E6%9C%AF/"/>
+              <breadCrumb title="职业" url="https://teobler.com/categories/%E8%81%8C%E4%B8%9A/"/>
           
         </display>
     </data>
@@ -562,16 +582,14 @@
 
     
   <url>
-    <loc>https://teobler.com/20170721-performance-optimization.html</loc>
+    <loc>https://teobler.com/20170730-professional-JavaScript-notes-1.html</loc>
     <lastmod>2020-02-15T02:49:44.533Z</lastmod>
     <data>
         <display>
-        <title>前端性能优化</title>
-        <pubTime>2017-07-21T03:11:50.000Z</pubTime>
+        <title>JS高级程序设计读书笔记(上)</title>
+        <pubTime>2017-07-30T13:40:11.000Z</pubTime>
         
-        <tag>performance</tag>
-         
-        <tag>性能优化</tag>
+        <tag>JavaScript</tag>
          
          
            
@@ -584,14 +602,16 @@
 
     
   <url>
-    <loc>https://teobler.com/20170730-professional-JavaScript-notes-1.html</loc>
+    <loc>https://teobler.com/20170721-performance-optimization.html</loc>
     <lastmod>2020-02-15T02:49:44.533Z</lastmod>
     <data>
         <display>
-        <title>JS高级程序设计读书笔记(上)</title>
-        <pubTime>2017-07-30T13:40:11.000Z</pubTime>
+        <title>前端性能优化</title>
+        <pubTime>2017-07-21T03:11:50.000Z</pubTime>
         
-        <tag>JavaScript</tag>
+        <tag>performance</tag>
+         
+        <tag>性能优化</tag>
          
          
            
@@ -630,26 +650,6 @@
 
     
   <url>
-    <loc>https://teobler.com/20170616-html-finishing.html</loc>
-    <lastmod>2020-02-15T02:49:44.532Z</lastmod>
-    <data>
-        <display>
-        <title>html基础知识整理</title>
-        <pubTime>2017-07-13T15:32:12.000Z</pubTime>
-        
-        <tag>HTML</tag>
-         
-         
-           
-             
-              <breadCrumb title="技术" url="https://teobler.com/categories/%E6%8A%80%E6%9C%AF/"/>
-          
-        </display>
-    </data>
-    </url>
-
-    
-  <url>
     <loc>https://teobler.com/20170702-interview-sharing.html</loc>
     <lastmod>2020-02-15T02:49:44.532Z</lastmod>
     <data>
@@ -680,6 +680,26 @@
         <pubTime>2017-07-10T05:13:19.000Z</pubTime>
         
         <tag>JavaScript</tag>
+         
+         
+           
+             
+              <breadCrumb title="技术" url="https://teobler.com/categories/%E6%8A%80%E6%9C%AF/"/>
+          
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
+    <loc>https://teobler.com/20170616-html-finishing.html</loc>
+    <lastmod>2020-02-15T02:49:44.532Z</lastmod>
+    <data>
+        <display>
+        <title>html基础知识整理</title>
+        <pubTime>2017-07-13T15:32:12.000Z</pubTime>
+        
+        <tag>HTML</tag>
          
          
            

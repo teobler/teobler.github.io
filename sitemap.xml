@@ -2,6 +2,13 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
+    <loc>https://teobler.com/20200623-apple-ecosystem.html</loc>
+    
+    <lastmod>2020-06-23T00:30:08.054Z</lastmod>
+    
+  </url>
+  
+  <url>
     <loc>https://teobler.com/20200601-SAML2&OIDC.html</loc>
     
     <lastmod>2020-06-01T10:18:11.067Z</lastmod>
@@ -58,14 +65,14 @@
   </url>
   
   <url>
-    <loc>https://teobler.com/search/index.html</loc>
+    <loc>https://teobler.com/tags/index.html</loc>
     
     <lastmod>2020-02-15T02:49:44.542Z</lastmod>
     
   </url>
   
   <url>
-    <loc>https://teobler.com/tags/index.html</loc>
+    <loc>https://teobler.com/search/index.html</loc>
     
     <lastmod>2020-02-15T02:49:44.542Z</lastmod>
     
@@ -79,14 +86,14 @@
   </url>
   
   <url>
-    <loc>https://teobler.com/project/index.html</loc>
+    <loc>https://teobler.com/link/index.html</loc>
     
     <lastmod>2020-02-15T02:49:44.541Z</lastmod>
     
   </url>
   
   <url>
-    <loc>https://teobler.com/link/index.html</loc>
+    <loc>https://teobler.com/project/index.html</loc>
     
     <lastmod>2020-02-15T02:49:44.541Z</lastmod>
     
@@ -121,13 +128,6 @@
   </url>
   
   <url>
-    <loc>https://teobler.com/20190829-closure.html</loc>
-    
-    <lastmod>2020-02-15T02:49:44.538Z</lastmod>
-    
-  </url>
-  
-  <url>
     <loc>https://teobler.com/20190831-partial-and-currying.html</loc>
     
     <lastmod>2020-02-15T02:49:44.538Z</lastmod>
@@ -135,7 +135,14 @@
   </url>
   
   <url>
-    <loc>https://teobler.com/20190821-pure-function.html</loc>
+    <loc>https://teobler.com/20190829-closure.html</loc>
+    
+    <lastmod>2020-02-15T02:49:44.538Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>https://teobler.com/20190827-newline-in-html.html</loc>
     
     <lastmod>2020-02-15T02:49:44.537Z</lastmod>
     
@@ -149,7 +156,7 @@
   </url>
   
   <url>
-    <loc>https://teobler.com/20190827-newline-in-html.html</loc>
+    <loc>https://teobler.com/20190821-pure-function.html</loc>
     
     <lastmod>2020-02-15T02:49:44.537Z</lastmod>
     
@@ -177,14 +184,14 @@
   </url>
   
   <url>
-    <loc>https://teobler.com/20171119-frankfang-zhihu-live.html</loc>
+    <loc>https://teobler.com/20171124-flex-grammar.html</loc>
     
     <lastmod>2020-02-15T02:49:44.535Z</lastmod>
     
   </url>
   
   <url>
-    <loc>https://teobler.com/20171124-flex-grammar.html</loc>
+    <loc>https://teobler.com/20171119-frankfang-zhihu-live.html</loc>
     
     <lastmod>2020-02-15T02:49:44.535Z</lastmod>
     
@@ -198,7 +205,7 @@
   </url>
   
   <url>
-    <loc>https://teobler.com/20171105-interview-questions.html</loc>
+    <loc>https://teobler.com/20170817-professional-JavaScript-notes-3.html</loc>
     
     <lastmod>2020-02-15T02:49:44.534Z</lastmod>
     
@@ -212,7 +219,7 @@
   </url>
   
   <url>
-    <loc>https://teobler.com/20170817-professional-JavaScript-notes-3.html</loc>
+    <loc>https://teobler.com/20171105-interview-questions.html</loc>
     
     <lastmod>2020-02-15T02:49:44.534Z</lastmod>
     
@@ -226,13 +233,6 @@
   </url>
   
   <url>
-    <loc>https://teobler.com/20170721-performance-optimization.html</loc>
-    
-    <lastmod>2020-02-15T02:49:44.533Z</lastmod>
-    
-  </url>
-  
-  <url>
     <loc>https://teobler.com/20170730-professional-JavaScript-notes-1.html</loc>
     
     <lastmod>2020-02-15T02:49:44.533Z</lastmod>
@@ -240,14 +240,14 @@
   </url>
   
   <url>
-    <loc>https://teobler.com/20170606-interview-preparation.html</loc>
+    <loc>https://teobler.com/20170721-performance-optimization.html</loc>
     
-    <lastmod>2020-02-15T02:49:44.532Z</lastmod>
+    <lastmod>2020-02-15T02:49:44.533Z</lastmod>
     
   </url>
   
   <url>
-    <loc>https://teobler.com/20170616-html-finishing.html</loc>
+    <loc>https://teobler.com/20170606-interview-preparation.html</loc>
     
     <lastmod>2020-02-15T02:49:44.532Z</lastmod>
     
@@ -262,6 +262,13 @@
   
   <url>
     <loc>https://teobler.com/20170710-setTimeout-and-setInterval.html</loc>
+    
+    <lastmod>2020-02-15T02:49:44.532Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>https://teobler.com/20170616-html-finishing.html</loc>
     
     <lastmod>2020-02-15T02:49:44.532Z</lastmod>
     
